@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    [SerializeField] Transform bulletPosition;
     float speed = 3;
     Rigidbody rgb;
     float rotSpeed = 100f;
@@ -12,6 +13,10 @@ public class Player : MonoBehaviour
     private Vector3 cusVec;
     private float MaxVelocityX = 10f, MaxVelocityY = 10f, MaxVelocityZ= 10f;
     private float camSpeed = 200f;
+
+    private float bulletTimer = 0;
+
+
 
     HellFire_Missile hellFire;
 
@@ -22,7 +27,7 @@ public class Player : MonoBehaviour
     private void Start()
     {
         
-        
+
     }
     void Update()
     {
@@ -36,10 +41,20 @@ public class Player : MonoBehaviour
         Camera.main.transform.localPosition = gameObject.transform.localPosition + Vector3.back * 10 + Vector3.up * distance;
         Camera.main.transform.rotation = Quaternion.Euler(angleX, angleY, 0);
 
+        
 
-        if(Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButton(0))
         {
-            Fire();
+            bulletTimer += Time.deltaTime;
+            if (bulletTimer >= 0.1f)
+            {
+                Fire();
+                bulletTimer = 0;
+            }
+        }
+        else
+        {
+            CeaseFire();
         }
 
         
@@ -100,9 +115,15 @@ public class Player : MonoBehaviour
 
     private void Fire()
     {
-        
+        gameObject.transform.GetChild(0).GetChild(2).gameObject.SetActive(true);
+        GameObject go = Resources.Load<GameObject>("Prefabs/Bullet");
+        Instantiate(go, bulletPosition);
         
 
+    }
+    private void CeaseFire()
+    {
+        gameObject.transform.GetChild(0).GetChild(2).gameObject.SetActive(false);
     }
     private void Movement()
     {
