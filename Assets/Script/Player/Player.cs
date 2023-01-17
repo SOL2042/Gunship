@@ -5,6 +5,9 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     [SerializeField] Transform bulletPosition;
+    
+
+
     float speed = 3;
     Rigidbody rgb;
     float rotSpeed = 100f;
@@ -15,8 +18,8 @@ public class Player : MonoBehaviour
     private float camSpeed = 200f;
 
     private float bulletTimer = 0;
-
-
+    private List<GameObject> clone = new List<GameObject>();
+    
 
     HellFire_Missile hellFire;
 
@@ -36,7 +39,7 @@ public class Player : MonoBehaviour
 
         cusVec = new Vector3(Input.mousePosition.x - Screen.width / 2, 0, Input.mousePosition.y - Screen.height / 2).normalized;
         
-        Movement();
+        CamMovement();
         Move();
         Camera.main.transform.localPosition = gameObject.transform.localPosition + Vector3.back * 10 + Vector3.up * distance;
         Camera.main.transform.rotation = Quaternion.Euler(angleX, angleY, 0);
@@ -46,7 +49,7 @@ public class Player : MonoBehaviour
         if (Input.GetMouseButton(0))
         {
             bulletTimer += Time.deltaTime;
-            if (bulletTimer >= 0.1f)
+            if (bulletTimer >= 0.05f)
             {
                 Fire();
                 bulletTimer = 0;
@@ -55,8 +58,9 @@ public class Player : MonoBehaviour
         else
         {
             CeaseFire();
+            bulletTimer = 0;
         }
-
+        Debug.Log(bulletTimer);
         
     }
 
@@ -66,18 +70,12 @@ public class Player : MonoBehaviour
         
         if (Input.GetKey(KeyCode.A))
         {
-
             rgb.AddRelativeForce(new Vector3(-speed, 0, 0));
-
         }
-
-
         if (Input.GetKey(KeyCode.D))
         {
             rgb.AddRelativeForce(new Vector3(speed, 0, 0));
-
         }
-
         if (Input.GetKey(KeyCode.W))
         {
             rgb.AddRelativeForce(new Vector3(0, 0, speed));
@@ -105,19 +103,27 @@ public class Player : MonoBehaviour
 
         if (Input.GetKey(KeyCode.Q))
         {
-            transform.Rotate(new Vector3(0, -rotSpeed * Time.deltaTime, 0));
+            
+            gameObject.transform.Rotate(Vector3.Lerp(new Vector3(0, -rotSpeed * Time.deltaTime, 0), Vector3.zero, Time.deltaTime));
         }
         if (Input.GetKey(KeyCode.E))
         {
-            transform.Rotate(new Vector3(0, rotSpeed * Time.deltaTime, 0));
+            gameObject.transform.Rotate(Vector3.Lerp(new Vector3(0, rotSpeed * Time.deltaTime, 0), Vector3.zero, Time.deltaTime));
         }
     }
 
     private void Fire()
     {
+        
+
         gameObject.transform.GetChild(0).GetChild(2).gameObject.SetActive(true);
         GameObject go = Resources.Load<GameObject>("Prefabs/Bullet");
-        Instantiate(go, bulletPosition);
+        bulletPosition = gameObject.transform;
+
+        go.GetComponent<Bullet>().Shoot(bulletPosition.position + Vector3.forward, 10f);
+        GameObject bullet = Instantiate(go,bulletPosition);
+        
+        Destroy(bullet, 2);
         
 
     }
@@ -125,11 +131,12 @@ public class Player : MonoBehaviour
     {
         gameObject.transform.GetChild(0).GetChild(2).gameObject.SetActive(false);
     }
-    private void Movement()
+    private void CamMovement()
     {
         Vector3 moveDir = Camera.main.transform.rotation * cusVec;
-        
         moveDir.Normalize();
         Camera.main.transform.position += moveDir * camSpeed * Time.deltaTime;
+
+        Camera.main.transform.localRotation = Quaternion.Euler(angleX, 0, 0);
     }
 }
