@@ -190,6 +190,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Hellfire_Missile (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 5337540803451384037, guid: a790ca0eb63490c4eaee17fdd71f1f7f,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a790ca0eb63490c4eaee17fdd71f1f7f, type: 3}
 --- !u!4 &198218372 stripped
@@ -205,6 +210,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4208622932414815560}
     m_Modifications:
+    - target: {fileID: -3928935387377284330, guid: a790ca0eb63490c4eaee17fdd71f1f7f,
+        type: 3}
+      propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[1].time
+      value: 0.89681363
+      objectReference: {fileID: 0}
+    - target: {fileID: -3928935387377284330, guid: a790ca0eb63490c4eaee17fdd71f1f7f,
+        type: 3}
+      propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[1].value
+      value: 0.0068511963
+      objectReference: {fileID: 0}
     - target: {fileID: 5337540803451384036, guid: a790ca0eb63490c4eaee17fdd71f1f7f,
         type: 3}
       propertyPath: m_RootOrder
@@ -264,6 +279,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Hellfire_Missile (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5337540803451384037, guid: a790ca0eb63490c4eaee17fdd71f1f7f,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a790ca0eb63490c4eaee17fdd71f1f7f, type: 3}
@@ -345,6 +365,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Hellfire_Missile (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5337540803451384037, guid: a790ca0eb63490c4eaee17fdd71f1f7f,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a790ca0eb63490c4eaee17fdd71f1f7f, type: 3}
@@ -462,7 +487,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 792896907}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: position
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -627,6 +652,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 792896906}
+  cam: {fileID: 963194227}
 --- !u!4 &949547027
 Transform:
   m_ObjectHideFlags: 0
@@ -639,7 +665,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &950037079
 PrefabInstance:
@@ -709,7 +735,7 @@ GameObject:
   - component: {fileID: 961474944}
   - component: {fileID: 961474946}
   - component: {fileID: 961474945}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: GunFireEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5585,106 +5611,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1001058773
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1001058777}
-  - component: {fileID: 1001058776}
-  - component: {fileID: 1001058775}
-  - component: {fileID: 1001058774}
-  m_Layer: 5
-  m_Name: Canvas
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1001058774
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1001058773}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_IgnoreReversedGraphics: 1
-  m_BlockingObjects: 0
-  m_BlockingMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
---- !u!114 &1001058775
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1001058773}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
-  m_ReferencePixelsPerUnit: 100
-  m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
-  m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
-  m_PhysicalUnit: 3
-  m_FallbackScreenDPI: 96
-  m_DefaultSpriteDPI: 96
-  m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
---- !u!223 &1001058776
-Canvas:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1001058773}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_RenderMode: 0
-  m_Camera: {fileID: 0}
-  m_PlaneDistance: 100
-  m_PixelPerfect: 0
-  m_ReceivesEvents: 1
-  m_OverrideSorting: 0
-  m_OverridePixelPerfect: 0
-  m_SortingBucketNormalizedSize: 0
-  m_AdditionalShaderChannelsFlag: 0
-  m_SortingLayerID: 0
-  m_SortingOrder: 0
-  m_TargetDisplay: 0
---- !u!224 &1001058777
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1001058773}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0, y: 0, z: 0}
-  m_Children:
-  - {fileID: 2055322024}
-  m_Father: {fileID: 0}
-  m_RootOrder: 6
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0, y: 0}
 --- !u!1001 &1131709154
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5974,6 +5900,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Hellfire_Missile (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 5337540803451384037, guid: a790ca0eb63490c4eaee17fdd71f1f7f,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a790ca0eb63490c4eaee17fdd71f1f7f, type: 3}
 --- !u!4 &1344201707 stripped
@@ -6049,6 +5980,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Hellfire_Missile (7)
       objectReference: {fileID: 0}
+    - target: {fileID: 5337540803451384037, guid: a790ca0eb63490c4eaee17fdd71f1f7f,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a790ca0eb63490c4eaee17fdd71f1f7f, type: 3}
 --- !u!4 &1449917075 stripped
@@ -6123,6 +6059,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Hellfire_Missile (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5337540803451384037, guid: a790ca0eb63490c4eaee17fdd71f1f7f,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a790ca0eb63490c4eaee17fdd71f1f7f, type: 3}
@@ -6268,6 +6209,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Hellfire_Missile (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 5337540803451384037, guid: a790ca0eb63490c4eaee17fdd71f1f7f,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a790ca0eb63490c4eaee17fdd71f1f7f, type: 3}
 --- !u!4 &1873129630 stripped
@@ -6285,7 +6231,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1934653608}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: BulletPosition
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6382,83 +6328,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &2055322023
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2055322024}
-  - component: {fileID: 2055322026}
-  - component: {fileID: 2055322025}
-  m_Layer: 5
-  m_Name: Image
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &2055322024
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2055322023}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1001058777}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 5, y: 5}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &2055322025
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2055322023}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 0.40735567, g: 1, b: 0.4009434, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
---- !u!222 &2055322026
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2055322023}
-  m_CullTransparentMesh: 1
 --- !u!1 &2055338818
 GameObject:
   m_ObjectHideFlags: 0
@@ -6494,7 +6365,7 @@ Transform:
   - {fileID: 542567277}
   - {fileID: 2018957437}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2078033020
 PrefabInstance:
@@ -6566,7 +6437,7 @@ GameObject:
   - component: {fileID: 879136077081947996}
   - component: {fileID: 879136077081947998}
   - component: {fileID: 879136077081947997}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Gunship
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6654,7 +6525,7 @@ GameObject:
   - component: {fileID: 1403507338931065520}
   - component: {fileID: 5423886061458426818}
   - component: {fileID: 4287509306506260419}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Back_Rotor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6713,7 +6584,7 @@ GameObject:
   - component: {fileID: 1305891718368425819}
   - component: {fileID: 4540176335552885224}
   - component: {fileID: 5978698895760914436}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Rotor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6741,7 +6612,7 @@ Transform:
   - {fileID: 1479035714}
   - {fileID: 1449917075}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &4287509306506260419
 MeshRenderer:
@@ -6867,6 +6738,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Hellfire_Missile
       objectReference: {fileID: 0}
+    - target: {fileID: 5337540803451384037, guid: a790ca0eb63490c4eaee17fdd71f1f7f,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a790ca0eb63490c4eaee17fdd71f1f7f, type: 3}
 --- !u!33 &5423886061458426818
@@ -6946,7 +6822,7 @@ GameObject:
   - component: {fileID: 7529390615444131175}
   - component: {fileID: 5202131592216029107}
   - component: {fileID: 3663575647830462722}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Gunship
   m_TagString: Untagged
   m_Icon: {fileID: 0}

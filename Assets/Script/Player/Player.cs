@@ -17,11 +17,8 @@ public class Player : MonoBehaviour
     private float MaxVelocityX = 10f, MaxVelocityY = 10f, MaxVelocityZ= 10f;
     private float camSpeed = 200f;
 
-    private float bulletTimer = 0;
-   
-    
-    
-
+    private List<GameObject> bulletPrefabs = new List<GameObject>();
+    private float fireTimer = 0;
 
 
     HellFire_Missile hellFire;
@@ -37,32 +34,24 @@ public class Player : MonoBehaviour
     }
     void Update()
     {
-        
-
-        //cusVec = new Vector3(Input.mousePosition.x - Screen.width / 2, 0, Input.mousePosition.y - Screen.height / 2).normalized;
-        
-        //CamMovement();
         Move();
-        //Camera.main.transform.localPosition = gameObject.transform.localPosition + Vector3.back * 10 + Vector3.up * distance;
-        //Camera.main.transform.rotation = Quaternion.Euler(angleX, angleY, 0);
-
         
-
         if (Input.GetMouseButton(0))
         {
-            bulletTimer += Time.deltaTime;
-            if (bulletTimer >= 0.1f)
+            fireTimer += Time.deltaTime;
+            if (fireTimer >= 0.1f)
             {
                 Fire();
-                bulletTimer = 0;
+                fireTimer = 0;
+                
             }
         }
         else
         {
             CeaseFire();
-            bulletTimer = 0;
+            fireTimer = 0;
         }
-        Debug.Log(bulletTimer);
+        Debug.Log(fireTimer);
         
     }
 
@@ -109,6 +98,7 @@ public class Player : MonoBehaviour
         {
                
             gameObject.transform.Rotate(Vector3.Lerp(new Vector3(0, -rotSpeed * Time.deltaTime, 0), Vector3.zero, Time.deltaTime));
+
         }
         if (Input.GetKey(KeyCode.E))
         {
@@ -120,22 +110,23 @@ public class Player : MonoBehaviour
     {
         gameObject.transform.GetChild(0).GetChild(2).gameObject.SetActive(true);
         GameObject go = Resources.Load<GameObject>("Prefabs/Bullet");
-        
-        go.GetComponent<Bullet>().Shoot(bulletPosition.position + Vector3.forward, 10f);
-        GameObject bullet = Instantiate(go,bulletPosition.position + new Vector3(Random.Range(-0.3f,0.3f), Random.Range(-0.3f, 0.3f),0),transform.rotation);
-        
+
+        //go.GetComponent<Bullet>().Shoot(bulletPosition.position + Vector3.forward, 10f);
+       
+        GameObject bullet = Instantiate(go, bulletPosition.position + new Vector3(Random.Range(-0.3f, 0.3f), Random.Range(-0.3f, 0.3f), 0), transform.rotation);
         Destroy(bullet, 2);
     }
+
+    private void WeaponChange()
+    {
+        
+    }
+
+
     private void CeaseFire()
     {
         gameObject.transform.GetChild(0).GetChild(2).gameObject.SetActive(false);
     }
-    private void CamMovement()
-    {
-        //Vector3 moveDir = Camera.main.transform.rotation * cusVec;
-        //moveDir.Normalize();
-        //Camera.main.transform.position += moveDir * camSpeed * Time.deltaTime;
-        //
-        //Camera.main.transform.localRotation = Quaternion.Euler(angleX, 0, 0);
-    }
+    
+    
 }

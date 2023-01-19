@@ -6,43 +6,67 @@ public class CameraController : MonoBehaviour
 {
 
     [SerializeField]
-    private GameObject player;
+    private GameObject player;                        // 카메라로 비춰주는 대상
 
-    private float angleX = 90f, angleY;
+   
 
-    private float offsetX = 0f;
-    private float offsetY = 20f;
-    private float offsetZ = -20f;
+    private float finalAngleY; // 최종적으로 도달할 Y 각도
 
+    private float targetX; // 상하 회전 각도
+    private float targetY; // 좌우 회전 각도
+    private float distance = 30f; // 플레이어와 카메라의 거리
+
+  
+    [SerializeField]
     Camera cam;
     // Start is called before the first frame update
     void Start()
     {
-        cam = Camera.main;
-        cam.transform.rotation = Quaternion.Euler(30, 0, 0);
+        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
-        angleX -= Input.GetAxis("Mouse Y");
-        angleY += Input.GetAxis("Mouse X");
-        transform.RotateAround(transform.position, Vector3.right, -angleX);
-        transform.RotateAround(transform.position, Vector3.up, angleY);
+        PlayerRotate();
+        PlayerZoom();
+    }
+    private void PlayerRotate()
+    {
+        float axisX = Input.GetAxis("Mouse Y");
+        float axisY = Input.GetAxis("Mouse X");
 
-        cam.transform.LookAt(transform.position);
-        
+        targetX -= axisX;
+        targetY += axisY;
 
-        
+        targetX = Mathf.Clamp(targetX, -90, 90);
 
-        Vector3 camPosition = new Vector3(player.transform.position.x + offsetX, player.transform.position.y + offsetY, player.transform.position.z + offsetZ);
+        finalAngleY = Mathf.Lerp(finalAngleY, targetY, Time.deltaTime * 20f);
+
+        if (Physics.Raycast(player.transform.position, Quaternion.Euler(targetX, targetY, 0) * -Vector3.forward, out RaycastHit hit, distance, ~(1 << LayerMask.NameToLayer("Player"))))
+        {
+            float hitDistance = hit.distance;
+            cam.transform.position = player.transform.position - (Quaternion.Euler(targetX, targetY, 0) * Vector3.forward * hitDistance);
+        }
+        else
+        {
+            cam.transform.position = player.transform.position - (Quaternion.Euler(targetX, targetY, 0) * Vector3.forward * distance);
+        }
+        cam.transform.rotation = Quaternion.Euler(targetX, targetY, 0);
+        player.transform.rotation = Quaternion.Euler(0, finalAngleY, 0);
 
 
+    }
 
-        cam.transform.position = camPosition;
-        
-        
 
+    private void PlayerZoom()
+    {
+        // distance가 작아질수록 가까워진다
+        // 휠 올리기 +.5f = 가까워진다
+        // 휠 내리기 -.5f = 멀어진다
+
+        float zoomSensy = 1 - Input.GetAxis("Mouse ScrollWheel");
+        distance *= zoomSensy;
     }
 }
