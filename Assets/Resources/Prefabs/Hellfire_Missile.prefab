@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1203201454810598792}
   - component: {fileID: -7263583780650180116}
   - component: {fileID: -3928935387377284330}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Hellfire_Missile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -96,6 +96,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ba4bb6f6ecc4c147a1fd016e2147c6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MaxSpeed: 3000
+  accelAmount: 15
+  lifeTime: 10
 --- !u!136 &-7263583780650180116
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -104,7 +107,7 @@ CapsuleCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5337540803451384037}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.41
   m_Height: 3.54

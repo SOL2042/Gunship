@@ -5,19 +5,20 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     [SerializeField] Transform bulletPosition;
-    
+  
 
+    public float Speed
+    {
+        get
+        {
+            return speed;
+        }
+    }
 
-    float speed = 3;
+    public float speed = 3;
     Rigidbody rgb;
     float rotSpeed = 100f;
-    private float distance = 10f;
-    
-    private Vector3 cusVec;
-    private float MaxVelocityX = 10f, MaxVelocityY = 10f, MaxVelocityZ= 10f;
-    private float camSpeed = 200f;
-
-    private List<GameObject> bulletPrefabs = new List<GameObject>();
+   
     private float fireTimer = 0;
 
 
@@ -51,8 +52,9 @@ public class Player : MonoBehaviour
             CeaseFire();
             fireTimer = 0;
         }
-        Debug.Log(fireTimer);
         
+        
+       
     }
 
     private void Move()
