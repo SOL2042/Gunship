@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class WeaponController : MonoBehaviour
 {
+    [SerializeField]
+    Transform enemyPosition;
     Player player;
     // Weapon Inputs
     
@@ -17,6 +19,7 @@ public class WeaponController : MonoBehaviour
     }
     private void Update()
     {
+        Debug.Log(player);
         if (Input.GetKeyDown(KeyCode.G))
         {
             Fire();
@@ -48,6 +51,6 @@ public class WeaponController : MonoBehaviour
     {
         GameObject missile = Instantiate(missilePrefab, transform.position, transform.rotation);
         HellFire_Missile missileScript = missile.GetComponent<HellFire_Missile>();
-        missileScript.Launch(null, player.speed + 15, gameObject.layer);
+        missileScript.Launch(enemyPosition, player.speed + 15, gameObject.layer);
 }
 }

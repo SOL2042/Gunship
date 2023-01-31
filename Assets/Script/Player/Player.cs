@@ -5,7 +5,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     [SerializeField] Transform bulletPosition;
-  
+    [SerializeField] Transform enemyPosition;
 
     public float Speed
     {
@@ -116,6 +116,7 @@ public class Player : MonoBehaviour
         //go.GetComponent<Bullet>().Shoot(bulletPosition.position + Vector3.forward, 10f);
        
         GameObject bullet = Instantiate(go, bulletPosition.position + new Vector3(Random.Range(-0.3f, 0.3f), Random.Range(-0.3f, 0.3f), 0), transform.rotation);
+        bullet.transform.LookAt(enemyPosition);
         Destroy(bullet, 2);
     }
 

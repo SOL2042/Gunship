@@ -6,9 +6,11 @@ public class HellFire_Missile : MonoBehaviour
 {
     //초기속도
     //유도될 대상
-
+    Rigidbody rgb;
     Transform target;
     float turningForce;
+
+    GameObject explosionPrefab;
 
     public float MaxSpeed;
     public float accelAmount;
@@ -24,6 +26,8 @@ public class HellFire_Missile : MonoBehaviour
 
     private void Start()
     {
+        explosionPrefab = Resources.Load<GameObject>("Prefabs/BigExplosion");
+        rgb = GetComponent<Rigidbody>();
         Destroy(gameObject, lifeTime);
     }
     private void Update()
@@ -33,11 +37,16 @@ public class HellFire_Missile : MonoBehaviour
             speed += accelAmount * Time.deltaTime;
         }
         transform.Translate(0, 0, speed * Time.deltaTime);
+        gameObject.transform.LookAt(target);
     }
 
     private void OnTriggerEnter(Collider other)
     {
         Debug.Log(other);
+
+        GameObject go = Instantiate(explosionPrefab, transform.position, Quaternion.identity);
+        Destroy(go, 3);
+
         Destroy(gameObject);
     }
     
