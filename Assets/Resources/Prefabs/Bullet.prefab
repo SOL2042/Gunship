@@ -29,13 +29,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6042518520919427824}
-  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.484, z: 8.21}
-  m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
+  m_LocalScale: {x: 0.02, y: 0.02, z: 0.02}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &6042518520919427828
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -140,7 +140,7 @@ TrailRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Time: 2
+  m_Time: 0.1
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 1
@@ -149,7 +149,7 @@ TrailRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.34722137
+        value: 0
         inSlope: -0.502888
         outSlope: -0.502888
         tangentMode: 0
@@ -157,7 +157,16 @@ TrailRenderer:
         inWeight: 0.33333334
         outWeight: 0.18519256
       - serializedVersion: 3
-        time: 0.40432096
+        time: 0.2584164
+        value: 0.19445038
+        inSlope: 0.12517197
+        outSlope: 0.12517197
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.56160444
+        outWeight: 0
+      - serializedVersion: 3
+        time: 0.5410181
         value: 0
         inSlope: 0
         outSlope: 0

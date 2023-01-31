@@ -7,6 +7,20 @@ public class WeaponController : MonoBehaviour
 {
     [SerializeField]
     Transform enemyPosition;
+
+    [SerializeField]
+    Transform rightMissilePosition;
+    [SerializeField]
+    Transform leftMissilePosition;
+
+    private float missileCnt;
+    public float missileCooldownTime;
+
+    float rightMslCooldown;
+    float leftMslCooldown;
+
+
+
     Player player;
     // Weapon Inputs
     
@@ -16,6 +30,7 @@ public class WeaponController : MonoBehaviour
     void Start()
     {
         player = GetComponent<Player>();
+        missileCnt = 8;
     }
     private void Update()
     {
@@ -24,7 +39,12 @@ public class WeaponController : MonoBehaviour
         {
             Fire();
         }
-
+        if(Input.GetKeyDown(KeyCode.R))
+        {
+            Reload();
+        }
+        MissileCooldown(ref rightMslCooldown);
+        MissileCooldown(ref leftMslCooldown);
     }
 
     public void Fire()
@@ -47,10 +67,65 @@ public class WeaponController : MonoBehaviour
        
     }
 
-    void LaunchMissile()
+    private void LaunchMissile()
     {
-        GameObject missile = Instantiate(missilePrefab, transform.position, transform.rotation);
+        Vector3 missilePosition;
+        if (missileCnt <= 0)
+            return;
+
+        if (leftMslCooldown > 0 && rightMslCooldown > 0)
+        {
+            // Beep sound
+            return;
+        }
+
+        if (missileCnt % 2 == 1)
+        {
+            missilePosition = rightMissilePosition.position;
+            rightMslCooldown = missileCooldownTime;
+        }
+        else
+        {
+            missilePosition = leftMissilePosition.position;
+            leftMslCooldown = missileCooldownTime;
+        }
+
+        
+        GameObject missile = Instantiate(missilePrefab, missilePosition, transform.rotation);
         HellFire_Missile missileScript = missile.GetComponent<HellFire_Missile>();
         missileScript.Launch(enemyPosition, player.speed + 15, gameObject.layer);
-}
+
+        missileCnt--;
+        
+       
+    }
+
+
+    void MissileCooldown(ref float cooldown)
+    {
+        if (cooldown > 0)
+        {
+            cooldown -= Time.deltaTime;
+            if (cooldown < 0) cooldown = 0;
+        }
+        else return;
+    }
+
+
+
+
+    private void Reload()
+    {
+        
+        
+        if(missileCnt <= 0)
+        {
+            
+           missileCnt = 8;
+              
+            
+        }
+    }
+
+
 }

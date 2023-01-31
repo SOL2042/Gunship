@@ -8,7 +8,7 @@ public class HellFire_Missile : MonoBehaviour
     //유도될 대상
     Rigidbody rgb;
     Transform target;
-    float turningForce;
+    float turningForce = 2.5f;
 
     GameObject explosionPrefab;
 
@@ -16,6 +16,7 @@ public class HellFire_Missile : MonoBehaviour
     public float accelAmount;
     public float lifeTime;
     float speed;
+    float boresightAngle = 90;
 
     public void Launch(Transform target, float launchSpeed, int layer) //target : 유도 대상 launchSpeed : 초기속도 layer: 대상의 레이어
     {
@@ -37,7 +38,7 @@ public class HellFire_Missile : MonoBehaviour
             speed += accelAmount * Time.deltaTime;
         }
         transform.Translate(0, 0, speed * Time.deltaTime);
-        gameObject.transform.LookAt(target);
+        LookAtTarget();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -49,9 +50,25 @@ public class HellFire_Missile : MonoBehaviour
 
         Destroy(gameObject);
     }
-    
 
 
+    void LookAtTarget()
+    {
+        if (target == null)
+            return;
+
+        Vector3 targetDir = target.position - transform.position;
+        float angle = Vector3.Angle(targetDir, transform.forward);
+
+        if (angle > boresightAngle)
+        {
+            target = null;
+            return;
+        }
+
+        Quaternion lookRotation = Quaternion.LookRotation(targetDir);
+        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, turningForce * Time.deltaTime);
+    }
 
 
 }

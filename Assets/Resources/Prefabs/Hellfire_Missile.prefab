@@ -98,7 +98,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MaxSpeed: 3000
-  accelAmount: 15
+  accelAmount: 50
   lifeTime: 10
 --- !u!96 &-3928935387377284330
 TrailRenderer:
