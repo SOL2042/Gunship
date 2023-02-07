@@ -6,6 +6,10 @@ using UnityEngine;
 public class WeaponController : MonoBehaviour
 {
     [SerializeField]
+    Transform cameraTransform;
+
+
+    [SerializeField]
     Transform enemyPosition;
 
     [SerializeField]
@@ -19,12 +23,13 @@ public class WeaponController : MonoBehaviour
     float rightMslCooldown;
     float leftMslCooldown;
 
-    
-    
+    Bullet bullet;
+    float bulletTravelDistance = 25f;
+
     public int bulletCnt;
-    public Transform gunTransform;
+   
     public float gunRPM;
-    float fireInterval;
+    
 
     Player player;
     // Weapon Inputs
@@ -32,17 +37,40 @@ public class WeaponController : MonoBehaviour
     public GameObject missilePrefab;
     // Weapon Callbacks
 
+
+    [SerializeField] Transform bulletPosition;
+
+    private float fireTimer = 0;
+
+
     void Start()
     {
+        bullet = GetComponent<Bullet>();
+        cameraTransform = Camera.main.transform;
         player = GetComponent<Player>();
         missileCnt = 8;
     }
     private void Update()
     {
-        
+        if (Input.GetMouseButton(0))
+        {
+            fireTimer += Time.deltaTime;
+            if (fireTimer >= 0.1f)
+            {
+                MainGunFire();
+                fireTimer = 0f;
+
+            }
+        }
+        else
+        {
+            CeaseFire();
+            fireTimer = 0.09f;
+        }
+
         if (Input.GetKeyDown(KeyCode.G))
         {
-            Fire();
+            LaunchMissile();
         }
         if(Input.GetKeyDown(KeyCode.R))
         {
@@ -52,32 +80,41 @@ public class WeaponController : MonoBehaviour
         MissileCooldown(ref leftMslCooldown);
     }
 
-    public void Fire()
-    {
-      
-        
-        LaunchMissile();
-      
-        
-    }
 
-    public void GunFire()
+    private void MainGunFire()
     {
+        RaycastHit hit;
         
-    }
-
-
-    void FireMachineGun()
-    {
-        if (bulletCnt <= 0)
+        
+       
+        if (Physics.Raycast(cameraTransform.position, cameraTransform.forward, out hit, 9999))  //Raycast가 object에 맞으면
         {
-            // Beep sound
-            CancelInvoke("FireMachineGun");
-            return;
+            
+            this.bullet.target = hit.point;    //Raycast된 지점를 Target으로 저장
+            this.bullet.hit = true;
+        }
+        else
+        {                                           //카메라가 바라보는 방향에서 총알비행거리만큼 떨어진 지점을 Target으로 저장
+            this.bullet.target = cameraTransform.position + cameraTransform.forward * bulletTravelDistance;
+            this.bullet.hit = false;
         }
 
-        
+
+        player.transform.GetChild(0).GetChild(2).gameObject.SetActive(true);
+        GameObject go = Resources.Load<GameObject>("Prefabs/Bullet");
+
+        GameObject bullet = Instantiate(go, bulletPosition.position + new Vector3(Random.Range(-0.3f, 0.3f), Random.Range(-0.3f, 0.3f), 0), player.transform.rotation);
+        bullet.layer = 6;
+        Destroy(bullet, 2);
     }
+
+
+
+    private void CeaseFire()
+    {
+        gameObject.transform.GetChild(0).GetChild(2).gameObject.SetActive(false);
+    }
+
 
 
     private void LaunchMissile()
@@ -129,16 +166,12 @@ public class WeaponController : MonoBehaviour
 
     private void Reload()
     {
-        
-        
         if(missileCnt <= 0)
         {
-            
            missileCnt = 8;
-              
-            
         }
     }
 
+   
 
 }

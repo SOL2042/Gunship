@@ -37,24 +37,8 @@ public class Player : MonoBehaviour
     {
         Move();
         
-        if (Input.GetMouseButton(0))
-        {
-            fireTimer += Time.deltaTime;
-            if (fireTimer >= 0.1f)
-            {
-                Fire();
-                fireTimer = 0;
-                
-            }
-        }
-        else
-        {
-            CeaseFire();
-            fireTimer = 0;
-        }
-        
-        
        
+
     }
 
     private void Move()
@@ -108,28 +92,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void Fire()
-    {
-        gameObject.transform.GetChild(0).GetChild(2).gameObject.SetActive(true);
-        GameObject go = Resources.Load<GameObject>("Prefabs/Bullet");
-
-        //go.GetComponent<Bullet>().Shoot(bulletPosition.position + Vector3.forward, 10f);
-       
-        GameObject bullet = Instantiate(go, bulletPosition.position + new Vector3(Random.Range(-0.3f, 0.3f), Random.Range(-0.3f, 0.3f), 0), transform.rotation);
-        bullet.layer = 6;
-        Destroy(bullet, 2);
-    }
-
-    private void WeaponChange()
-    {
-        
-    }
-
-
-    private void CeaseFire()
-    {
-        gameObject.transform.GetChild(0).GetChild(2).gameObject.SetActive(false);
-    }
     
-    
+
+  
 }

@@ -9,6 +9,8 @@ public class Bullet : MonoBehaviour
     Rigidbody rgb;
     GameObject gunEffect;
 
+    public Vector3 target;
+    public bool hit;
 
     public void Shoot(Vector3 normal, float speed)
     {
@@ -28,7 +30,7 @@ public class Bullet : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.Translate(Vector3.forward);
+        transform.Translate(target);
         
 
     }

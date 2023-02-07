@@ -23,7 +23,7 @@ public class CameraController : MonoBehaviour
     void Start()
     {
         
-
+        
     }
 
     // Update is called once per frame
@@ -62,11 +62,11 @@ public class CameraController : MonoBehaviour
 
     private void PlayerZoom()
     {
-        // distance가 작아질수록 가까워진다
-        // 휠 올리기 +.5f = 가까워진다
-        // 휠 내리기 -.5f = 멀어진다
-
+        
         float zoomSensy = 1 - Input.GetAxis("Mouse ScrollWheel");
         distance *= zoomSensy;
     }
+
+   
+
 }
