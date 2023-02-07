@@ -16,7 +16,7 @@ public class HellFire_Missile : MonoBehaviour
     public float accelAmount;
     public float lifeTime;
     float speed;
-    float boresightAngle = 90;
+    float boresightAngle = 50;
 
     public void Launch(Transform target, float launchSpeed, int layer) //target : 유도 대상 launchSpeed : 초기속도 layer: 대상의 레이어
     {

@@ -19,7 +19,12 @@ public class WeaponController : MonoBehaviour
     float rightMslCooldown;
     float leftMslCooldown;
 
-
+    
+    
+    public int bulletCnt;
+    public Transform gunTransform;
+    public float gunRPM;
+    float fireInterval;
 
     Player player;
     // Weapon Inputs
@@ -34,7 +39,7 @@ public class WeaponController : MonoBehaviour
     }
     private void Update()
     {
-        Debug.Log(player);
+        
         if (Input.GetKeyDown(KeyCode.G))
         {
             Fire();
@@ -58,14 +63,22 @@ public class WeaponController : MonoBehaviour
 
     public void GunFire()
     {
-       
+        
     }
 
 
-    public void SwitchWeapon()
+    void FireMachineGun()
     {
-       
+        if (bulletCnt <= 0)
+        {
+            // Beep sound
+            CancelInvoke("FireMachineGun");
+            return;
+        }
+
+        
     }
+
 
     private void LaunchMissile()
     {

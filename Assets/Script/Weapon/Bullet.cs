@@ -23,7 +23,7 @@ public class Bullet : MonoBehaviour
     private void Start()
     {
         rgb = GetComponent<Rigidbody>();
-        gunEffect = Resources.Load<GameObject>("Prefabs/HitEffect");
+        gunEffect = Resources.Load<GameObject>("Prefabs/DustExplosion");
     }
     // Update is called once per frame
     void Update()
@@ -35,8 +35,8 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-
-        gameObject.layer = 6;
+        Debug.Log(other);
+        
         GameObject go = Instantiate(gunEffect, transform.position, Quaternion.identity);
         Destroy(go, 3);
 
