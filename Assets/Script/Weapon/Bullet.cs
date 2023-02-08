@@ -12,26 +12,31 @@ public class Bullet : MonoBehaviour
     public Vector3 target;
     public bool hit;
 
-    public void Shoot(Vector3 normal, float speed)
+    //public void Shoot(Vector3 normal, float speed)
+    //{
+    //    this.normal = normal;
+    //    this.speed = speed;
+    //}
+    public Bullet(Vector3 target, bool hit)
     {
-        this.normal = normal;
-        this.speed = speed;
+        this.target = target;
+        this.hit = hit;
     }
-
     private void Awake()
     {
-       
+        
     }
     private void Start()
     {
         rgb = GetComponent<Rigidbody>();
         gunEffect = Resources.Load<GameObject>("Prefabs/DustExplosion");
+        
     }
     // Update is called once per frame
     void Update()
     {
-        transform.Translate(target);
-        
+        transform.Translate(Vector3.forward);
+
 
     }
 

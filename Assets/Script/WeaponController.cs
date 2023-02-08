@@ -23,8 +23,8 @@ public class WeaponController : MonoBehaviour
     float rightMslCooldown;
     float leftMslCooldown;
 
-    Bullet bullet;
-    float bulletTravelDistance = 25f;
+    
+    
 
     public int bulletCnt;
    
@@ -45,13 +45,33 @@ public class WeaponController : MonoBehaviour
 
     void Start()
     {
-        bullet = GetComponent<Bullet>();
+        
         cameraTransform = Camera.main.transform;
         player = GetComponent<Player>();
         missileCnt = 8;
     }
     private void Update()
     {
+
+        Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * 1000.0f, Color.green);
+
+        RaycastHit temp;
+
+        if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out temp, 200.0f, ~6)) // 카메라의 위치에서 카메라가 바라보는 정면으로 레이를 쏴서 충돌확인
+        {
+            // 충돌이 검출되면 총알의 리스폰포인트(firePos)가 충돌이 발생한위치를 바라보게 만든다. 
+            // 이 상태에서 발사입력이 들어오면 총알은 충돌점으로 날아가게 된다.
+
+            Debug.Log(temp.point);
+            bulletPosition.LookAt(temp.point);
+            Debug.DrawRay(bulletPosition.position, bulletPosition.forward * 1000.0f, Color.red); // 이 레이는 앞서 선언한 디버그용 레이와 충돌점에서 교차한다
+
+        }
+
+
+
+
+
         if (Input.GetMouseButton(0))
         {
             fireTimer += Time.deltaTime;
@@ -61,6 +81,7 @@ public class WeaponController : MonoBehaviour
                 fireTimer = 0f;
 
             }
+
         }
         else
         {
@@ -83,28 +104,18 @@ public class WeaponController : MonoBehaviour
 
     private void MainGunFire()
     {
-        RaycastHit hit;
-        
-        
-       
-        if (Physics.Raycast(cameraTransform.position, cameraTransform.forward, out hit, 9999))  //Raycast가 object에 맞으면
-        {
-            
-            this.bullet.target = hit.point;    //Raycast된 지점를 Target으로 저장
-            this.bullet.hit = true;
-        }
-        else
-        {                                           //카메라가 바라보는 방향에서 총알비행거리만큼 떨어진 지점을 Target으로 저장
-            this.bullet.target = cameraTransform.position + cameraTransform.forward * bulletTravelDistance;
-            this.bullet.hit = false;
-        }
 
+        
 
         player.transform.GetChild(0).GetChild(2).gameObject.SetActive(true);
         GameObject go = Resources.Load<GameObject>("Prefabs/Bullet");
 
+
+
         GameObject bullet = Instantiate(go, bulletPosition.position + new Vector3(Random.Range(-0.3f, 0.3f), Random.Range(-0.3f, 0.3f), 0), player.transform.rotation);
         bullet.layer = 6;
+
+        
         Destroy(bullet, 2);
     }
 
