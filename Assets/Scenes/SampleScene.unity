@@ -6267,7 +6267,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2008251867}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -303.93, y: -486.53, z: -357.18}
+  m_LocalPosition: {x: -318, y: -486.53, z: -369}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -6416,11 +6416,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 184d49d8f08f9674f916f5c9c519b6c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cameraTransform: {fileID: 0}
   enemyPosition: {fileID: 872980093}
   rightMissilePosition: {fileID: 387440652}
   leftMissilePosition: {fileID: 724580065}
   missileCooldownTime: 2
   bulletCnt: 0
+  gunRPM: 0
   missilePrefab: {fileID: 5337540803451384037, guid: a790ca0eb63490c4eaee17fdd71f1f7f,
     type: 3}
   bulletPosition: {fileID: 1934653608}

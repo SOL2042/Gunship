@@ -64,7 +64,7 @@ public class WeaponController : MonoBehaviour
 
             Debug.Log(temp.point);
             bulletPosition.LookAt(temp.point);
-            Debug.DrawRay(bulletPosition.position, bulletPosition.forward * 1000.0f, Color.red); // 이 레이는 앞서 선언한 디버그용 레이와 충돌점에서 교차한다
+            Debug.DrawRay(bulletPosition.position, -bulletPosition.forward * 1000.0f, Color.red); // 이 레이는 앞서 선언한 디버그용 레이와 충돌점에서 교차한다
 
         }
 
