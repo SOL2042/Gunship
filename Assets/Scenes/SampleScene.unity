@@ -6374,7 +6374,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletPosition: {fileID: 1934653608}
   enemyPosition: {fileID: 872980093}
-  speed: 3
+  speed: 10
 --- !u!65 &879136077081947997
 BoxCollider:
   m_ObjectHideFlags: 0

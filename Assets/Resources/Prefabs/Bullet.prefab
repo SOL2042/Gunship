@@ -11,10 +11,10 @@ GameObject:
   - component: {fileID: 6042518520919427835}
   - component: {fileID: 6042518520919427828}
   - component: {fileID: 6042518520919427829}
-  - component: {fileID: 6042518520919427830}
   - component: {fileID: 6042518520919427831}
   - component: {fileID: 2335914758399354464}
   - component: {fileID: 6067480848079891761}
+  - component: {fileID: 2070047571182874183}
   m_Layer: 0
   m_Name: Bullet
   m_TagString: Untagged
@@ -85,20 +85,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &6042518520919427830
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6042518520919427824}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!96 &6042518520919427831
 TrailRenderer:
   serializedVersion: 2
@@ -228,7 +214,7 @@ Rigidbody:
   m_AngularDrag: 0.05
   m_UseGravity: 0
   m_IsKinematic: 0
-  m_Interpolate: 2
+  m_Interpolate: 1
   m_Constraints: 0
   m_CollisionDetection: 2
 --- !u!114 &6067480848079891761
@@ -243,3 +229,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e747b59d70b4b6c4aa10328762444458, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  target: {x: 0, y: 0, z: 0}
+  hit: 0
+--- !u!135 &2070047571182874183
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6042518520919427824}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 120
+  m_Center: {x: 0, y: 0, z: 0}

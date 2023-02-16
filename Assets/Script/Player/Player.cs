@@ -7,15 +7,15 @@ public class Player : MonoBehaviour
     [SerializeField] Transform bulletPosition;
     [SerializeField] Transform enemyPosition;
 
-    public float Speed
-    {
-        get
-        {
-            return speed;
-        }
-    }
+    //public float Speed
+    //{
+    //    get
+    //    {
+    //        return speed;
+    //    }
+    //}
 
-    public float speed = 3;
+    public float speed;
     Rigidbody rgb;
     float rotSpeed = 100f;
    
@@ -30,7 +30,7 @@ public class Player : MonoBehaviour
     }
     private void Start()
     {
-        
+        speed = 8;
 
     }
     void Update()

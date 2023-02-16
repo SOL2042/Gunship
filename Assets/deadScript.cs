@@ -4,14 +4,15 @@ using UnityEngine;
 
 public class deadScript : MonoBehaviour
 {
+    GameObject deadEffect;
+    GameObject go;
 
-    
-    
-    
+
+
     void Start()
     {
-       
-        
+        deadEffect = Resources.Load<GameObject>("Prefabs/BigExplosion");
+        go = Resources.Load<GameObject>("Prefabs/ROCKET_LCHR_DESTROYED");
     }
 
     
@@ -23,11 +24,11 @@ public class deadScript : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        GameObject deadEffect = Resources.Load<GameObject>("Prefabs/BigExplosion");
-        GameObject go = Resources.Load<GameObject>("Prefabs/ROCKET_LCHR_DESTROYED");
-        Instantiate(go,transform);
-        Instantiate(deadEffect,transform);
         
         
+        Instantiate(go,transform.position,Quaternion.identity);
+        Instantiate(deadEffect,transform.position, Quaternion.identity);
+        gameObject.SetActive(false);
+        Destroy(gameObject);
     }
 }
