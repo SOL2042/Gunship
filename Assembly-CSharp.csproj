@@ -77,9 +77,9 @@
     <Compile Include="Assets\Script\Weapon\MainGun.cs" />
     <Compile Include="Assets\Script\Unit\Unit_Status.cs" />
     <Compile Include="Assets\Shared\Scripts\SimpleCameraController.cs" />
+    <Compile Include="Assets\Script\GameManager.cs" />
     <Compile Include="Assets\EffectExamples\Misc Effects\Scripts\SpawnEffect.cs" />
     <Compile Include="Assets\Script\Weapon\HellFire_Missile.cs" />
-    <Compile Include="Assets\Script\GameManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TerrainSampleAssets\ThirdPartyNotices.txt" />

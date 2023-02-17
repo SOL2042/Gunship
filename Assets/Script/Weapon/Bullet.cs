@@ -35,6 +35,7 @@ public class Bullet : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(gameObject.activeInHierarchy)
         transform.Translate(Vector3.forward * Time.deltaTime * 300);
 
 

@@ -5,6 +5,10 @@ using UnityEngine;
 
 public class WeaponController : MonoBehaviour
 {
+    
+
+
+
     [SerializeField]
     Transform cameraTransform;
 
@@ -62,7 +66,7 @@ public class WeaponController : MonoBehaviour
             // 충돌이 검출되면 총알의 리스폰포인트(firePos)가 충돌이 발생한위치를 바라보게 만든다. 
             // 이 상태에서 발사입력이 들어오면 총알은 충돌점으로 날아가게 된다.
 
-            Debug.Log(temp.point);
+            //Debug.Log(temp.point);
             bulletPosition.LookAt(temp.point);
             Debug.DrawRay(bulletPosition.position, -bulletPosition.forward * 1000.0f, Color.red); // 이 레이는 앞서 선언한 디버그용 레이와 충돌점에서 교차한다
 
@@ -72,22 +76,22 @@ public class WeaponController : MonoBehaviour
 
 
 
-        if (Input.GetMouseButton(0))
-        {
-            fireTimer += Time.deltaTime;
-            if (fireTimer >= 0.1f)
-            {
-                MainGunFire();
-                fireTimer = 0f;
+        //if (Input.GetMouseButton(0))
+        //{
+            //fireTimer += Time.deltaTime;
+            //if (fireTimer >= 0.1f)
+            //{
+                //MainGunFire();
+                //fireTimer = 0f;
 
-            }
+            //}
 
-        }
-        else
-        {
-            CeaseFire();
-            fireTimer = 0.09f;
-        }
+        //}
+        //else
+        //{
+            //CeaseFire();
+            //fireTimer = 0.09f;
+        //}
 
         if (Input.GetKeyDown(KeyCode.G))
         {
