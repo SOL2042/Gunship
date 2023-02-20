@@ -19,10 +19,7 @@ public class Player : MonoBehaviour
     Rigidbody rgb;
     float rotSpeed = 100f;
    
-    private float fireTimer = 0;
-
-
-    HellFire_Missile hellFire;
+   
 
     private void Awake()
     {
@@ -31,15 +28,10 @@ public class Player : MonoBehaviour
     private void Start()
     {
         speed = 8;
-
     }
     void Update()
     {
-        
         Move();
-        
-       
-
     }
 
     private void Move()

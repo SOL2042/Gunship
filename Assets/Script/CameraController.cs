@@ -8,8 +8,6 @@ public class CameraController : MonoBehaviour
     [SerializeField]
     private GameObject player;                        // 카메라로 비춰주는 대상
 
-   
-
     private float finalAngleY; // 최종적으로 도달할 Y 각도
 
     private float targetX; // 상하 회전 각도
@@ -55,14 +53,11 @@ public class CameraController : MonoBehaviour
         }
         cam.transform.rotation = Quaternion.Euler(targetX, targetY, 0);
         player.transform.rotation = Quaternion.Euler(0, finalAngleY, 0);
-
-
     }
 
 
     private void PlayerZoom()
     {
-        
         float zoomSensy = 1 - Input.GetAxis("Mouse ScrollWheel");
         distance *= zoomSensy;
     }

@@ -30,15 +30,12 @@ public class Bullet : MonoBehaviour
     {
         rgb = GetComponent<Rigidbody>();
         gunEffect = Resources.Load<GameObject>("Prefabs/DustExplosion");
-        
     }
     // Update is called once per frame
     void Update()
     {
         if(gameObject.activeInHierarchy)
         transform.Translate(Vector3.forward * Time.deltaTime * 300);
-
-
     }
 
     private void OnTriggerEnter(Collider other)

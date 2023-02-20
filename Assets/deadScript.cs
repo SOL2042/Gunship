@@ -24,8 +24,6 @@ public class deadScript : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        
-        
         Instantiate(go,transform.position,Quaternion.identity);
         Instantiate(deadEffect,transform.position, Quaternion.identity);
         gameObject.SetActive(false);

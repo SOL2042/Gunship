@@ -51,9 +51,9 @@ public class GameManager : MonoBehaviour
     }
 
 
-    private void CreatBulletPool()
+    private void CreatBulletPool() // ÃÑ¾Ë »ý¼º
     {
-        for(int i = 0; i < bulletCnt; i++)
+        for(int i = 0; i < bulletCnt; i++) //
         {
             bulletPool.Add(Instantiate(bullet, bulletPosition.position + new Vector3(Random.Range(-0.3f, 0.3f), Random.Range(-0.3f, 0.3f), 0), bulletPosition.transform.rotation));
             
