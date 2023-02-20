@@ -13,14 +13,12 @@ public class CameraController : MonoBehaviour
     private float targetX; // 상하 회전 각도
     private float targetY; // 좌우 회전 각도
     private float distance = 30f; // 플레이어와 카메라의 거리
-
   
     [SerializeField]
     Camera cam;
     // Start is called before the first frame update
     void Start()
     {
-        
         
     }
 
@@ -45,11 +43,11 @@ public class CameraController : MonoBehaviour
         if (Physics.Raycast(player.transform.position, Quaternion.Euler(targetX, targetY, 0) * -Vector3.forward, out RaycastHit hit, distance, ~(1 << LayerMask.NameToLayer("Player"))))
         {
             float hitDistance = hit.distance;
-            cam.transform.position = player.transform.position - (Quaternion.Euler(targetX, targetY, 0) * Vector3.forward * hitDistance);
+            cam.transform.position = player.transform.position - (Quaternion.Euler(targetX, targetY, 0) * Vector3.forward * hitDistance) + Vector3.up * 10;
         }
         else
         {
-            cam.transform.position = player.transform.position - (Quaternion.Euler(targetX, targetY, 0) * Vector3.forward * distance);
+            cam.transform.position = player.transform.position - (Quaternion.Euler(targetX, targetY, 0) * Vector3.forward * distance) + Vector3.up * 10;
         }
         cam.transform.rotation = Quaternion.Euler(targetX, targetY, 0);
         player.transform.rotation = Quaternion.Euler(0, finalAngleY, 0);

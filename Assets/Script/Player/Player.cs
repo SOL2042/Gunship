@@ -4,6 +4,17 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    private static Player _instance;
+
+    public static Player instance
+    {
+        get
+        {
+            if (_instance == null) _instance = FindObjectOfType<Player>();
+            return _instance;
+        }
+    }
+
     [SerializeField] Transform bulletPosition;
     [SerializeField] Transform enemyPosition;
 
@@ -19,15 +30,13 @@ public class Player : MonoBehaviour
     Rigidbody rgb;
     float rotSpeed = 100f;
    
-   
-
     private void Awake()
     {
         rgb = gameObject.GetComponent<Rigidbody>();
     }
     private void Start()
     {
-        speed = 8;
+        speed = 4;
     }
     void Update()
     {
@@ -41,7 +50,6 @@ public class Player : MonoBehaviour
         if (Input.GetKey(KeyCode.A))
         {
             rgb.AddRelativeForce(new Vector3(-speed, 0, 0));
-            
         }
         if (Input.GetKey(KeyCode.D))
         {
@@ -75,17 +83,11 @@ public class Player : MonoBehaviour
 
         if (Input.GetKey(KeyCode.Q))
         {
-               
             gameObject.transform.Rotate(Vector3.Lerp(new Vector3(0, -rotSpeed * Time.deltaTime, 0), Vector3.zero, Time.deltaTime));
-
         }
         if (Input.GetKey(KeyCode.E))
         {
             gameObject.transform.Rotate(Vector3.Lerp(new Vector3(0, rotSpeed * Time.deltaTime, 0), Vector3.zero, Time.deltaTime));
         }
     }
-
-    
-
-  
 }

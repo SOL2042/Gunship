@@ -5,13 +5,8 @@ using UnityEngine;
 
 public class WeaponController : MonoBehaviour
 {
-    
-
-
-
     [SerializeField]
     Transform cameraTransform;
-
 
     [SerializeField]
     Transform enemyPosition;
@@ -27,14 +22,10 @@ public class WeaponController : MonoBehaviour
     float rightMslCooldown;
     float leftMslCooldown;
 
-    
-    
-
     public int bulletCnt;
    
     public float gunRPM;
     
-
     Player player;
     // Weapon Inputs
     
@@ -49,53 +40,73 @@ public class WeaponController : MonoBehaviour
 
     void Start()
     {
-        
         cameraTransform = Camera.main.transform;
         player = GetComponent<Player>();
         missileCnt = 8;
     }
     private void Update()
     {
-
         Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * 1000.0f, Color.green);
 
         RaycastHit temp;
 
-        if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out temp, 200.0f, ~6)) // 카메라의 위치에서 카메라가 바라보는 정면으로 레이를 쏴서 충돌확인
+        if (Physics.Raycast(cameraTransform.transform.position, cameraTransform.transform.forward, out temp, 1000.0f, ~6)) // 카메라의 위치에서 카메라가 바라보는 정면으로 레이를 쏴서 충돌확인
         {
             // 충돌이 검출되면 총알의 리스폰포인트(firePos)가 충돌이 발생한위치를 바라보게 만든다. 
             // 이 상태에서 발사입력이 들어오면 총알은 충돌점으로 날아가게 된다.
 
-            //Debug.Log(temp.point);
+            Debug.Log(temp.point);
             bulletPosition.LookAt(temp.point);
-            Debug.DrawRay(bulletPosition.position, -bulletPosition.forward * 1000.0f, Color.red); // 이 레이는 앞서 선언한 디버그용 레이와 충돌점에서 교차한다
-
+            Debug.DrawRay(bulletPosition.position, bulletPosition.forward * 1000.0f, Color.red); // 이 레이는 앞서 선언한 디버그용 레이와 충돌점에서 교차한다
+        }
+        else
+        {
+            
         }
 
-
-
-
-
-        //if (Input.GetMouseButton(0))
-        //{
-            //fireTimer += Time.deltaTime;
-            //if (fireTimer >= 0.1f)
-            //{
-                //MainGunFire();
-                //fireTimer = 0f;
-
-            //}
-
-        //}
-        //else
-        //{
-            //CeaseFire();
-            //fireTimer = 0.09f;
-        //}
+        if (Input.GetMouseButton(0))
+        {
+            fireTimer += Time.deltaTime;
+            if (fireTimer >= 0.1f)
+            {
+                MainGunFire();
+                fireTimer = 0f;
+            }
+        }
+        else
+        {
+            CeaseFire();
+            fireTimer = 0.09f;
+        }
 
         if (Input.GetKeyDown(KeyCode.G))
         {
             LaunchMissile();
+            if (missileCnt % 2 == 1)
+            {
+                if(missileCnt == 7)
+                gameObject.transform.GetChild(0).GetChild(7).gameObject.SetActive(false);
+                if(missileCnt == 5)
+                gameObject.transform.GetChild(0).GetChild(8).gameObject.SetActive(false);
+                if(missileCnt == 3)
+                gameObject.transform.GetChild(0).GetChild(9).gameObject.SetActive(false);
+                if(missileCnt == 1)
+                gameObject.transform.GetChild(0).GetChild(10).gameObject.SetActive(false);
+
+            }
+            else
+            {
+                if (missileCnt == 6)
+                    gameObject.transform.GetChild(0).GetChild(11).gameObject.SetActive(false);
+                if (missileCnt == 4)
+                    gameObject.transform.GetChild(0).GetChild(12).gameObject.SetActive(false);
+                if (missileCnt == 2)
+                    gameObject.transform.GetChild(0).GetChild(13).gameObject.SetActive(false);
+                if (missileCnt == 0)
+                    gameObject.transform.GetChild(0).GetChild(14).gameObject.SetActive(false);
+                
+            }
+           
         }
         if(Input.GetKeyDown(KeyCode.R))
         {
@@ -108,29 +119,19 @@ public class WeaponController : MonoBehaviour
 
     private void MainGunFire()
     {
-
-        
-
         player.transform.GetChild(0).GetChild(2).gameObject.SetActive(true);
         GameObject go = Resources.Load<GameObject>("Prefabs/Bullet");
-
-
 
         GameObject bullet = Instantiate(go, bulletPosition.position + new Vector3(Random.Range(-0.3f, 0.3f), Random.Range(-0.3f, 0.3f), 0), player.transform.rotation);
         bullet.layer = 6;
 
-        
         Destroy(bullet, 2);
     }
-
-
 
     private void CeaseFire()
     {
         gameObject.transform.GetChild(0).GetChild(2).gameObject.SetActive(false);
     }
-
-
 
     private void LaunchMissile()
     {
@@ -154,17 +155,13 @@ public class WeaponController : MonoBehaviour
             missilePosition = leftMissilePosition.position;
             leftMslCooldown = missileCooldownTime;
         }
-
         
         GameObject missile = Instantiate(missilePrefab, missilePosition, transform.rotation);
         HellFire_Missile missileScript = missile.GetComponent<HellFire_Missile>();
         missileScript.Launch(enemyPosition, player.speed + 15, gameObject.layer);
 
         missileCnt--;
-        
-       
     }
-
 
     void MissileCooldown(ref float cooldown)
     {
@@ -176,17 +173,17 @@ public class WeaponController : MonoBehaviour
         else return;
     }
 
-
-
-
     private void Reload()
     {
         if(missileCnt <= 0)
         {
            missileCnt = 8;
+
+           for (int i = 7; i < 15; i++)
+           {
+               gameObject.transform.GetChild(0).GetChild(i).gameObject.SetActive(true);
+           }
+
         }
     }
-
-   
-
 }

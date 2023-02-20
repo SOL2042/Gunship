@@ -16,7 +16,8 @@ public class GameManager : MonoBehaviour
     private GameObject bullet;
     // Start is called before the first frame update
     void Start()
-    {        
+    {
+        player = FindObjectOfType<Player>();
         bullet = Resources.Load("Prefabs/Bullet") as GameObject;
 
         CreatBulletPool();
@@ -27,27 +28,28 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButton(0))
-        {
-            fireTimer += Time.deltaTime;
-            if (fireTimer >= 0.1f)
-            {
-                CreatBullet();
-                fireTimer = 0f;
-            }
-        }
-        else
-        {
-            for (int i = 0; i < bulletCnt; i++)
-            {
-                if (bulletPool[i].activeInHierarchy == true)
-                {
-                    bulletPool[i].SetActive(false);
-                    bulletPool[i].transform.position = bulletPosition.position;
-                }
+        bulletPosition = player.transform.Find("BulletPosition");
+        //if (Input.GetMouseButton(0))
+        //{
+        //    fireTimer += Time.deltaTime;
+        //    if (fireTimer >= 0.1f)
+        //    {
+        //        CreatBullet();
+        //        fireTimer = 0f;
+        //    }
+        //}
+        //else
+        //{
+        //    for (int i = 0; i < bulletCnt; i++)
+        //    {
+        //        if (bulletPool[i].activeInHierarchy == true)
+        //        {
+        //            bulletPool[i].SetActive(false);
+        //            bulletPool[i].transform.position = bulletPosition.position;
+        //        }
 
-            }
-        }
+        //    }
+        //}
     }
 
 
@@ -55,7 +57,7 @@ public class GameManager : MonoBehaviour
     {
         for(int i = 0; i < bulletCnt; i++) //
         {
-            bulletPool.Add(Instantiate(bullet, bulletPosition.position + new Vector3(Random.Range(-0.3f, 0.3f), Random.Range(-0.3f, 0.3f), 0), bulletPosition.transform.rotation));
+            bulletPool.Add(Instantiate(bullet, bulletPosition.position + new Vector3(Random.Range(-0.3f, 0.3f), Random.Range(-0.3f, 0.3f), 0), player.transform.rotation));
             
             bulletPool[i].layer = 6;
             bulletPool[i].SetActive(false);
