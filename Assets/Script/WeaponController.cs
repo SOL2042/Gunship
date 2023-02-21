@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class WeaponController : MonoBehaviour
 {
+    Bullet bullet;
+
     [SerializeField]
     Transform cameraTransform;
 
@@ -40,6 +42,7 @@ public class WeaponController : MonoBehaviour
 
     void Start()
     {
+       
         cameraTransform = Camera.main.transform;
         player = GetComponent<Player>();
         missileCnt = 8;
@@ -50,18 +53,24 @@ public class WeaponController : MonoBehaviour
 
         RaycastHit temp;
 
-        if (Physics.Raycast(cameraTransform.transform.position, cameraTransform.transform.forward, out temp, 1000.0f, ~6)) // 카메라의 위치에서 카메라가 바라보는 정면으로 레이를 쏴서 충돌확인
+        if (Physics.Raycast(cameraTransform.transform.position, cameraTransform.transform.forward, out temp, 1000.0f, (-1) - (1 << 6))) // 카메라의 위치에서 카메라가 바라보는 정면으로 레이를 쏴서 충돌확인
         {
             // 충돌이 검출되면 총알의 리스폰포인트(firePos)가 충돌이 발생한위치를 바라보게 만든다. 
             // 이 상태에서 발사입력이 들어오면 총알은 충돌점으로 날아가게 된다.
-
-            Debug.Log(temp.point);
+            
+            //Debug.Log(temp.point);
             bulletPosition.LookAt(temp.point);
+            bullet = new Bullet(temp.point, false);
             Debug.DrawRay(bulletPosition.position, bulletPosition.forward * 1000.0f, Color.red); // 이 레이는 앞서 선언한 디버그용 레이와 충돌점에서 교차한다
         }
         else
         {
+            Vector3 screenCenter = new Vector3(Camera.main.pixelWidth / 2, Camera.main.pixelHeight / 2, 0);
+            Ray ray = Camera.main.ScreenPointToRay(screenCenter);
             
+            bulletPosition.LookAt(ray.direction);
+            Debug.Log(ray.direction);
+            Debug.DrawRay(ray.origin,ray.direction * 1000.0f, Color.blue); 
         }
 
         if (Input.GetMouseButton(0))
@@ -104,7 +113,6 @@ public class WeaponController : MonoBehaviour
                     gameObject.transform.GetChild(0).GetChild(13).gameObject.SetActive(false);
                 if (missileCnt == 0)
                     gameObject.transform.GetChild(0).GetChild(14).gameObject.SetActive(false);
-                
             }
            
         }
@@ -121,11 +129,10 @@ public class WeaponController : MonoBehaviour
     {
         player.transform.GetChild(0).GetChild(2).gameObject.SetActive(true);
         GameObject go = Resources.Load<GameObject>("Prefabs/Bullet");
-
-        GameObject bullet = Instantiate(go, bulletPosition.position + new Vector3(Random.Range(-0.3f, 0.3f), Random.Range(-0.3f, 0.3f), 0), player.transform.rotation);
+        GameObject bullet = Instantiate(go, bulletPosition.position + new Vector3(Random.Range(-0.3f, 0.3f), Random.Range(-0.3f, 0.3f), 0), Quaternion.identity);
         bullet.layer = 6;
 
-        Destroy(bullet, 2);
+        Destroy(bullet, 3);
     }
 
     private void CeaseFire()

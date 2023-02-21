@@ -55,47 +55,47 @@ public class GameManager : MonoBehaviour
 
     private void CreatBulletPool() // ÃÑ¾Ë »ý¼º
     {
-        for(int i = 0; i < bulletCnt; i++) //
-        {
-            bulletPool.Add(Instantiate(bullet, bulletPosition.position + new Vector3(Random.Range(-0.3f, 0.3f), Random.Range(-0.3f, 0.3f), 0), player.transform.rotation));
+        //for(int i = 0; i < bulletCnt; i++) //
+        //{
+        //    bulletPool.Add(Instantiate(bullet, bulletPosition.position + new Vector3(Random.Range(-0.3f, 0.3f), Random.Range(-0.3f, 0.3f), 0), player.transform.rotation));
             
-            bulletPool[i].layer = 6;
-            bulletPool[i].SetActive(false);
-        }
+        //    bulletPool[i].layer = 6;
+        //    bulletPool[i].SetActive(false);
+        //}
     }
 
 
     private int poolIndex = 0;
     private void CreatBullet()
     {
-        if (!bulletPool[poolIndex].activeInHierarchy)
-        {
-            bulletPool[poolIndex].SetActive(true);
-            poolIndex++;
-        }
-        else
-        {
-            poolIndex++;
-            CreatBullet();
-        }
-
-        if (bulletPool.Count - 1 >= poolIndex)
-            poolIndex = 0;
-
-        return;
-
-        for (int i = 0; i < bulletCnt; i++)
-        {
-            if (fireTimer >= 0.1f)
-            {
-                bulletPool[i].SetActive(true);
-                
-            }
-            else
-            {
-                fireTimer = 0.09f;
-            }
-
-        }
+       //if (!bulletPool[poolIndex].activeInHierarchy)
+       //{
+       //    bulletPool[poolIndex].SetActive(true);
+       //    poolIndex++;
+       //}
+       //else
+       //{
+       //    poolIndex++;
+       //    CreatBullet();
+       //}
+       //
+       //if (bulletPool.Count - 1 >= poolIndex)
+       //    poolIndex = 0;
+       //
+       //return;
+       //
+       //for (int i = 0; i < bulletCnt; i++)
+       //{
+       //    if (fireTimer >= 0.1f)
+       //    {
+       //        bulletPool[i].SetActive(true);
+       //        
+       //    }
+       //    else
+       //    {
+       //        fireTimer = 0.09f;
+       //    }
+       //
+       //}
     }
 }

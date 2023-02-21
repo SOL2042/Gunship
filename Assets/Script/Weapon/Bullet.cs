@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
+    Player player;
+
     private Vector3 normal;
     private float speed;
     Rigidbody rgb;
@@ -11,6 +13,9 @@ public class Bullet : MonoBehaviour
 
     public Vector3 target;
     public bool hit;
+
+    [SerializeField]
+    Transform bulletPosition;
 
     //public void Shoot(Vector3 normal, float speed)
     //{
@@ -28,14 +33,16 @@ public class Bullet : MonoBehaviour
     }
     private void Start()
     {
+        player = FindObjectOfType<Player>();
+        bulletPosition = player.transform.GetChild(0).GetChild(3).transform;
         rgb = GetComponent<Rigidbody>();
         gunEffect = Resources.Load<GameObject>("Prefabs/DustExplosion");
     }
     // Update is called once per frame
     void Update()
     {
-        if(gameObject.activeInHierarchy)
-        transform.Translate(Vector3.forward * Time.deltaTime * 300);
+        if (gameObject.activeInHierarchy)
+            transform.Translate(bulletPosition.forward * Time.deltaTime * 300);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -47,5 +54,4 @@ public class Bullet : MonoBehaviour
 
         Destroy(gameObject);
     }
-
 }
