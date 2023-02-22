@@ -13,9 +13,9 @@ public class Bullet : MonoBehaviour
 
     public Vector3 target;
     public bool hit;
-
     [SerializeField]
     Transform bulletPosition;
+    
 
     //public void Shoot(Vector3 normal, float speed)
     //{
@@ -34,24 +34,24 @@ public class Bullet : MonoBehaviour
     private void Start()
     {
         player = FindObjectOfType<Player>();
-        bulletPosition = player.transform.GetChild(0).GetChild(3).transform;
         rgb = GetComponent<Rigidbody>();
+        bulletPosition = player.transform.GetChild(0).GetChild(3).transform;
+        
         gunEffect = Resources.Load<GameObject>("Prefabs/DustExplosion");
+
+        rgb.AddForce(bulletPosition.forward * 12000);
     }
     // Update is called once per frame
     void Update()
     {
-        if (gameObject.activeInHierarchy)
-            transform.Translate(bulletPosition.forward * Time.deltaTime * 300);
+        
     }
 
     private void OnTriggerEnter(Collider other)
     {
         Debug.Log(other);
-        
         GameObject go = Instantiate(gunEffect, transform.position, Quaternion.identity);
         Destroy(go, 3);
-
         Destroy(gameObject);
     }
 }

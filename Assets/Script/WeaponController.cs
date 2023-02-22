@@ -5,6 +5,18 @@ using UnityEngine;
 
 public class WeaponController : MonoBehaviour
 {
+    private static WeaponController _instance;
+
+    public static WeaponController instance
+    {
+        get
+        {
+            if (_instance == null) _instance = FindObjectOfType<WeaponController>();
+            return _instance;
+        }
+    }
+
+
     Bullet bullet;
 
     [SerializeField]
@@ -65,12 +77,8 @@ public class WeaponController : MonoBehaviour
         }
         else
         {
-            Vector3 screenCenter = new Vector3(Camera.main.pixelWidth / 2, Camera.main.pixelHeight / 2, 0);
-            Ray ray = Camera.main.ScreenPointToRay(screenCenter);
-            
-            bulletPosition.LookAt(ray.direction);
-            Debug.Log(ray.direction);
-            Debug.DrawRay(ray.origin,ray.direction * 1000.0f, Color.blue); 
+            Quaternion dir = cameraTransform.rotation;
+            bulletPosition.rotation = dir;
         }
 
         if (Input.GetMouseButton(0))
