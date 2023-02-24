@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class WeaponController : MonoBehaviour
 {
+    #region Singleton
     private static WeaponController _instance;
-
     public static WeaponController instance
     {
         get
@@ -15,7 +15,7 @@ public class WeaponController : MonoBehaviour
             return _instance;
         }
     }
-
+    #endregion
 
     Bullet bullet;
 
@@ -30,7 +30,7 @@ public class WeaponController : MonoBehaviour
     [SerializeField]
     Transform leftMissilePosition;
 
-    private float missileCnt;
+    public float missileCnt;
     public float missileCooldownTime;
 
     float rightMslCooldown;
@@ -58,6 +58,7 @@ public class WeaponController : MonoBehaviour
         cameraTransform = Camera.main.transform;
         player = GetComponent<Player>();
         missileCnt = 8;
+        bulletCnt = 150;
     }
     private void Update()
     {
@@ -77,7 +78,7 @@ public class WeaponController : MonoBehaviour
         }
         else
         {
-            Quaternion dir = cameraTransform.rotation;
+            Quaternion dir = cameraTransform.rotation * Quaternion.Euler(-7, 0, 0);
             bulletPosition.rotation = dir;
         }
 
@@ -135,12 +136,21 @@ public class WeaponController : MonoBehaviour
 
     private void MainGunFire()
     {
-        player.transform.GetChild(0).GetChild(2).gameObject.SetActive(true);
-        GameObject go = Resources.Load<GameObject>("Prefabs/Bullet");
-        GameObject bullet = Instantiate(go, bulletPosition.position + new Vector3(Random.Range(-0.3f, 0.3f), Random.Range(-0.3f, 0.3f), 0), Quaternion.identity);
-        bullet.layer = 6;
-
-        Destroy(bullet, 3);
+        if (bulletCnt > 0)
+        {
+            player.transform.GetChild(0).GetChild(2).gameObject.SetActive(true);
+            GameObject go = Resources.Load<GameObject>("Prefabs/Bullet");
+            GameObject bullet = Instantiate(go, bulletPosition.position + new Vector3(Random.Range(-0.3f, 0.3f), Random.Range(-0.3f, 0.3f), 0), Quaternion.identity);
+            bullet.layer = 6;
+            bulletCnt--;
+            Destroy(bullet, 3);
+        }
+        else
+        {
+            CeaseFire();
+        }
+        
+        
     }
 
     private void CeaseFire()
@@ -198,7 +208,10 @@ public class WeaponController : MonoBehaviour
            {
                gameObject.transform.GetChild(0).GetChild(i).gameObject.SetActive(true);
            }
-
+        }
+        if(bulletCnt <= 0)
+        {
+            bulletCnt = 150;
         }
     }
 }

@@ -7,20 +7,37 @@ public class UI_Manager : MonoBehaviour
 {
     WeaponController weaponController;
 
-    [SerializeField]
-    Text textMesh;
-    
+    //private int _score;
+    //public int score
+    //{
+    //    set
+    //    {
+    //        _score = value;
+    //        missileCnt.text = _score.ToString();
+    //    }
+    //    get
+    //    {
+    //        return _score;
+    //    }
+    //}
+    public Text missileCnt;
+    public Text bulletCnt;
+
     // Start is called before the first frame update
     void Start()
     {
-        
-        textMesh.text = "Hellfire Missile : 8";
-
+        weaponController = GetComponent<WeaponController>();
+        missileCnt.color = Color.green;
+        missileCnt.text = "Hellfire Missile : 8";
+        bulletCnt.color = Color.green;
+        bulletCnt.text = "30mm Chain Gun : 150";
     }
 
     // Update is called once per frame
     void Update()
     {
-        //if(weaponController.GetComponent<WeaponController>())
+        missileCnt.text = $"Hellfire Missile : {WeaponController.instance.GetComponent<WeaponController>().missileCnt}" ;
+        bulletCnt.text = $"30mm Chain Gun : {WeaponController.instance.GetComponent<WeaponController>().bulletCnt}" ;
+        
     }
 }

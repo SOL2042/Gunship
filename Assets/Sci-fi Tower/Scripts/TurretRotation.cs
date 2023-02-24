@@ -47,6 +47,7 @@ public class TurretRotation : MonoBehaviour
 				xAxisRotation.rotatedTransform.localRotation = Quaternion.Lerp(xAxisRotation.rotatedTransform.localRotation, Quaternion.identity, xAxisRotation.rotationSpeed * timeDelta);
 			}
 		}
+		
 	}
 
 	private float FixNegativeAngle(float angle)

@@ -44,10 +44,8 @@ public class HellFire_Missile : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         Debug.Log(other);
-
         GameObject go = Instantiate(explosionPrefab, transform.position, Quaternion.identity);
         Destroy(go, 3);
-
         Destroy(gameObject);
     }
 

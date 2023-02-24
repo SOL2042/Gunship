@@ -6,7 +6,6 @@ public class Bullet : MonoBehaviour
 {
     Player player;
 
-    private Vector3 normal;
     private float speed;
     Rigidbody rgb;
     GameObject gunEffect;
@@ -15,13 +14,12 @@ public class Bullet : MonoBehaviour
     public bool hit;
     [SerializeField]
     Transform bulletPosition;
-    
 
-    //public void Shoot(Vector3 normal, float speed)
-    //{
-    //    this.normal = normal;
-    //    this.speed = speed;
-    //}
+
+    public void Speed(ref float speed)
+    {
+        this.speed = speed;
+    }
     public Bullet(Vector3 target, bool hit)
     {
         this.target = target;
@@ -50,7 +48,7 @@ public class Bullet : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         Debug.Log(other);
-        GameObject go = Instantiate(gunEffect, transform.position, Quaternion.identity);
+        GameObject go = Instantiate(gunEffect, transform.localPosition, Quaternion.identity);
         Destroy(go, 3);
         Destroy(gameObject);
     }
