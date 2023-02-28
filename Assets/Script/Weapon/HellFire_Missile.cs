@@ -8,7 +8,7 @@ public class HellFire_Missile : MonoBehaviour
     //유도될 대상
     Rigidbody rgb;
     Transform target;
-    float turningForce = 2.5f;
+    float turningForce = 2f;
 
     GameObject explosionPrefab;
 

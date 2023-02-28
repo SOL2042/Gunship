@@ -56,17 +56,17 @@
     <Analyzer Include="C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\deadScript.cs" />
+    <Compile Include="Assets\Script\deadScript.cs" />
     <Compile Include="Assets\Shared\Scripts\SimpleCharacterMotor.cs" />
-    <Compile Include="Assets\Script\WeaponController.cs" />
+    <Compile Include="Assets\Script\Controller\WeaponController.cs" />
     <Compile Include="Assets\Script\Player\Player.cs" />
     <Compile Include="Assets\Script\Weapon\Bullet.cs" />
     <Compile Include="Assets\Script\Unit\Mi24_Status.cs" />
     <Compile Include="Assets\Sci-fi Tower\Scripts\TurretRotation.cs" />
     <Compile Include="Assets\Shared\Scripts\ProximityActivate.cs" />
     <Compile Include="Assets\TutorialInfo\Scripts\Readme.cs" />
-    <Compile Include="Assets\EventManager.cs" />
-    <Compile Include="Assets\Script\CameraController.cs" />
+    <Compile Include="Assets\Script\Manager\EventManager.cs" />
+    <Compile Include="Assets\Script\Controller\CameraController.cs" />
     <Compile Include="Assets\Sci-fi Tower\Scripts\ChangeTurretMaterial.cs" />
     <Compile Include="Assets\Sci-fi Tower\Scripts\SimpleMovement.cs" />
     <Compile Include="Assets\Script\Weapon\Rocket.cs" />
@@ -78,15 +78,18 @@
     <Compile Include="Assets\Script\Weapon\MainGun.cs" />
     <Compile Include="Assets\Script\Unit\Unit_Status.cs" />
     <Compile Include="Assets\Shared\Scripts\SimpleCameraController.cs" />
-    <Compile Include="Assets\Script\GameManager.cs" />
+    <Compile Include="Assets\Script\Manager\GameManager.cs" />
     <Compile Include="Assets\EffectExamples\Misc Effects\Scripts\SpawnEffect.cs" />
-    <Compile Include="Assets\UI_Manager.cs" />
+    <Compile Include="Assets\Script\Manager\UI_Manager.cs" />
     <Compile Include="Assets\Script\Weapon\HellFire_Missile.cs" />
+    <Compile Include="Assets\military_vehicle.cs" />
+    <Compile Include="Assets\T90.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TerrainSampleAssets\ThirdPartyNotices.txt" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro.cginc" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile Overlay.shader" />
+    <None Include="Assets\Military Vehicle\Humvee Info.txt" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap.shader" />
     <None Include="Assets\EffectExamples\Misc Effects\Prefabs\Readme_Dissolve_Respawn_.txt" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface-Mobile.shader" />
