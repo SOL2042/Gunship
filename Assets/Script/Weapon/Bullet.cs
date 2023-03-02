@@ -15,7 +15,7 @@ public class Bullet : MonoBehaviour
     [SerializeField]
     Transform bulletPosition;
 
-
+    
     public void Speed(ref float speed)
     {
         this.speed = speed;

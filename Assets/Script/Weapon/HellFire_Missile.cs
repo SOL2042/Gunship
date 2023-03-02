@@ -25,22 +25,25 @@ public class HellFire_Missile : MonoBehaviour
         gameObject.layer = layer;
     }
 
+    private void Awake()
+    {
+        rgb = GetComponent<Rigidbody>();
+    }
     private void Start()
     {
         explosionPrefab = Resources.Load<GameObject>("Prefabs/BigExplosion");
-        rgb = GetComponent<Rigidbody>();
         Destroy(gameObject, lifeTime);
     }
-    private void Update()
-    {
-        if(speed < MaxSpeed)
-        {
-            speed += accelAmount * Time.deltaTime;
-        }
-        transform.Translate(0, 0, speed * Time.deltaTime);
-        LookAtTarget();
-    }
 
+    private void FixedUpdate()
+    {
+        LookAtTarget();
+        if (speed < MaxSpeed)
+        {
+            speed += accelAmount * Time.fixedDeltaTime;
+        }
+        rgb.velocity = transform.forward * speed;
+    }
     private void OnTriggerEnter(Collider other)
     {
         Debug.Log(other);
@@ -48,7 +51,11 @@ public class HellFire_Missile : MonoBehaviour
         Destroy(go, 3);
         Destroy(gameObject);
     }
-
+    private void OnDisable()
+    {
+        rgb.velocity = Vector3.zero;
+        rgb.angularVelocity = Vector3.zero;
+    }
 
     void LookAtTarget()
     {
@@ -65,8 +72,6 @@ public class HellFire_Missile : MonoBehaviour
         }
 
         Quaternion lookRotation = Quaternion.LookRotation(targetDir);
-        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, turningForce * Time.deltaTime);
+        rgb.rotation = Quaternion.Slerp(rgb.rotation, lookRotation, turningForce * Time.deltaTime);
     }
-
-
 }

@@ -84,6 +84,7 @@
     <Compile Include="Assets\EffectExamples\Misc Effects\Scripts\SpawnEffect.cs" />
     <Compile Include="Assets\Script\Manager\UI_Manager.cs" />
     <Compile Include="Assets\Script\Weapon\HellFire_Missile.cs" />
+    <Compile Include="Assets\EnemyController.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TerrainSampleAssets\ThirdPartyNotices.txt" />
