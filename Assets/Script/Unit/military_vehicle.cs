@@ -15,6 +15,7 @@ public class military_vehicle : MonoBehaviour
     void Update()
     {
         rgb.velocity = Vector3.Lerp(rgb.velocity, Vector3.zero, Time.deltaTime);
+        rgb.velocity = Vector3.Lerp(rgb.velocity, Vector3.zero, Time.deltaTime);
         rgb.AddRelativeForce(Vector3.forward * Time.deltaTime * 2000);
     }
 }

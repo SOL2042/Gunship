@@ -4,21 +4,17 @@ using UnityEngine;
 
 public abstract class Unit_Status
 {
-    private void Unit(int count, float binding)
-    {
+    float Maxhp;
+    float currentHp;
+    float def;
 
-    }
-    int HP;
-    float Def;
+    float unitSpeed;
+
+    float misileAtk;
+    float rocketAtk;
+    float bulletAtk;
     
-    int MisileAtk;
-    int RocketAtk;
-    int ShellAtk;
-    
-    int MisileCount;
-    int RocketCount;
-    int ShellCount;
-    
-    float VerticalSpeed;
-    float HorizonSpeed;
+    float bulletRPM;
+    float rocketRPM;
+    float misileRPM;
 }

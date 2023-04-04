@@ -36,7 +36,7 @@ public class Player : MonoBehaviour
     }
     private void Start()
     {
-        speed = 4;
+        speed = 10;
     }
     void Update()
     {

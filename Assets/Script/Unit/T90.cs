@@ -2,64 +2,129 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class T90 : MonoBehaviour
+public class T90 : MonoBehaviour 
 {
-    Player target;
+    //Player target;
+    //GameObject turret;
+    //GameObject mainGun;
+    //Rigidbody rgb;
+    //float rotSpeed = 30;
+    //float timer = 0;
+    //void Start()
+    //{
+    //    rgb = GetComponent<Rigidbody>();
+    //    target = FindObjectOfType<Player>();
+    //    turret = GameObject.Find("T90LP ForrestWavyCamo/Cube.017");
+    //    mainGun = GameObject.Find("T90LP ForrestWavyCamo/Cube.017/Cube.018");
+    //}
+
+    //void Update()
+    //{
+    //    rgb.velocity = Vector3.Lerp(rgb.velocity, Vector3.zero, Time.deltaTime);
+    //    timer += Time.deltaTime;
+    //    if (timer < 10)
+    //    {
+    //        rgb.AddRelativeForce(Vector3.forward * Time.deltaTime * 1000);
+    //    }
+    //    else if (timer > 10 && timer <= 13.1)
+    //    {
+    //        gameObject.transform.Rotate(Vector3.Lerp(new Vector3(0, -rotSpeed * Time.deltaTime, 0), Vector3.zero, Time.deltaTime));
+    //        if(timer >= 13)
+    //        {
+    //            timer = 0;
+    //        }
+    //    }
+
+
+
+
+    //    Aim();
+    //}
+
+    //private void Aim()
+    //{
+    //    //포탑 회전
+    //    //turret.transform.rotation = Quaternion.LookRotation(new Vector3(target.transform.position.x, 0 , target.transform.position.z));
+
+    //    turret.transform.rotation = Quaternion.Euler(0, turret.transform.rotation.y, 0);
+    //    turret.transform.LookAt(target.gameObject.transform);
+
+
+
+
+    //    //주포각
+    //    //mainGun.transform.rotation = Quaternion.LookRotation(new Vector3(0, target.transform.position.y, 0));
+
+    //   // mainGun.transform.rotation = Quaternion.Euler(mainGun.transform.rotation.x, 0, 0);
+    //   // mainGun.transform.LookAt(target.gameObject.transform);
+
+
+    //}
+
     GameObject turret;
     GameObject mainGun;
-    Rigidbody rgb;
-    float rotSpeed = 30;
-    float timer = 0;
-    void Start()
+
+    [SerializeField] private float moveSpeed = 20f; // 이동 속도
+    [SerializeField] private float turnSpeed = 60f; // 회전 속도
+    [SerializeField] private float shootRange = 30f; // 사격 범위
+    [SerializeField] private float shootInterval = 2f; // 사격 간격
+    [SerializeField] private Transform turretTransform; // 포탑 Transform 컴포넌트
+    [SerializeField] private Transform cannonTransform; // 포신 Transform 컴포넌트
+    [SerializeField] private float cannonPitchRange = 45f; // 포신 고도 제한 각도
+
+    private Transform playerTransform; // 플레이어의 Transform 컴포넌트
+    private Rigidbody tankRigidbody; // 탱크의 Rigidbody 컴포넌트
+    private float lastShootTime; // 마지막 사격 시간
+
+    private void Start()
     {
-        rgb = GetComponent<Rigidbody>();
-        target = FindObjectOfType<Player>();
-        turret = GameObject.Find("T90LP ForrestWavyCamo/Cube.017");
-        mainGun = GameObject.Find("T90LP ForrestWavyCamo/Cube.017/Cube.018");
+        playerTransform = GameObject.FindGameObjectWithTag("Player").transform; // 플레이어의 Transform 컴포넌트 가져오기
+        tankRigidbody = GetComponent<Rigidbody>(); // 탱크의 Rigidbody 컴포넌트 가져오기
+        turretTransform = GameObject.Find("T90LP ForrestWavyCamo/Cube.017").transform;
+        cannonTransform = GameObject.Find("T90LP ForrestWavyCamo/Cube.017/Cube.018").transform;
     }
 
-    void Update()
+    private void Update()
     {
-        rgb.velocity = Vector3.Lerp(rgb.velocity, Vector3.zero, Time.deltaTime);
-        timer += Time.deltaTime;
-        if (timer < 10)
+        // 플레이어와의 거리 계산
+        float distanceToPlayer = Vector3.Distance(transform.position, playerTransform.position);
+
+        if (distanceToPlayer <= shootRange) // 사격 범위 내에 있을 때
         {
-            rgb.AddRelativeForce(Vector3.forward * Time.deltaTime * 1000);
-        }
-        else if (timer > 10 && timer <= 13.1)
-        {
-            gameObject.transform.Rotate(Vector3.Lerp(new Vector3(0, -rotSpeed * Time.deltaTime, 0), Vector3.zero, Time.deltaTime));
-            if(timer >= 13)
+            if (Time.time - lastShootTime >= shootInterval) // 사격 간격이 지난 경우
             {
-                timer = 0;
+                Shoot(); // 사격
+                lastShootTime = Time.time; // 마지막 사격 시간 갱신
             }
         }
-        
-        
+        else // 사격 범위 밖에 있을 때
+        {
+            
+            Vector3 directionToPlayer = playerTransform.position - transform.position;
+            directionToPlayer.y = 0f;
 
-        
-        Aim();
+            Quaternion targetRotation = Quaternion.LookRotation(directionToPlayer);
+            tankRigidbody.MoveRotation(Quaternion.RotateTowards(transform.rotation, targetRotation, turnSpeed * Time.deltaTime));
+
+            // 포탑과 포신을 플레이어 방향으로 회전
+            Quaternion targetTurretRotation = Quaternion.LookRotation(directionToPlayer);
+
+            turretTransform.rotation = Quaternion.RotateTowards(turretTransform.rotation, targetTurretRotation, turnSpeed * Time.deltaTime);
+
+            Quaternion targetCannonRotation = Quaternion.LookRotation(directionToPlayer);
+            targetCannonRotation = Quaternion.Euler(new Vector3(Mathf.Clamp(-targetCannonRotation.eulerAngles.x, -cannonPitchRange, cannonPitchRange), targetCannonRotation.eulerAngles.y, targetCannonRotation.eulerAngles.z));
+            cannonTransform.rotation = Quaternion.RotateTowards(cannonTransform.rotation, targetCannonRotation, turnSpeed * Time.deltaTime);
+
+            // 탱크를 플레이어 쪽으로 이동
+            Vector3 movement = transform.forward * moveSpeed * Time.deltaTime;
+            tankRigidbody.MovePosition(tankRigidbody.position + movement);
+        }
     }
 
-    private void Aim()
+    private void Shoot()
     {
-        //포탑 회전
-        //turret.transform.rotation = Quaternion.LookRotation(new Vector3(target.transform.position.x, 0 , target.transform.position.z));
+        // 사격 로직 구현
 
-        turret.transform.rotation = Quaternion.Euler(0, turret.transform.rotation.y, 0);
-        turret.transform.LookAt(target.gameObject.transform);
-
-
-
-
-        //주포각
-        //mainGun.transform.rotation = Quaternion.LookRotation(new Vector3(0, target.transform.position.y, 0));
-
-       // mainGun.transform.rotation = Quaternion.Euler(mainGun.transform.rotation.x, 0, 0);
-       // mainGun.transform.LookAt(target.gameObject.transform);
-        
-
+        Debug.Log("Shoot!");
     }
-
-
 }
