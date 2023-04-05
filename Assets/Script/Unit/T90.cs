@@ -6,11 +6,11 @@ public class T90 : MonoBehaviour
 {
     GameObject explosionPrefab;
 
-    [SerializeField] private float moveSpeed = 50f; // 이동 속도
+    [SerializeField] private float moveSpeed = 20f; // 이동 속도
     [SerializeField] private float turnSpeed = 900f; // 회전 속도
     [SerializeField] private float turretTurnSpeed = 70f; // 회전 속도
-    [SerializeField] private float shootRange = 80f; // 사격 범위
-    [SerializeField] private float shootInterval = 2f; // 사격 간격
+    [SerializeField] private float shootRange = 100f; // 사격 범위
+    [SerializeField] private float shootInterval = 4f; // 사격 간격
     [SerializeField] private Transform turretTransform; // 포탑 Transform 컴포넌트
     //[SerializeField] private Transform cannonTransform; // 포신 Transform 컴포넌트
     //[SerializeField] private float cannonPitchRange = 45f; // 포신 고도 제한 각도
