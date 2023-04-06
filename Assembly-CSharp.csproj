@@ -68,6 +68,7 @@
     <Compile Include="Assets\Script\Manager\EventManager.cs" />
     <Compile Include="Assets\Script\Controller\CameraController.cs" />
     <Compile Include="Assets\Sci-fi Tower\Scripts\ChangeTurretMaterial.cs" />
+    <Compile Include="Assets\Script\Weapon\TankBullet.cs" />
     <Compile Include="Assets\Sci-fi Tower\Scripts\SimpleMovement.cs" />
     <Compile Include="Assets\Script\Unit\T90.cs" />
     <Compile Include="Assets\Script\Weapon\Rocket.cs" />

@@ -21,26 +21,38 @@ public class EnemyController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        for (int i = 0; i < 8; i++)
-        {
-            Instantiate(t90, new Vector3(RandomX, 0, RandomZ), Quaternion.identity);
-            
-            t90s[i].SetActive(false);
-        }
+        
     }
 
     // Update is called once per frame
     void Update()
     {
+        RandomX = Random.Range(-200, 200);
+        RandomZ = Random.Range(-5, 5);
         timer += Time.deltaTime;
         if(timer >= resTime)
         {
-            for (int i = 0; i < t90s.Count; i++)
+            if (t90s.Count <= 8)
             {
-                t90s[i].SetActive(true);
+                Instantiate();
+                for (int i = 0; i < t90s.Count; i++)
+                {
+                    t90s[i].SetActive(true);
+                }
             }
-            
-            
         }
     }
+
+
+    private void Instantiate()
+    {
+        for (int i = 0; i < 8; i++)
+        {
+            t90s.Add(Instantiate(t90, new Vector3(RandomX, 0, RandomZ), Quaternion.identity));
+
+            t90s[i].SetActive(false);
+        }
+    }
+
+
 }
