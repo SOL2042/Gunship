@@ -82,6 +82,7 @@
     <Compile Include="Assets\Script\Weapon\MainGun.cs" />
     <Compile Include="Assets\Script\Unit\Unit_Status.cs" />
     <Compile Include="Assets\Shared\Scripts\SimpleCameraController.cs" />
+    <Compile Include="Assets\Script\Unit\T90_Status.cs" />
     <Compile Include="Assets\Script\Manager\GameManager.cs" />
     <Compile Include="Assets\EffectExamples\Misc Effects\Scripts\SpawnEffect.cs" />
     <Compile Include="Assets\Script\Manager\UI_Manager.cs" />

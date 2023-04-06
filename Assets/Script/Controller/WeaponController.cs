@@ -36,10 +36,12 @@ public class WeaponController : MonoBehaviour
     float rightMslCooldown;
     float leftMslCooldown;
 
-    public int bulletCnt;
+    public float bulletCnt;
    
     public float gunRPM;
-    
+
+    public float fireRange;
+
     Player player;
     // Weapon Inputs
     
@@ -54,14 +56,21 @@ public class WeaponController : MonoBehaviour
 
     void Start()
     {
-       
+        enemyPosition = null;
         cameraTransform = Camera.main.transform;
         player = GetComponent<Player>();
-        missileCnt = 8;
-        bulletCnt = 150;
+        missileCnt = 8f;
+        bulletCnt = 150f;
+        fireRange = 300f;
     }
     private void Update()
     {
+        
+        if (enemyPosition == null)
+        {
+            //enemyPosition = GameObject.FindWithTag("Enemy").transform;
+        }
+
         Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * 1000.0f, Color.green);
 
         RaycastHit temp;

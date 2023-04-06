@@ -30,21 +30,21 @@ public class T90 : MonoBehaviour
         bullet = Resources.Load<GameObject>("Prefabs/TankBullet");
         explosionPrefab = Resources.Load<GameObject>("Prefabs/BigExplosion");
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform; // 플레이어의 Transform 컴포넌트 가져오기
-        USbaseTransform = GameObject.FindGameObjectWithTag("Player").transform;
+        USbaseTransform = GameObject.FindGameObjectWithTag("USBase").transform;
         tankRigidbody = GetComponent<Rigidbody>(); // 탱크의 Rigidbody 컴포넌트 가져오기
-        turretTransform = GameObject.Find("T90LP ForrestWavyCamo/Cube.017").transform;
+        turretTransform = GameObject.FindWithTag("Enemy").transform.GetChild(16).transform;
         //cannonTransform = GameObject.Find("T90LP ForrestWavyCamo/Cube.017/Cube.018").transform;
     }
 
     private void Update()
     {
         // 플레이어와의 거리 계산
-        float distanceToPlayer = Vector3.Distance(transform.position, playerTransform.position);
+        float distanceToPlayer = Vector3.Distance(transform.position, USbaseTransform.position);
 
         if (distanceToPlayer <= shootRange) // 사격 범위 내에 있을 때
         {
             moveSpeed = 0;
-            Vector3 directionToPlayer = playerTransform.position - transform.position;
+            Vector3 directionToPlayer = USbaseTransform.position - transform.position;
             // 포탑과 포신을 플레이어 방향으로 회전
             Quaternion targetTurretRotation = Quaternion.LookRotation(directionToPlayer);
             turretTransform.rotation = Quaternion.RotateTowards(turretTransform.rotation, targetTurretRotation, turnSpeed * Time.deltaTime);
@@ -60,8 +60,7 @@ public class T90 : MonoBehaviour
         }
         else // 사격 범위 밖에 있을 때
         {
-            
-            Vector3 directionToPlayer = playerTransform.position - transform.position;
+            Vector3 directionToPlayer = USbaseTransform.position - transform.position;
             directionToPlayer.y = 0f;
 
             Quaternion targetRotation = Quaternion.LookRotation(directionToPlayer);
@@ -79,7 +78,6 @@ public class T90 : MonoBehaviour
         //transform.GetChild(0).GetChild(2).gameObject.SetActive(true);
         GameObject go = Resources.Load<GameObject>("Prefabs/TankBullet");
         GameObject bullet = Instantiate(go, bulletPosition.position, Quaternion.identity);
-        
         
         Destroy(bullet, 3);
         Debug.Log("Shoot!");

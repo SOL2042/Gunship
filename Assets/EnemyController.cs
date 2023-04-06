@@ -13,8 +13,6 @@ public class EnemyController : MonoBehaviour
     float timer = 0;
     private void Awake()
     {
-        RandomX = Random.Range(-200, 200);
-        RandomZ = Random.Range(-5, 5);
         t90s = new List<GameObject>();
         t90 = Resources.Load("Prefabs/T90LP ForrestWavyCamo") as GameObject;
     }
@@ -27,30 +25,25 @@ public class EnemyController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        RandomX = Random.Range(-200, 200);
-        RandomZ = Random.Range(-5, 5);
+        RandomX = Random.Range(-400, 400);
+        RandomZ = Random.Range(400, 401);
         timer += Time.deltaTime;
         if(timer >= resTime)
         {
-            if (t90s.Count <= 8)
+            Instantiate();
+            for (int i = 0; i < t90s.Count; i++)
             {
-                Instantiate();
-                for (int i = 0; i < t90s.Count; i++)
-                {
-                    t90s[i].SetActive(true);
-                }
+                t90s[i].SetActive(true);
             }
+            timer = 0;
         }
     }
 
-
     private void Instantiate()
     {
-        for (int i = 0; i < 8; i++)
+        if (t90s.Count <= 8)
         {
             t90s.Add(Instantiate(t90, new Vector3(RandomX, 0, RandomZ), Quaternion.identity));
-
-            t90s[i].SetActive(false);
         }
     }
 

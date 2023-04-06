@@ -4,16 +4,17 @@ using UnityEngine;
 
 public class TankBullet : MonoBehaviour
 {
-    T90 t90;
 
+    T90 t90;
+    Transform bulletPosition;
     private float speed;
     Rigidbody rgb;
     GameObject gunEffect;
 
     public Vector3 target;
     public bool hit;
-    [SerializeField]
-    Transform bulletPosition;
+    
+    
 
 
     public void Speed(ref float speed)
@@ -31,9 +32,13 @@ public class TankBullet : MonoBehaviour
     }
     private void Start()
     {
+        
+        
         t90 = FindObjectOfType<T90>();
+        
+
         rgb = GetComponent<Rigidbody>();
-        bulletPosition = t90.transform.GetChild(17).GetChild(0).GetChild(0).transform;
+        bulletPosition = t90.transform.GetChild(16).GetChild(0).GetChild(0).transform;
 
         gunEffect = Resources.Load<GameObject>("Prefabs/DustExplosion");
 
