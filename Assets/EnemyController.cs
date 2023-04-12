@@ -4,6 +4,17 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
+    private static EnemyController _instance;
+
+    public static EnemyController instance
+    {
+        get
+        {
+            if (_instance == null) _instance = FindObjectOfType<EnemyController>();
+            return _instance;
+        }
+    }
+
     private GameObject t90;
     List<GameObject> t90s;
     [SerializeField] Transform resPosition;
@@ -43,7 +54,7 @@ public class EnemyController : MonoBehaviour
     {
         if (t90s.Count <= 8)
         {
-            t90s.Add(Instantiate(t90, new Vector3(RandomX, 0, RandomZ), Quaternion.identity));
+            t90s.Add(Instantiate(t90, new Vector3(RandomX, 0, RandomZ), Quaternion.Euler(0,180,0)));
         }
     }
 
