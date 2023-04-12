@@ -82,4 +82,10 @@ public class T90 : MonoBehaviour
         Destroy(bullet, 3);
         Debug.Log("Shoot!");
     }
+
+    private void Dead()
+    {
+        Debug.Log("ав╬З╢ы!");
+    }
+    
 }
