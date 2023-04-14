@@ -14,9 +14,6 @@ public class TankBullet : MonoBehaviour
     public Vector3 target;
     public bool hit;
     
-    
-
-
     public void Speed(ref float speed)
     {
         this.speed = speed;
@@ -28,25 +25,23 @@ public class TankBullet : MonoBehaviour
     }
     private void Awake()
     {
-
+        //t90 = FindObjectOfType<T90>();
     }
     private void Start()
     {
-        
-        
-        t90 = FindObjectOfType<T90>();
-        
-
-        rgb = GetComponent<Rigidbody>();
-        bulletPosition = t90.transform.GetChild(16).GetChild(0).GetChild(0).transform;
+        //rgb = GetComponent<Rigidbody>();
+        //bulletPosition = t90.GetComponent<T90>().transform.GetChild(16).GetChild(0).GetChild(0).transform;
 
         gunEffect = Resources.Load<GameObject>("Prefabs/DustExplosion");
 
-        rgb.AddForce(bulletPosition.forward * 12000);
+        //rgb.AddForce(bulletPosition.forward * 12000);
+
+
     }
     // Update is called once per frame
     void Update()
     {
+        transform.Translate(new Vector3(0, 0, 200 * Time.deltaTime));
 
     }
 

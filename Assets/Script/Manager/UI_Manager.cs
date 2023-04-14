@@ -2,26 +2,29 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class UI_Manager : MonoBehaviour
 {
     WeaponController weaponController;
 
-    //private int _score;
-    //public int score
-    //{
-    //    set
-    //    {
-    //        _score = value;
-    //        missileCnt.text = _score.ToString();
-    //    }
-    //    get
-    //    {
-    //        return _score;
-    //    }
-    //}
+    private int _score;
+    public int score
+    {
+        set
+        {
+            _score = value;
+            missileCnt.text = _score.ToString();
+        }
+        get
+        {
+            return _score;
+        }
+    }
     public Text missileCnt;
     public Text bulletCnt;
+    public TextMeshPro scoreTxt;
+
 
     // Start is called before the first frame update
     void Start()
@@ -38,6 +41,6 @@ public class UI_Manager : MonoBehaviour
     {
         missileCnt.text = $"Hellfire Missile : {WeaponController.instance.GetComponent<WeaponController>().missileCnt}" ;
         bulletCnt.text = $"30mm Chain Gun : {WeaponController.instance.GetComponent<WeaponController>().bulletCnt}" ;
-        
+        scoreTxt.text = $"Score : {score}";
     }
 }

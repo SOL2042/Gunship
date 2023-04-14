@@ -68,7 +68,11 @@ public class WeaponController : MonoBehaviour
         
         if (enemyPosition == null)
         {
-            //enemyPosition = GameObject.FindWithTag("Enemy").transform;
+           enemyPosition = GameObject.FindWithTag("Enemy").transform;
+        }
+        else
+        {
+            
         }
 
         Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * 1000.0f, Color.green);
@@ -82,7 +86,7 @@ public class WeaponController : MonoBehaviour
             
             //Debug.Log(temp.point);
             bulletPosition.LookAt(temp.point);
-            bullet = new Bullet(temp.point, false);
+            //bullet = new Bullet(temp.point, false);
             Debug.DrawRay(bulletPosition.position, bulletPosition.forward * 1000.0f, Color.red); // 이 레이는 앞서 선언한 디버그용 레이와 충돌점에서 교차한다
         }
         else
