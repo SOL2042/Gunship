@@ -121,7 +121,7 @@ MonoBehaviour:
   m_MinSize: {x: 400, y: 200}
   m_MaxSize: {x: 32384, y: 16192}
   vertical: 0
-  controlID: 59
+  controlID: 138
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -146,7 +146,7 @@ MonoBehaviour:
   m_MinSize: {x: 100, y: 200}
   m_MaxSize: {x: 8096, y: 16192}
   vertical: 1
-  controlID: 60
+  controlID: 155
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -275,7 +275,7 @@ MonoBehaviour:
   m_MinSize: {x: 100, y: 200}
   m_MaxSize: {x: 8096, y: 16192}
   vertical: 1
-  controlID: 23
+  controlID: 139
 --- !u!114 &12
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -418,7 +418,7 @@ MonoBehaviour:
     m_VAllowExceedBaseRangeMax: 1
     m_ScaleWithWindow: 0
     m_HSlider: 0
-    m_VSlider: 0
+    m_VSlider: 1
     m_IgnoreScrollWheelUntilClicked: 0
     m_EnableMouseInput: 1
     m_EnableSliderZoomHorizontal: 0
@@ -431,7 +431,7 @@ MonoBehaviour:
       y: 21
       width: 896
       height: 447
-    m_Scale: {x: 0.41388893, y: 0.4138889}
+    m_Scale: {x: 0.4333333, y: 0.43333334}
     m_Translation: {x: 448, y: 223.5}
     m_MarginLeft: 0
     m_MarginRight: 0
@@ -439,12 +439,12 @@ MonoBehaviour:
     m_MarginBottom: 0
     m_LastShownAreaInsideMargins:
       serializedVersion: 2
-      x: -1082.416
-      y: -540
-      width: 2164.832
-      height: 1080
+      x: -1033.8462
+      y: -515.7692
+      width: 2067.6924
+      height: 1031.5385
     m_MinimalGUI: 1
-  m_defaultScale: 0.4138889
+  m_defaultScale: 0.43333334
   m_LastWindowPixelSize: {x: 896, y: 468}
   m_ClearInEditMode: 1
   m_NoCameraWarning: 1
@@ -732,9 +732,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: -76.04375, y: 3.8911026, z: 354.4701}
+    m_Target: {x: -151.52606, y: 3.2132928, z: -331.2067}
     speed: 2
-    m_Value: {x: -76.04375, y: 3.8911026, z: 354.4701}
+    m_Value: {x: -151.52606, y: 3.2132928, z: -331.2067}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -781,13 +781,13 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: 0.2199676, y: 0.7251609, z: -0.26832452, w: 0.5948784}
+    m_Target: {x: -0.13837926, y: 0.85124403, z: -0.42262125, w: -0.27882487}
     speed: 2
-    m_Value: {x: 0.21995415, y: 0.72511655, z: -0.2683081, w: 0.594842}
+    m_Value: {x: -0.13837114, y: 0.8511941, z: -0.42259645, w: -0.2788085}
   m_Size:
-    m_Target: 3.6754477
+    m_Target: 7.8224907
     speed: 2
-    m_Value: 3.6754477
+    m_Value: 7.485637
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -844,23 +844,23 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 326dfeff
-      m_LastClickedID: -103118
-      m_ExpandedIDs: c88bfeffd08bfeff5e8cfeffca8dfeffd28dfeff608efeff16d6feff02d8feffdcdbfeffb4dffeff70b5ffff42b7ffff
+      m_SelectedIDs: d4520000
+      m_LastClickedID: 0
+      m_ExpandedIDs: 02fbffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
-        m_Name: TankBullet(Clone)
-        m_OriginalName: TankBullet(Clone)
+        m_Name: 
+        m_OriginalName: 
         m_EditFieldRect:
           serializedVersion: 2
           x: 0
           y: 0
           width: 0
           height: 0
-        m_UserData: -176988
+        m_UserData: 0
         m_IsWaitingForDelay: 0
         m_IsRenaming: 0
-        m_OriginalEventType: 0
+        m_OriginalEventType: 11
         m_IsRenamingFilename: 0
         m_ClientGUIView: {fileID: 9}
       m_SearchString: 
@@ -911,22 +911,21 @@ MonoBehaviour:
     m_ShowAllHits: 0
     m_SkipHidden: 0
     m_SearchArea: 1
-    m_Folders:
-    - Assets/Resources/Prefabs
+    m_Folders: []
     m_Globs: []
     m_OriginalText: 
   m_ViewMode: 0
   m_StartGridSize: 64
   m_LastFolders: []
   m_LastFoldersGridSize: -1
-  m_LastProjectPath: C:\Users\user\Documents\GitHub\Gunship
+  m_LastProjectPath: C:\Users\Counter\Documents\GitHub\Gunship
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: ee7a0000
     m_LastClickedID: 31470
-    m_ExpandedIDs: 
+    m_ExpandedIDs: 000000005c5200005e52000060520000625200006452000066520000685200006a5200006c5200006e52000070520000725200007452000076520000785200007a5200007c5200007e52000080520000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -951,24 +950,24 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_AssetTreeState:
-    scrollPos: {x: 0, y: 0}
+    scrollPos: {x: 0, y: 1280}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: ffffffff000000005ea7000092a7000096a70000ce860100d0860100
+    m_ExpandedIDs: ffffffff000000005c5200005e52000060520000625200006452000066520000685200006a5200006c5200006e52000070520000725200007452000076520000785200007a5200007c5200007e52000080520000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
-      m_Name: T90LP ForrestWavyCamo
-      m_OriginalName: T90LP ForrestWavyCamo
+      m_Name: 
+      m_OriginalName: 
       m_EditFieldRect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 0
         height: 0
-      m_UserData: 42842
+      m_UserData: 0
       m_IsWaitingForDelay: 0
       m_IsRenaming: 0
-      m_OriginalEventType: 0
+      m_OriginalEventType: 11
       m_IsRenamingFilename: 1
       m_ClientGUIView: {fileID: 10}
     m_SearchString: 
