@@ -23,11 +23,13 @@ public class GameManager : MonoBehaviour
         CreatBulletPool();
 
         Transform bulletSpawnPoint = GameObject.Find("Gunship/Gunship/BulletPosition")?.transform;
+       
     }
 
     // Update is called once per frame
     void Update()
     {
+        
         bulletPosition = player.transform.Find("BulletPosition");
         //if (Input.GetMouseButton(0))
         //{

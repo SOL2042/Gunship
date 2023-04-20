@@ -6,13 +6,22 @@ using TMPro;
 
 public class UI_Manager : MonoBehaviour
 {
+    private static UI_Manager _instance;
+    public static UI_Manager instance
+    {
+        get
+        {
+            if (_instance == null) _instance = FindObjectOfType<UI_Manager>();
+            return _instance;
+        }
+    }
     private int _score;
     public int score
     {
         set
         {
             _score = value;
-            missileCnt.text = _score.ToString();
+            scoreTxt.text = _score.ToString();
         }
         get
         {
@@ -21,7 +30,7 @@ public class UI_Manager : MonoBehaviour
     }
     public Text missileCnt;
     public Text bulletCnt;
-    public TextMeshPro scoreTxt;
+    public TextMeshProUGUI scoreTxt;
 
 
     // Start is called before the first frame update

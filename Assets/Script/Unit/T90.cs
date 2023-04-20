@@ -5,8 +5,7 @@ using UnityEngine;
 public class T90 : MonoBehaviour 
 {
     TankBullet tankBullet;
-
-    GameObject explosionPrefab;
+    GameObject deadEffect;
     GameObject bullet;
 
     [SerializeField] private float moveSpeed = 20f; // 이동 속도
@@ -20,15 +19,21 @@ public class T90 : MonoBehaviour
     private Transform USbaseTransform; // 플레이어 기지의 Transform 컴포넌트
     private Rigidbody tankRigidbody; // 탱크의 Rigidbody 컴포넌트
     private float lastShootTime; // 마지막 사격 시간
-
+    private float deadEffectTime = 3;
+    private float deadEffectTimer = 3;
     [SerializeField] private Transform bulletPosition;
 
+    private int score = 100;
 
     private void Start()
     {
+        EventManager.instance.AddListener("addTankScore", (e)=>
+        {
+            Score();
+        });
         bulletPosition = transform.GetChild(16).GetChild(0).GetChild(0).transform;
         bullet = Resources.Load<GameObject>("Prefabs/TankBullet");
-        explosionPrefab = Resources.Load<GameObject>("Prefabs/BigExplosion");
+        deadEffect = Resources.Load<GameObject>("Prefabs/BigExplosion");
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform; // 플레이어의 Transform 컴포넌트 가져오기
         USbaseTransform = GameObject.FindGameObjectWithTag("USBase").transform;
         tankRigidbody = GetComponent<Rigidbody>(); // 탱크의 Rigidbody 컴포넌트 가져오기
@@ -39,14 +44,11 @@ public class T90 : MonoBehaviour
     {
         Move();
         USbaseTransform = GameObject.FindWithTag("USBase").transform;
-        Debug.Log(USbaseTransform.name);
+        //Debug.Log(USbaseTransform.name);
     }
 
     private void Move()
     {
-        
-
-
         // 기지와의 거리 계산
         float distanceToPlayer = Vector3.Distance(transform.position, USbaseTransform.position);
 
@@ -88,16 +90,25 @@ public class T90 : MonoBehaviour
         bullet.transform.rotation = bulletPosition.transform.rotation;
         
         Destroy(bullet, 3);
-        Debug.Log("Shoot!");
+        //Debug.Log("Shoot!");
     }
 
-    
-
-
-    private void Dead()
+    private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("죽었다!");
+        if (other.gameObject.layer == 6)
+        {
+            EventManager.instance.PostEvent("addTankScore", null);
+            GameObject go = Instantiate(deadEffect, transform.position, Quaternion.identity);
+            
+            gameObject.SetActive(false);
+            gameObject.transform.position = new Vector3(EnemyController.instance.RandomX, 0, EnemyController.instance.RandomZ);
+            Destroy(go, 3);
+        }
+    }
 
+    private void Score()
+    {
+        UI_Manager.instance.score += score;
     }
     
     

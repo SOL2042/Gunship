@@ -65,15 +65,16 @@ public class WeaponController : MonoBehaviour
     }
     private void Update()
     {
-        
-        if (enemyPosition == null)
+       
+        if (EnemyController.instance.t90s.Count == 0)
         {
-           enemyPosition = GameObject.FindWithTag("Enemy").transform;
+            enemyPosition = null;
         }
         else
         {
-            
+            enemyPosition = GameObject.FindWithTag("Enemy").transform;
         }
+        
 
         Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * 1000.0f, Color.green);
 
@@ -162,8 +163,6 @@ public class WeaponController : MonoBehaviour
         {
             CeaseFire();
         }
-        
-        
     }
 
     private void CeaseFire()

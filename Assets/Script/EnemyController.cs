@@ -16,10 +16,10 @@ public class EnemyController : MonoBehaviour
     }
 
     private GameObject t90;
-    List<GameObject> t90s;
+    public List<GameObject> t90s;
     [SerializeField] Transform resPosition;
-    float RandomX;
-    float RandomZ;
+    public float RandomX;
+    public float RandomZ;
     float resTime = 3;
     float timer = 0;
     private void Awake()

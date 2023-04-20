@@ -73,7 +73,7 @@
     <Compile Include="Assets\Script\Unit\T90.cs" />
     <Compile Include="Assets\Script\Weapon\Rocket.cs" />
     <Compile Include="Assets\Shared\Scripts\AdjustTimeScale.cs" />
-    <Compile Include="Assets\EnemyController.cs" />
+    <Compile Include="Assets\Script\EnemyController.cs" />
     <Compile Include="Assets\Sci-fi Tower\Scripts\RotationData.cs" />
     <Compile Include="Assets\Shared\Ramps\Runtime\RampAsset.cs" />
     <Compile Include="Assets\Script\Unit\AH64_Status.cs" />
