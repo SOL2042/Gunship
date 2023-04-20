@@ -4,17 +4,17 @@ using UnityEngine;
 
 public abstract class Unit_Status
 {
-    float Maxhp;
-    float currentHp;
-    float def;
+    public float Maxhp;
+    public float currentHp;
+    public float def;
 
-    float unitSpeed;
+    public float unitSpeed;
 
-    float misileAtk;
-    float rocketAtk;
-    float bulletAtk;
-    
-    float bulletRPM;
-    float rocketRPM;
-    float misileRPM;
+    public float misileAtk;
+    public float rocketAtk;
+    public float bulletAtk;
+
+    public float bulletRPM;
+    public float rocketRPM;
+    public float misileRPM;
 }

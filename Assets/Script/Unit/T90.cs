@@ -44,6 +44,9 @@ public class T90 : MonoBehaviour
 
     private void Move()
     {
+        
+
+
         // 기지와의 거리 계산
         float distanceToPlayer = Vector3.Distance(transform.position, USbaseTransform.position);
 
@@ -76,8 +79,6 @@ public class T90 : MonoBehaviour
         }
     }
 
-
-
     private void Shoot()
     {
         // 사격 로직 구현
@@ -90,11 +91,12 @@ public class T90 : MonoBehaviour
         Debug.Log("Shoot!");
     }
 
+    
+
+
     private void Dead()
     {
         Debug.Log("죽었다!");
-
-
 
     }
     

@@ -14,7 +14,6 @@ public class Bullet : MonoBehaviour
     public bool hit;
     [SerializeField]
     Transform bulletPosition;
-
     
     public void Speed(ref float speed)
     {

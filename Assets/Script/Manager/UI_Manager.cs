@@ -6,8 +6,6 @@ using TMPro;
 
 public class UI_Manager : MonoBehaviour
 {
-    WeaponController weaponController;
-
     private int _score;
     public int score
     {
@@ -29,13 +27,11 @@ public class UI_Manager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        weaponController = GetComponent<WeaponController>();
         missileCnt.color = Color.green;
         missileCnt.text = "Hellfire Missile : 8";
         bulletCnt.color = Color.green;
         bulletCnt.text = "30mm Chain Gun : 150";
     }
-
     // Update is called once per frame
     void Update()
     {
