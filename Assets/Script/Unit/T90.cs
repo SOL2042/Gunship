@@ -67,18 +67,33 @@ public class T90 : MonoBehaviour
         }
         else // 사격 범위 밖에 있을 때
         {
-            moveSpeed = 20f;
+            if (Physics.SphereCast(new Vector3(gameObject.transform.position.x, gameObject.transform.position.y + 10, gameObject.transform.position.z), 3, Vector3.down, out RaycastHit hit))
+            {
+                if (hit.collider.gameObject.layer == 11)
+                {
+                    moveSpeed = 0;
+                    Debug.Log($"{gameObject.name} : {hit}");
+                }
+                else
+                {
+                    moveSpeed = 20f;
 
-            Vector3 directionToPlayer = USbaseTransform.position - transform.position;
-            directionToPlayer.y = 0f;
+                    Vector3 directionToPlayer = USbaseTransform.position - transform.position;
+                    directionToPlayer.y = 0f;
 
-            Quaternion targetRotation = Quaternion.LookRotation(directionToPlayer);
-            tankRigidbody.MoveRotation(Quaternion.RotateTowards(transform.rotation, targetRotation, turnSpeed * Time.deltaTime));
+                    Quaternion targetRotation = Quaternion.LookRotation(directionToPlayer);
+                    tankRigidbody.MoveRotation(Quaternion.RotateTowards(transform.rotation, targetRotation, turnSpeed * Time.deltaTime));
 
-            // 탱크를 플레이어 쪽으로 이동
-            Vector3 movement = transform.forward * moveSpeed * Time.deltaTime;
-            tankRigidbody.MovePosition(tankRigidbody.position + movement);
+                    // 탱크를 플레이어 쪽으로 이동
+                    Vector3 movement = transform.forward * moveSpeed * Time.deltaTime;
+                    tankRigidbody.MovePosition(tankRigidbody.position + movement);
+                }
+            }
+            
         }
+
+        
+        
     }
 
     private void Shoot()
@@ -95,7 +110,7 @@ public class T90 : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.layer == 6)
+        if (other.gameObject.layer == 6 )
         {
             EventManager.instance.PostEvent("addTankScore", null);
             GameObject go = Instantiate(deadEffect, transform.position, Quaternion.identity);

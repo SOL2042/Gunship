@@ -47,7 +47,7 @@ public class TankBullet : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log(other);
+        //Debug.Log(other);
         GameObject go = Instantiate(gunEffect, transform.localPosition, Quaternion.identity);
         Destroy(go, 3);
         Destroy(gameObject);

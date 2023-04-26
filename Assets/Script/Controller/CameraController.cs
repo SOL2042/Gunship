@@ -51,6 +51,7 @@ public class CameraController : MonoBehaviour
         }
         cam.transform.rotation = Quaternion.Euler(targetX, targetY, 0);
         player.transform.rotation = Quaternion.Euler(0, finalAngleY, 0);
+        cam.farClipPlane = 2000f;
     }
 
 

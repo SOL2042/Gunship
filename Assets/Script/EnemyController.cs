@@ -14,7 +14,7 @@ public class EnemyController : MonoBehaviour
             return _instance;
         }
     }
-
+    
     private GameObject t90;
     public List<GameObject> t90s;
     [SerializeField] Transform resPosition;
