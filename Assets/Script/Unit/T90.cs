@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class T90 : MonoBehaviour 
+public class T90 : UnitData
 {
     TankBullet tankBullet;
     GameObject deadEffect;
@@ -11,7 +11,7 @@ public class T90 : MonoBehaviour
     [SerializeField] private float moveSpeed = 20f; // 이동 속도
     [SerializeField] private float turnSpeed = 900f; // 회전 속도
     [SerializeField] private float turretTurnSpeed = 70f; // 회전 속도
-    [SerializeField] private float shootRange = 100f; // 사격 범위
+    //[SerializeField] private float shootRange = 100f; // 사격 범위
     [SerializeField] private float shootInterval = 4f; // 사격 간격
     [SerializeField] private Transform turretTransform; // 포탑 Transform 컴포넌트
 
@@ -22,12 +22,18 @@ public class T90 : MonoBehaviour
     private float deadEffectTime = 3;
     private float deadEffectTimer = 3;
     [SerializeField] private Transform bulletPosition;
-
+    T90_InitStatus t90_InitStatus;
     private int score = 100;
+
+    public T90()
+    {
+        t90_InitStatus = new T90_InitStatus();
+    }
+
 
     private void Start()
     {
-        EventManager.instance.AddListener("addTankScore", (e)=>
+        EventManager.instance.AddListener("addTankScore", (p)=>
         {
             Score();
         });
@@ -52,9 +58,9 @@ public class T90 : MonoBehaviour
         // 기지와의 거리 계산
         float distanceToPlayer = Vector3.Distance(transform.position, USbaseTransform.position);
 
-        if (distanceToPlayer <= shootRange) // 사격 범위 내에 있을 때
+        if (distanceToPlayer <= totalData.unitshootRange) // 사격 범위 내에 있을 때
         {
-            moveSpeed = 0;
+            //moveSpeed = 0;
             Vector3 directionToPlayer = USbaseTransform.position - transform.position;
             Quaternion targetRotation = Quaternion.LookRotation(directionToPlayer);
             turretTransform.rotation = Quaternion.RotateTowards(turretTransform.rotation, targetRotation, turnSpeed * Time.deltaTime);
@@ -69,7 +75,7 @@ public class T90 : MonoBehaviour
         {
             if (Physics.SphereCast(new Vector3(gameObject.transform.position.x, gameObject.transform.position.y + 10, gameObject.transform.position.z), 3, Vector3.down, out RaycastHit hit))
             {
-                if (hit.collider.gameObject.layer == 11)
+                if (hit.collider.gameObject.layer == 11 && hit.collider.gameObject != gameObject)
                 {
                     moveSpeed = 0;
                     Debug.Log($"{gameObject.name} : {hit}");
@@ -91,9 +97,6 @@ public class T90 : MonoBehaviour
             }
             
         }
-
-        
-        
     }
 
     private void Shoot()
@@ -105,19 +108,13 @@ public class T90 : MonoBehaviour
         bullet.transform.rotation = bulletPosition.transform.rotation;
         
         Destroy(bullet, 3);
-        //Debug.Log("Shoot!");
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.layer == 6 )
+        if (other.gameObject.layer == 6)
         {
-            EventManager.instance.PostEvent("addTankScore", null);
-            GameObject go = Instantiate(deadEffect, transform.position, Quaternion.identity);
-            
-            gameObject.SetActive(false);
-            gameObject.transform.position = new Vector3(EnemyController.instance.RandomX, 0, EnemyController.instance.RandomZ);
-            Destroy(go, 3);
+            Dead();
         }
     }
 
@@ -125,7 +122,32 @@ public class T90 : MonoBehaviour
     {
         UI_Manager.instance.score += score;
     }
-    
+
+    public override void PostHit(UnitData data, RaycastHit hit)
+    {
+        totalData.currentHp -= data.totalData.bulletAtk;
+
+        if (totalData.currentHp <= 0)
+        {
+            Dead();
+        }
+    }
+
+
+    private void Dead()
+    {
+        EventManager.instance.PostEvent("addTankScore", null);
+        GameObject go = Instantiate(deadEffect, transform.position, Quaternion.identity);
+
+        gameObject.SetActive(false);
+        gameObject.transform.position = new Vector3(EnemyController.instance.RandomX, 0, EnemyController.instance.RandomZ);
+        Destroy(go, 3);
+    }
+
     
 
+    public override void SetHit(UnitData data)
+    {
+        
+    }
 }

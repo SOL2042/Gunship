@@ -2,13 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Unit_Status
+public class Unit_Status
 {
-    public float Maxhp;
+    public float maxHp;
     public float currentHp;
     public float def;
 
     public float unitSpeed;
+    public float unitshootRange;
 
     public float misileAtk;
     public float rocketAtk;
@@ -17,4 +18,38 @@ public abstract class Unit_Status
     public float bulletRPM;
     public float rocketRPM;
     public float misileRPM;
+
+    public static Unit_Status operator +(Unit_Status left, Unit_Status right)
+    {
+        left.maxHp += right.maxHp;
+        left.currentHp += right.currentHp;
+        left.def += right.def;
+        left.unitSpeed += right.unitSpeed;
+        left.unitshootRange += right.unitshootRange;
+        
+        left.misileAtk += right.misileAtk;
+        left.rocketAtk += right.rocketAtk;
+        left.bulletAtk += right.bulletAtk;
+        left.bulletRPM += right.bulletRPM;
+        left.rocketRPM += right.rocketRPM;
+        left.misileRPM += right.misileRPM;
+        return left;
+    }
+
+    public static Unit_Status operator -(Unit_Status left, Unit_Status right)
+    {
+        left.maxHp -= right.maxHp;
+        left.currentHp -= right.currentHp;
+        left.def -= right.def;
+        left.unitSpeed -= right.unitSpeed;
+        left.unitshootRange -= right.unitshootRange;
+
+        left.misileAtk -= right.misileAtk;
+        left.rocketAtk -= right.rocketAtk;
+        left.bulletAtk -= right.bulletAtk;
+        left.bulletRPM -= right.bulletRPM;
+        left.rocketRPM -= right.rocketRPM;
+        left.misileRPM -= right.misileRPM;
+        return left;
+    }
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class WeaponController : MonoBehaviour
+public class WeaponController : UnitData
 {
     #region Singleton
     private static WeaponController _instance;
@@ -225,5 +225,15 @@ public class WeaponController : MonoBehaviour
         {
             bulletCnt = 150;
         }
+    }
+
+    public override void PostHit(UnitData data, RaycastHit hit)
+    {
+
+    }
+
+    public override void SetHit(UnitData data)
+    {
+
     }
 }
