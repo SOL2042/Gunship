@@ -12368,6 +12368,26 @@ PrefabInstance:
       propertyPath: m_Convex
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2095508614620198692, guid: 5f3d07d75c5cb02478bb3154bf64bc0d,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2095508614620198692, guid: 5f3d07d75c5cb02478bb3154bf64bc0d,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2095508614620198692, guid: 5f3d07d75c5cb02478bb3154bf64bc0d,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2095508614620198692, guid: 5f3d07d75c5cb02478bb3154bf64bc0d,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2397618157613924280, guid: 5f3d07d75c5cb02478bb3154bf64bc0d,
         type: 3}
       propertyPath: m_TagString
@@ -12428,6 +12448,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5750935542232527240, guid: 5f3d07d75c5cb02478bb3154bf64bc0d,
+        type: 3}
+      propertyPath: m_Mass
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 7068422839464829109, guid: 5f3d07d75c5cb02478bb3154bf64bc0d,
         type: 3}
       propertyPath: m_TagString
@@ -12467,6 +12492,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Convex
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8170385777493791968, guid: 5f3d07d75c5cb02478bb3154bf64bc0d,
+        type: 3}
+      propertyPath: enemyLayer.m_Bits
+      value: 2048
       objectReference: {fileID: 0}
     - target: {fileID: 9001248144386161083, guid: 5f3d07d75c5cb02478bb3154bf64bc0d,
         type: 3}

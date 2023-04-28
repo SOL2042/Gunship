@@ -9,7 +9,7 @@ public class T90 : UnitData
     GameObject bullet;
 
     [SerializeField] private float moveSpeed = 20f; // 이동 속도
-    [SerializeField] private float turnSpeed = 900f; // 회전 속도
+    [SerializeField] private float turnSpeed = 100f; // 회전 속도
     [SerializeField] private float turretTurnSpeed = 70f; // 회전 속도
     //[SerializeField] private float shootRange = 100f; // 사격 범위
     [SerializeField] private float shootInterval = 4f; // 사격 간격
@@ -75,33 +75,27 @@ public class T90 : UnitData
         {
             if (Physics.SphereCast(new Vector3(gameObject.transform.position.x, gameObject.transform.position.y + 10, gameObject.transform.position.z), 3, Vector3.down, out RaycastHit hit))
             {
-                if (hit.collider.gameObject.layer == 11 && hit.collider.gameObject != gameObject || hit.collider.gameObject.layer == 6)
-                {
-                    moveSpeed = 0;
-                    Debug.Log($"{gameObject.name} : {hit}");
-                }
-                else
-                {
-                    moveSpeed = 20f;
-
-                    Vector3 directionToPlayer = USbaseTransform.position - transform.position;
-                    directionToPlayer.y = 0f;
-
-                    Quaternion targetRotation = Quaternion.LookRotation(directionToPlayer);
-                    //if (tankRigidbody.rotation != targetRotation)
-                    //{
-                        //tankRigidbody.MoveRotation(Quaternion.RotateTowards(transform.rotation, targetRotation, turnSpeed * Time.deltaTime));
-                        ////transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, turnSpeed * Time.deltaTime);
-                    //}
-                    //else
-                    //{
-
-                    //}
-
-                    // 탱크를 플레이어 쪽으로 이동
-                    Vector3 movement = transform.forward * moveSpeed * Time.deltaTime;
-                    tankRigidbody.MovePosition(tankRigidbody.position + movement);
-                }
+                //Debug.Log($"{gameObject.name} : {hit}");
+               
+                moveSpeed = 20f;
+               
+                Vector3 directionToPlayer = USbaseTransform.position - transform.position;
+                directionToPlayer.y = 0f;
+               
+                Quaternion targetRotation = Quaternion.LookRotation(directionToPlayer);
+                //if (tankRigidbody.rotation != targetRotation)
+                //{
+                    //tankRigidbody.MoveRotation(Quaternion.RotateTowards(transform.rotation, targetRotation, turnSpeed * Time.deltaTime));
+                    ////transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, turnSpeed * Time.deltaTime);
+                //}
+                //else
+                //{
+               
+                //}
+               
+                // 탱크를 플레이어 쪽으로 이동
+                Vector3 movement = transform.forward * moveSpeed * Time.deltaTime;
+                tankRigidbody.MovePosition(tankRigidbody.position + movement);
             }
             
         }

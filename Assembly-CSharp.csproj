@@ -56,8 +56,10 @@
     <Analyzer Include="C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\T54.cs" />
     <Compile Include="Assets\Script\deadScript.cs" />
     <Compile Include="Assets\Shared\Scripts\SimpleCharacterMotor.cs" />
+    <Compile Include="Assets\Script\Unit\T54_InitStatus.cs" />
     <Compile Include="Assets\Script\Controller\WeaponController.cs" />
     <Compile Include="Assets\Script\Player\Player.cs" />
     <Compile Include="Assets\Script\Weapon\Bullet.cs" />
@@ -90,8 +92,6 @@
     <Compile Include="Assets\EffectExamples\Misc Effects\Scripts\SpawnEffect.cs" />
     <Compile Include="Assets\Script\Manager\UI_Manager.cs" />
     <Compile Include="Assets\Script\Weapon\HellFire_Missile.cs" />
-    <Compile Include="Assets\T54.cs" />
-    <Compile Include="Assets\Script\Unit\T54_InitStatus.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TerrainSampleAssets\ThirdPartyNotices.txt" />
