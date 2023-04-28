@@ -38,7 +38,7 @@ public class T90 : UnitData
             Score();
         });
         bulletPosition = transform.GetChild(16).GetChild(0).GetChild(0).transform;
-        bullet = Resources.Load<GameObject>("Prefabs/TankBullet");
+        bullet = Resources.Load<GameObject>("Prefabs/T90Bullet");
         deadEffect = Resources.Load<GameObject>("Prefabs/BigExplosion");
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform; // 플레이어의 Transform 컴포넌트 가져오기
         USbaseTransform = GameObject.FindGameObjectWithTag("USBase").transform;
@@ -58,7 +58,7 @@ public class T90 : UnitData
         // 기지와의 거리 계산
         float distanceToPlayer = Vector3.Distance(transform.position, USbaseTransform.position);
 
-        if (distanceToPlayer <= totalData.unitshootRange) // 사격 범위 내에 있을 때
+        if (distanceToPlayer <= t90_InitStatus.unitshootRange) // 사격 범위 내에 있을 때
         {
             //moveSpeed = 0;
             Vector3 directionToPlayer = USbaseTransform.position - transform.position;
@@ -75,7 +75,7 @@ public class T90 : UnitData
         {
             if (Physics.SphereCast(new Vector3(gameObject.transform.position.x, gameObject.transform.position.y + 10, gameObject.transform.position.z), 3, Vector3.down, out RaycastHit hit))
             {
-                if (hit.collider.gameObject.layer == 11 && hit.collider.gameObject != gameObject)
+                if (hit.collider.gameObject.layer == 11 && hit.collider.gameObject != gameObject || hit.collider.gameObject.layer == 6)
                 {
                     moveSpeed = 0;
                     Debug.Log($"{gameObject.name} : {hit}");
@@ -88,7 +88,15 @@ public class T90 : UnitData
                     directionToPlayer.y = 0f;
 
                     Quaternion targetRotation = Quaternion.LookRotation(directionToPlayer);
-                    tankRigidbody.MoveRotation(Quaternion.RotateTowards(transform.rotation, targetRotation, turnSpeed * Time.deltaTime));
+                    //if (tankRigidbody.rotation != targetRotation)
+                    //{
+                        //tankRigidbody.MoveRotation(Quaternion.RotateTowards(transform.rotation, targetRotation, turnSpeed * Time.deltaTime));
+                        ////transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, turnSpeed * Time.deltaTime);
+                    //}
+                    //else
+                    //{
+
+                    //}
 
                     // 탱크를 플레이어 쪽으로 이동
                     Vector3 movement = transform.forward * moveSpeed * Time.deltaTime;
@@ -103,7 +111,7 @@ public class T90 : UnitData
     {
         // 사격 로직 구현
         //transform.GetChild(0).GetChild(2).gameObject.SetActive(true);
-        GameObject go = Resources.Load<GameObject>("Prefabs/TankBullet");
+        GameObject go = Resources.Load<GameObject>("Prefabs/T90Bullet");
         GameObject bullet = Instantiate(go, bulletPosition.position, Quaternion.identity);
         bullet.transform.rotation = bulletPosition.transform.rotation;
         

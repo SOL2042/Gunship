@@ -56,7 +56,7 @@ public class EnemyController : MonoBehaviour
 
     private void Instantiate()
     {
-        if (t90s.Count <= 2)
+        if (t90s.Count <= 8)
         {
             t90s.Add(Instantiate(t90, new Vector3(RandomX, 0, RandomZ), Quaternion.Euler(0,180,0)));
 
