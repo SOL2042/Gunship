@@ -41,7 +41,7 @@ public class EnemyController : MonoBehaviour
     {
         //randomRange = Random.Range(100, 200);
         RandomX = Random.Range(-100, 100);
-        RandomZ = Random.Range(400, 401);
+        RandomZ = Random.Range(400, 450);
         timer += Time.deltaTime;
         if(timer >= resTime)
         {

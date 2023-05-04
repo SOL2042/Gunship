@@ -28,9 +28,24 @@ public class UI_Manager : MonoBehaviour
             return _score;
         }
     }
+
+    private int _credit;
+    public int credit
+    {
+        set
+        {
+            _credit = value;
+            creditTxt.text = _score.ToString();
+        }
+        get
+        {
+            return _credit;
+        }
+    }
     public Text missileCnt;
     public Text bulletCnt;
     public TextMeshProUGUI scoreTxt;
+    public TextMeshProUGUI creditTxt;
 
 
     // Start is called before the first frame update
@@ -47,5 +62,6 @@ public class UI_Manager : MonoBehaviour
         missileCnt.text = $"Hellfire Missile : {WeaponController.instance.GetComponent<WeaponController>().missileCnt}" ;
         bulletCnt.text = $"30mm Chain Gun : {WeaponController.instance.GetComponent<WeaponController>().bulletCnt}" ;
         scoreTxt.text = $"Score : {score}";
+        creditTxt.text = $"Credit : {credit}";
     }
 }
