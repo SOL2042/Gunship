@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 2335914758399354464}
   - component: {fileID: 2070047571182874183}
   - component: {fileID: 7630619937702405518}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: T54Bullet
   m_TagString: Player
   m_Icon: {fileID: 0}

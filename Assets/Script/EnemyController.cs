@@ -39,7 +39,7 @@ public class EnemyController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        randomRange = Random.Range(100, 200);
+        //randomRange = Random.Range(100, 200);
         RandomX = Random.Range(-100, 100);
         RandomZ = Random.Range(400, 401);
         timer += Time.deltaTime;
@@ -60,10 +60,10 @@ public class EnemyController : MonoBehaviour
         {
             t90s.Add(Instantiate(t90, new Vector3(RandomX, 0, RandomZ), Quaternion.Euler(0,180,0)));
 
-            for (int i = 0; i < t90s.Count; i++)
-            {
-                t90s[i].gameObject.GetComponent<UnitData>().myData.unitshootRange = randomRange;
-            }
+           //for (int i = 0; i < t90s.Count; i++)
+           //{
+           //    t90s[i].gameObject.GetComponent<UnitData>().myData.unitshootRange = randomRange;
+           //}
         }
     }
 

@@ -8,6 +8,8 @@ public class T54 : UnitData
     GameObject deadEffect;
     GameObject bullet;
 
+    Transform originPosition;
+
     [SerializeField] private float moveSpeed = 20f; // 이동 속도
     [SerializeField] private float turnSpeed = 900f; // 회전 속도
     [SerializeField] private float turretTurnSpeed = 1000f; // 회전 속도
@@ -24,9 +26,9 @@ public class T54 : UnitData
 
     public LayerMask enemyLayer;
 
-
     private void Start()
     {
+        originPosition = transform;
         t54_InitStatus = new T54_InitStatus();
         EventManager.instance.AddListener("addTankScore", (p) =>
         {
@@ -38,7 +40,6 @@ public class T54 : UnitData
         tankRigidbody = GetComponent<Rigidbody>(); // 탱크의 Rigidbody 컴포넌트 가져오기
         turretTransform = transform.GetChild(3).transform;
     }
-
     private void Update()
     {
         Move();
@@ -46,15 +47,13 @@ public class T54 : UnitData
 
     private void Move()
     {
-        
-        if (Physics.SphereCast(new Vector3(gameObject.transform.position.x, gameObject.transform.position.y + 50, gameObject.transform.position.z), shootRange, Vector3.down, out RaycastHit hit, 1000, enemyLayer))
+        if (Physics.SphereCast(new Vector3(gameObject.transform.position.x, gameObject.transform.position.y + 200, gameObject.transform.position.z), shootRange, Vector3.down, out RaycastHit hit, 1000, enemyLayer))
         {
             Debug.Log(hit.collider.gameObject.layer);
             Debug.DrawRay(new Vector3(gameObject.transform.position.x, gameObject.transform.position.y + 50, gameObject.transform.position.z), Vector3.down * 100, Color.red, 1000);
-            if (enemy = null)
-            {
-                enemy = hit.collider.gameObject; //GameObject.FindWithTag("Enemy").transform;
-            }
+            
+            enemy = hit.collider.gameObject; //GameObject.FindWithTag("Enemy").transform;
+            
             float distanceToEnemy = Vector3.Distance(transform.position, enemy.transform.position);
             Debug.Log(distanceToEnemy);
             turretTransform.LookAt(enemy.transform);
@@ -72,30 +71,42 @@ public class T54 : UnitData
                     lastShootTime = Time.time; // 마지막 사격 시간 갱신
                 }
             }
-            else // 사격 범위 밖에 있을 때
+            
+        }
+        else // 사격 범위 밖에 있을 때
+        {
+            if (enemy != null)
             {
                 moveSpeed = 20f;
-
-                Vector3 directionToEnemy = enemy.transform.position - transform.position;
-                directionToEnemy.y = 0f;
-
-                Quaternion targetRotation = Quaternion.LookRotation(directionToEnemy);
-                if (tankRigidbody.rotation != targetRotation)
-                {
-                    tankRigidbody.MoveRotation(Quaternion.RotateTowards(transform.rotation, targetRotation, turnSpeed * Time.deltaTime));
-                    //transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, turnSpeed * Time.deltaTime);
-                }
-                else
-                {
-
-                }
-
-                //탱크를 플레이어 쪽으로 이동
                 Vector3 movement = transform.forward * moveSpeed * Time.deltaTime;
                 tankRigidbody.MovePosition(tankRigidbody.position + movement);
             }
-        }
+            else
+            {
+                Vector3 directionToBase = originPosition.position - transform.position;
+                Quaternion targetRotation = Quaternion.LookRotation(directionToBase);
+                tankRigidbody.MoveRotation(Quaternion.RotateTowards(transform.rotation, targetRotation, turnSpeed * Time.deltaTime));
+            }
 
+            
+            //Vector3 directionToEnemy = enemy.transform.position - transform.position;
+            //directionToEnemy.y = 0f;
+
+            //Quaternion targetRotation = Quaternion.LookRotation(directionToEnemy);
+            //if (tankRigidbody.rotation != targetRotation)
+            //{
+            //    tankRigidbody.MoveRotation(Quaternion.RotateTowards(transform.rotation, targetRotation, turnSpeed * Time.deltaTime));
+            //    //transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, turnSpeed * Time.deltaTime);
+            //}
+            //else
+            //{
+            //
+            //}
+
+            //탱크를 적 쪽으로 이동
+            
+            
+        }
     }
 
     private void Shoot()
@@ -131,7 +142,6 @@ public class T54 : UnitData
         }
     }
 
-
     private void Dead()
     {
         GameObject go = Instantiate(deadEffect, transform.position, Quaternion.identity);
@@ -140,8 +150,6 @@ public class T54 : UnitData
         gameObject.transform.position = new Vector3(EnemyController.instance.RandomX, 0, EnemyController.instance.RandomZ);
         Destroy(go, 3);
     }
-
-
 
     public override void SetHit(UnitData data)
     {

@@ -874,9 +874,13 @@ MonoBehaviour:
   moveSpeed: 20
   turnSpeed: 900
   turretTurnSpeed: 70
+  shootRange: 200
   shootInterval: 4
   turretTransform: {fileID: 0}
   bulletPosition: {fileID: 0}
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!1 &1191855486034820
 GameObject:
   m_ObjectHideFlags: 0

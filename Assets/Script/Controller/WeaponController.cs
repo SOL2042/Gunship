@@ -155,7 +155,7 @@ public class WeaponController : UnitData
             player.transform.GetChild(0).GetChild(2).gameObject.SetActive(true);
             GameObject go = Resources.Load<GameObject>("Prefabs/Bullet");
             GameObject bullet = Instantiate(go, bulletPosition.position + new Vector3(Random.Range(-0.3f, 0.3f), Random.Range(-0.3f, 0.3f), 0), Quaternion.identity);
-            bullet.layer = 6;
+            
             bulletCnt--;
             Destroy(bullet, 3);
         }

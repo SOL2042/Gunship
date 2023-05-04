@@ -11,6 +11,7 @@ public class T90 : UnitData
     [SerializeField] private float moveSpeed = 20f; // 이동 속도
     [SerializeField] private float turnSpeed = 100f; // 회전 속도
     [SerializeField] private float turretTurnSpeed = 70f; // 회전 속도
+    [SerializeField] private float shootRange = 200f;
     //[SerializeField] private float shootRange = 100f; // 사격 범위
     [SerializeField] private float shootInterval = 4f; // 사격 간격
     [SerializeField] private Transform turretTransform; // 포탑 Transform 컴포넌트
@@ -24,6 +25,9 @@ public class T90 : UnitData
     [SerializeField] private Transform bulletPosition;
     T90_InitStatus t90_InitStatus;
     private int score = 100;
+    private GameObject enemy;
+
+    public LayerMask enemyLayer;
 
     public T90()
     {
@@ -48,58 +52,127 @@ public class T90 : UnitData
 
     private void Update()
     {
+        Debug.Log(enemy);
         Move();
-        USbaseTransform = GameObject.FindWithTag("USBase").transform;
+        //USbaseTransform = GameObject.FindWithTag("USBase").transform;
         //Debug.Log(USbaseTransform.name);
     }
-
     private void Move()
     {
-        // 기지와의 거리 계산
-        float distanceToPlayer = Vector3.Distance(transform.position, USbaseTransform.position);
-
-        if (distanceToPlayer <= t90_InitStatus.unitshootRange) // 사격 범위 내에 있을 때
+        if (Physics.SphereCast(new Vector3(gameObject.transform.position.x, gameObject.transform.position.y + 200, gameObject.transform.position.z), shootRange, Vector3.down, out RaycastHit hit, 1000, enemyLayer))
         {
-            //moveSpeed = 0;
-            Vector3 directionToPlayer = USbaseTransform.position - transform.position;
-            Quaternion targetRotation = Quaternion.LookRotation(directionToPlayer);
-            turretTransform.rotation = Quaternion.RotateTowards(turretTransform.rotation, targetRotation, turnSpeed * Time.deltaTime);
-            
-            if (Time.time - lastShootTime >= shootInterval) // 사격 간격이 지난 경우
+            Debug.Log(hit.collider.gameObject.layer);
+            Debug.DrawRay(new Vector3(gameObject.transform.position.x, gameObject.transform.position.y + 50, gameObject.transform.position.z), Vector3.down * 100, Color.red, 1000);
+
+            enemy = hit.collider.gameObject; //GameObject.FindWithTag("Enemy").transform;
+
+            if (enemy.activeInHierarchy != true)
             {
-                Shoot(); // 사격
-                lastShootTime = Time.time; // 마지막 사격 시간 갱신
+                enemy = null;
             }
+            float distanceToEnemy = Vector3.Distance(transform.position, enemy.transform.position);
+            Debug.Log(distanceToEnemy);
+            turretTransform.LookAt(enemy.transform);
+            if (distanceToEnemy <= shootRange + 50) // 사격 범위 내에 있을 때
+            {
+                Debug.Log($"enemy : {hit.collider.name}");
+                moveSpeed = 0;
+                //Vector3 directionToEnemy = enemy.transform.position - transform.position;
+                //Quaternion targetRotation = Quaternion.LookRotation(directionToEnemy);
+                //Quaternion.RotateTowards(turretTransform.rotation, targetRotation, turretTurnSpeed * Time.deltaTime);
+
+                if (Time.time - lastShootTime >= shootInterval) // 사격 간격이 지난 경우
+                {
+                    Shoot(); // 사격
+                    lastShootTime = Time.time; // 마지막 사격 시간 갱신
+                    
+                }
+            }
+            
+
         }
         else // 사격 범위 밖에 있을 때
         {
-            if (Physics.SphereCast(new Vector3(gameObject.transform.position.x, gameObject.transform.position.y + 10, gameObject.transform.position.z), 3, Vector3.down, out RaycastHit hit))
+            if (enemy == null)
             {
-                //Debug.Log($"{gameObject.name} : {hit}");
-               
                 moveSpeed = 20f;
-               
-                Vector3 directionToPlayer = USbaseTransform.position - transform.position;
-                directionToPlayer.y = 0f;
-               
-                Quaternion targetRotation = Quaternion.LookRotation(directionToPlayer);
-                //if (tankRigidbody.rotation != targetRotation)
-                //{
-                    //tankRigidbody.MoveRotation(Quaternion.RotateTowards(transform.rotation, targetRotation, turnSpeed * Time.deltaTime));
-                    ////transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, turnSpeed * Time.deltaTime);
-                //}
-                //else
-                //{
-               
-                //}
-               
-                // 탱크를 플레이어 쪽으로 이동
                 Vector3 movement = transform.forward * moveSpeed * Time.deltaTime;
                 tankRigidbody.MovePosition(tankRigidbody.position + movement);
             }
-            
+            //else
+            //{
+                //Vector3 directionToBase = originPosition.position - transform.position;
+                //Quaternion targetRotation = Quaternion.LookRotation(directionToBase);
+                //tankRigidbody.MoveRotation(Quaternion.RotateTowards(transform.rotation, targetRotation, turnSpeed * Time.deltaTime));
+            //}
+
+
+            //Vector3 directionToEnemy = enemy.transform.position - transform.position;
+            //directionToEnemy.y = 0f;
+
+            //Quaternion targetRotation = Quaternion.LookRotation(directionToEnemy);
+            //if (tankRigidbody.rotation != targetRotation)
+            //{
+            //    tankRigidbody.MoveRotation(Quaternion.RotateTowards(transform.rotation, targetRotation, turnSpeed * Time.deltaTime));
+            //    //transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, turnSpeed * Time.deltaTime);
+            //}
+            //else
+            //{
+            //
+            //}
+
+            //탱크를 적 쪽으로 이동
+
+
         }
     }
+    //private void Move()
+    //{
+    //    // 기지와의 거리 계산
+    //    float distanceToPlayer = Vector3.Distance(transform.position, USbaseTransform.position);
+
+    //    if (distanceToPlayer <= t90_InitStatus.unitshootRange) // 사격 범위 내에 있을 때
+    //    {
+    //        //moveSpeed = 0;
+    //        Vector3 directionToPlayer = USbaseTransform.position - transform.position;
+    //        Quaternion targetRotation = Quaternion.LookRotation(directionToPlayer);
+    //        turretTransform.rotation = Quaternion.RotateTowards(turretTransform.rotation, targetRotation, turnSpeed * Time.deltaTime);
+            
+    //        if (Time.time - lastShootTime >= shootInterval) // 사격 간격이 지난 경우
+    //        {
+    //            Shoot(); // 사격
+    //            lastShootTime = Time.time; // 마지막 사격 시간 갱신
+    //        }
+    //    }
+    //    else // 사격 범위 밖에 있을 때
+    //    {
+    //        if (Physics.SphereCast(new Vector3(gameObject.transform.position.x, gameObject.transform.position.y + 10, gameObject.transform.position.z), 3, Vector3.down, out RaycastHit hit))
+    //        {
+    //            //Debug.Log($"{gameObject.name} : {hit}");
+               
+    //            moveSpeed = 20f;
+               
+    //            Vector3 directionToPlayer = USbaseTransform.position - transform.position;
+    //            directionToPlayer.y = 0f;
+               
+    //            Quaternion targetRotation = Quaternion.LookRotation(directionToPlayer);
+    //            //if (tankRigidbody.rotation != targetRotation)
+    //            //{
+    //                //tankRigidbody.MoveRotation(Quaternion.RotateTowards(transform.rotation, targetRotation, turnSpeed * Time.deltaTime));
+    //                ////transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, turnSpeed * Time.deltaTime);
+    //            //}
+    //            //else
+    //            //{
+               
+    //            //}
+               
+    //            // 탱크를 플레이어 쪽으로 이동
+    //            Vector3 movement = transform.forward * moveSpeed * Time.deltaTime;
+    //            tankRigidbody.MovePosition(tankRigidbody.position + movement);
+    //        }
+            
+    //    }
+    //}
 
     private void Shoot()
     {
@@ -114,7 +187,7 @@ public class T90 : UnitData
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.layer == 6)
+        if (other.gameObject.tag == "Player")
         {
             Dead();
         }
@@ -142,7 +215,7 @@ public class T90 : UnitData
         GameObject go = Instantiate(deadEffect, transform.position, Quaternion.identity);
 
         gameObject.SetActive(false);
-        gameObject.transform.position = new Vector3(EnemyController.instance.RandomX, 0, EnemyController.instance.RandomZ);
+        gameObject.transform.position = new Vector3(EnemyController.instance.RandomX, 2, EnemyController.instance.RandomZ);
         Destroy(go, 3);
     }
 
