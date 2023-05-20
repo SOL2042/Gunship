@@ -13,13 +13,13 @@ public class CameraController : MonoBehaviour
     private float targetX; // 상하 회전 각도
     private float targetY; // 좌우 회전 각도
     private float distance = 30f; // 플레이어와 카메라의 거리
-  
+
     [SerializeField]
     Camera cam;
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -51,7 +51,7 @@ public class CameraController : MonoBehaviour
         }
         cam.transform.rotation = Quaternion.Euler(targetX, targetY, 0);
         player.transform.rotation = Quaternion.Euler(0, finalAngleY, 0);
-        cam.farClipPlane = 2000f;
+        cam.farClipPlane = 3000f;
     }
 
 
@@ -59,8 +59,10 @@ public class CameraController : MonoBehaviour
     {
         float zoomSensy = 1 - Input.GetAxis("Mouse ScrollWheel");
         distance *= zoomSensy;
+
+        distance = Mathf.Clamp(distance, 1, 40);
     }
 
-   
+
 
 }

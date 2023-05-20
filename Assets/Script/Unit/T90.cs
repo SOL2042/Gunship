@@ -55,24 +55,23 @@ public class T90 : UnitData
 
     private void Update()
     {
-        Debug.Log(enemy);
+        //Debug.Log(enemy);
         Move();
         //USbaseTransform = GameObject.FindWithTag("USBase").transform;
         //Debug.Log(USbaseTransform.name);
     }
     private void Move()
     {
-        
-        if (Physics.SphereCast(new Vector3(gameObject.transform.position.x, gameObject.transform.position.y + 200, gameObject.transform.position.z), shootRange, Vector3.down, out RaycastHit hit, 1000, enemyLayer))
+        if (Physics.SphereCast(new Vector3(gameObject.transform.position.x, gameObject.transform.position.y + 40, gameObject.transform.position.z), shootRange, Vector3.down, out RaycastHit hit, 1000, enemyLayer))
         {
-
             enemy = hit.collider.gameObject; //GameObject.FindWithTag("Enemy").transform;
 
             float distanceToEnemy = Vector3.Distance(transform.position, enemy.transform.position);
             turretTransform.LookAt(enemy.transform);
-            if (distanceToEnemy <= shootRange + 50) // 사격 범위 내에 있을 때
+            
+            //Debug.Log(turretTransform.rotation);
+            if (distanceToEnemy <= shootRange) // 사격 범위 내에 있을 때
             {
-                Debug.Log($"enemy : {hit.collider.name}");
                 moveSpeed = 0;
 
                 if (Time.time - lastShootTime >= shootInterval) // 사격 간격이 지난 경우
@@ -99,10 +98,11 @@ public class T90 : UnitData
                 tankRigidbody.MovePosition(tankRigidbody.position + movement);
             }
         }
-        if (enemy.activeInHierarchy == false)
-        {
-            enemy = null;
-        }
+        if(enemy != null)
+            if (enemy.activeInHierarchy == false)
+            {
+                enemy = null;
+            }
 
     }
     private void Shoot()
@@ -148,6 +148,7 @@ public class T90 : UnitData
 
         gameObject.SetActive(false);
         gameObject.transform.rotation = Quaternion.identity;
+        gameObject.transform.GetChild(16).rotation = Quaternion.identity;
         gameObject.transform.rotation = Quaternion.Euler(0, 180, 0);
         gameObject.transform.position = new Vector3(RandomX, 2, RandomZ);
         Destroy(go, 3);

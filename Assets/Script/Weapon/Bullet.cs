@@ -14,7 +14,9 @@ public class Bullet : MonoBehaviour
     public bool hit;
     [SerializeField]
     Transform bulletPosition;
-    
+
+    float layerTimer = 0.2f;
+    float layerTime = 0;
     public void Speed(ref float speed)
     {
         this.speed = speed;
@@ -41,7 +43,7 @@ public class Bullet : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+       
     }
 
     private void OnTriggerEnter(Collider other)

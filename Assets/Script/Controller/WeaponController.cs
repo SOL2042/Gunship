@@ -30,6 +30,8 @@ public class WeaponController : UnitData
     [SerializeField]
     Transform leftMissilePosition;
 
+    GameObject enemy;
+
     public float missileCnt;
     public float missileCooldownTime;
 
@@ -48,12 +50,29 @@ public class WeaponController : UnitData
     public GameObject missilePrefab;
     // Weapon Callbacks
 
+    private Transform ResPosition;
+    
 
     [SerializeField] Transform bulletPosition;
 
     private float fireTimer = 0;
 
+    public float shootRange = 500f;
 
+    public LayerMask enemyLayer;
+
+    GameObject deadEffect;
+
+    public WeaponController()
+    {
+        totalData = new Player_InitStatus();
+        myData = new Player_InitStatus();
+    }
+
+    private void Awake()
+    {
+        deadEffect = Resources.Load<GameObject>("Prefabs/BigExplosion");
+    }
     void Start()
     {
         enemyPosition = null;
@@ -61,38 +80,32 @@ public class WeaponController : UnitData
         player = GetComponent<Player>();
         missileCnt = 8f;
         bulletCnt = 150f;
-        fireRange = 300f;
+        fireRange = 400f;
     }
     private void Update()
     {
-       
-        if (EnemyController.instance.t90s.Count == 0)
+        if (Physics.SphereCast(new Vector3(gameObject.transform.position.x, gameObject.transform.position.y + 500, gameObject.transform.position.z), shootRange, Vector3.down, out RaycastHit hit, 1000, enemyLayer))
         {
-            enemyPosition = null;
+            enemy = hit.collider.gameObject; //GameObject.FindWithTag("Enemy").transform;
+            Debug.Log(enemy);
         }
-        else
-        {
-            enemyPosition = GameObject.FindWithTag("Enemy").transform;
-        }
-        
-
+        Die();
         Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * 1000.0f, Color.green);
 
         RaycastHit temp;
 
-        if (Physics.Raycast(cameraTransform.transform.position, cameraTransform.transform.forward, out temp, 1000.0f, (-1) - (1 << 6))) // 카메라의 위치에서 카메라가 바라보는 정면으로 레이를 쏴서 충돌확인
+        if (Physics.Raycast(cameraTransform.transform.position, cameraTransform.transform.forward, out temp, 1000.0f, (-1) - (1 << 6) & (-1) - (1 << 13) & (-1) - (1 << 14))) // 카메라의 위치에서 카메라가 바라보는 정면으로 레이를 쏴서 충돌확인
         {
             // 충돌이 검출되면 총알의 리스폰포인트(firePos)가 충돌이 발생한위치를 바라보게 만든다. 
             // 이 상태에서 발사입력이 들어오면 총알은 충돌점으로 날아가게 된다.
             
-            //Debug.Log(temp.point);
             bulletPosition.LookAt(temp.point);
             //bullet = new Bullet(temp.point, false);
             Debug.DrawRay(bulletPosition.position, bulletPosition.forward * 1000.0f, Color.red); // 이 레이는 앞서 선언한 디버그용 레이와 충돌점에서 교차한다
         }
         else
         {
-            Quaternion dir = cameraTransform.rotation * Quaternion.Euler(-7, 0, 0);
+            Quaternion dir = cameraTransform.rotation;
             bulletPosition.rotation = dir;
         }
 
@@ -113,32 +126,51 @@ public class WeaponController : UnitData
 
         if (Input.GetKeyDown(KeyCode.G))
         {
-            LaunchMissile();
-            if (missileCnt % 2 == 1)
+            if (enemy != null)
             {
-                if(missileCnt == 7)
-                gameObject.transform.GetChild(0).GetChild(7).gameObject.SetActive(false);
-                if(missileCnt == 5)
-                gameObject.transform.GetChild(0).GetChild(8).gameObject.SetActive(false);
-                if(missileCnt == 3)
-                gameObject.transform.GetChild(0).GetChild(9).gameObject.SetActive(false);
-                if(missileCnt == 1)
-                gameObject.transform.GetChild(0).GetChild(10).gameObject.SetActive(false);
+                float distanceToEnemy = Vector3.Distance(transform.position, enemy.transform.position);
 
+                enemyPosition = enemy.transform;
+
+                if (distanceToEnemy <= shootRange) // 사격 범위 내에 있을 때
+                {
+                    Debug.Log($"enemy : {hit.collider.name}");
+                    LaunchMissile();
+                    if (missileCnt % 2 == 1)
+                    {
+                        if (missileCnt == 7)
+                            gameObject.transform.GetChild(0).GetChild(7).gameObject.SetActive(false);
+                        if (missileCnt == 5)
+                            gameObject.transform.GetChild(0).GetChild(8).gameObject.SetActive(false);
+                        if (missileCnt == 3)
+                            gameObject.transform.GetChild(0).GetChild(9).gameObject.SetActive(false);
+                        if (missileCnt == 1)
+                            gameObject.transform.GetChild(0).GetChild(10).gameObject.SetActive(false);
+                    }
+                    else
+                    {
+                        if (missileCnt == 6)
+                            gameObject.transform.GetChild(0).GetChild(11).gameObject.SetActive(false);
+                        if (missileCnt == 4)
+                            gameObject.transform.GetChild(0).GetChild(12).gameObject.SetActive(false);
+                        if (missileCnt == 2)
+                            gameObject.transform.GetChild(0).GetChild(13).gameObject.SetActive(false);
+                        if (missileCnt == 0)
+                            gameObject.transform.GetChild(0).GetChild(14).gameObject.SetActive(false);
+                    }
+                }
             }
-            else
+        }
+        else // 사격 범위 밖에 있을 때
+        {
+            enemy = null;
+        }
+        if (enemy != null)
+            if (enemy.activeInHierarchy == false)
             {
-                if (missileCnt == 6)
-                    gameObject.transform.GetChild(0).GetChild(11).gameObject.SetActive(false);
-                if (missileCnt == 4)
-                    gameObject.transform.GetChild(0).GetChild(12).gameObject.SetActive(false);
-                if (missileCnt == 2)
-                    gameObject.transform.GetChild(0).GetChild(13).gameObject.SetActive(false);
-                if (missileCnt == 0)
-                    gameObject.transform.GetChild(0).GetChild(14).gameObject.SetActive(false);
+                enemy = null;
             }
            
-        }
         if(Input.GetKeyDown(KeyCode.R))
         {
             Reload();
@@ -147,7 +179,13 @@ public class WeaponController : UnitData
         MissileCooldown(ref leftMslCooldown);
     }
 
-
+    private void Refresh()
+    {
+        totalData = new Unit_Status();
+        totalData += myData;
+        
+        EventManager.instance.PostEvent("UI:HPValue", totalData.currentHp / totalData.maxHp);
+    }
     private void MainGunFire()
     {
         if (bulletCnt > 0)
@@ -195,7 +233,7 @@ public class WeaponController : UnitData
         
         GameObject missile = Instantiate(missilePrefab, missilePosition, transform.rotation);
         HellFire_Missile missileScript = missile.GetComponent<HellFire_Missile>();
-        missileScript.Launch(enemyPosition, player.speed + 15, gameObject.layer);
+        missileScript.Launch(enemyPosition, player.speed + 15);
 
         missileCnt--;
     }
@@ -227,13 +265,42 @@ public class WeaponController : UnitData
         }
     }
 
+    private void Die()
+    {
+        if (totalData.currentHp <= 0)
+        {
+            gameObject.SetActive(false);
+            GameObject go = Instantiate(deadEffect, transform.position, Quaternion.identity);
+            
+            Destroy(go, 3);
+            gameObject.transform.rotation = Quaternion.identity;
+        }
+    }
+
     public override void PostHit(UnitData data, RaycastHit hit)
     {
+       
+    }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.layer == 15)
+        {
+            myData.currentHp -= 1000f;
+            Debug.Log(myData.currentHp);
+            
+            Refresh();
+        }
+    }
+
+    public IEnumerator Respawn()
+    {
+        gameObject.SetActive(true);
+        yield return new WaitForSeconds(3f);
     }
 
     public override void SetHit(UnitData data)
     {
-
+        
     }
 }

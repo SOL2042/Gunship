@@ -35,7 +35,7 @@ public class UI_Manager : MonoBehaviour
         set
         {
             _credit = value;
-            creditTxt.text = _score.ToString();
+            creditTxt.text = _credit.ToString();
         }
         get
         {
@@ -46,6 +46,7 @@ public class UI_Manager : MonoBehaviour
     public Text bulletCnt;
     public TextMeshProUGUI scoreTxt;
     public TextMeshProUGUI creditTxt;
+    public TextMeshProUGUI ThrottleTxt;
 
 
     // Start is called before the first frame update
@@ -63,5 +64,6 @@ public class UI_Manager : MonoBehaviour
         bulletCnt.text = $"30mm Chain Gun : {WeaponController.instance.GetComponent<WeaponController>().bulletCnt}" ;
         scoreTxt.text = $"Score : {score}";
         creditTxt.text = $"Credit : {credit}";
+        ThrottleTxt.text = $"Throttle : {((int)Player.instance.throttle)}%";
     }
 }

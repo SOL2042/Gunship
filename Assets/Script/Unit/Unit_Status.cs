@@ -2,6 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum UnitSidetype
+{
+    Default = 0, team1, team2
+}
 public class Unit_Status
 {
     public float maxHp;
@@ -18,6 +22,14 @@ public class Unit_Status
     public float bulletRPM;
     public float rocketRPM;
     public float misileRPM;
+
+    public bool isSelected;
+    public UnitSidetype unitSideType;
+    public string code = "";
+    public string unitName = "";
+    public string unitDescripts = "";
+
+
 
     public static Unit_Status operator +(Unit_Status left, Unit_Status right)
     {

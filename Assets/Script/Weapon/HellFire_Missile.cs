@@ -8,7 +8,7 @@ public class HellFire_Missile : MonoBehaviour
     //유도될 대상
     Rigidbody rgb;
     Transform target;
-    float turningForce = 2f;
+    float turningForce = 4f;
 
     GameObject explosionPrefab;
 
@@ -17,13 +17,11 @@ public class HellFire_Missile : MonoBehaviour
     public float lifeTime;
     float speed;
     float boresightAngle = 50;
-    float layerTimer = 1;
-    float layerTime = 0;
-    public void Launch(Transform target, float launchSpeed, int layer) //target : 유도 대상 launchSpeed : 초기속도 layer: 대상의 레이어
+    
+    public void Launch(Transform target, float launchSpeed) //target : 유도 대상 launchSpeed : 초기속도 layer: 대상의 레이어
     {
         this.target = target;
         speed = launchSpeed;
-        gameObject.layer = layer;
     }
 
     private void Awake()
@@ -38,11 +36,6 @@ public class HellFire_Missile : MonoBehaviour
 
     private void FixedUpdate()
     {
-        layerTime += Time.deltaTime;
-        if (layerTime >=layerTimer)
-        {
-            gameObject.layer = 0;
-        }
         LookAtTarget();
         if (speed < MaxSpeed)
         {
@@ -67,7 +60,6 @@ public class HellFire_Missile : MonoBehaviour
     {
         if (target == null)
         {
-            
             return;
         }
 
@@ -79,7 +71,10 @@ public class HellFire_Missile : MonoBehaviour
             target = null;
             return;
         }
-
+        if(target.gameObject.activeInHierarchy != true)
+        {
+            target = null;
+        }
         Quaternion lookRotation = Quaternion.LookRotation(targetDir);
         rgb.rotation = Quaternion.Slerp(rgb.rotation, lookRotation, turningForce * Time.deltaTime);
     }

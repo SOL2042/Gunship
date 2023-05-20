@@ -6,6 +6,12 @@ public class T90_InitStatus : Unit_Status
 {
     public T90_InitStatus()
     {
+        isSelected = false;
+        unitSideType = 0;
+        code = "0001";
+        unitName = "T90";
+        unitDescripts = "T90, enemy";
+
         maxHp = 1000;
         currentHp = 1000;
         def = 5;

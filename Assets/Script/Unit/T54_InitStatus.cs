@@ -6,6 +6,12 @@ public class T54_InitStatus : Unit_Status
 {
     public T54_InitStatus()
     {
+        isSelected = false;
+        unitSideType = 0;
+        code = "0002";
+        unitName = "T54";
+        unitDescripts = "T54, ally tank";
+
         maxHp = 1000;
         currentHp = 1000;
         def = 5;

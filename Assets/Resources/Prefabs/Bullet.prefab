@@ -15,9 +15,9 @@ GameObject:
   - component: {fileID: 2335914758399354464}
   - component: {fileID: 6067480848079891761}
   - component: {fileID: 2070047571182874183}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Bullet
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -246,5 +246,5 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 50
+  m_Radius: 150
   m_Center: {x: 0, y: 0, z: 0}
