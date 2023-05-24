@@ -6,6 +6,10 @@ public enum UnitSidetype
 {
     Default = 0, team1, team2
 }
+public enum PlayerMode
+{
+    Default = 0, Hover = 1
+}
 public class Unit_Status
 {
     public float maxHp;
@@ -25,6 +29,7 @@ public class Unit_Status
 
     public bool isSelected;
     public UnitSidetype unitSideType;
+    public PlayerMode playerMode;
     public string code = "";
     public string unitName = "";
     public string unitDescripts = "";

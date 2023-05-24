@@ -56,17 +56,21 @@ public class Player : MonoBehaviour
         rgb = GetComponent<Rigidbody>();
     }
 
-
     void Update()
     {
         HandleInputs();
-        //Debug.Log(throttle);
-        //Move();
     }
     float originalYRotation;
     private void FixedUpdate()
     {
-        rgb.AddForce(transform.up * throttle * 0.07f, ForceMode.Impulse);
+        if (gameObject.GetComponent<WeaponController>().totalData.playerMode == PlayerMode.Default)
+        {
+            rgb.AddForce(transform.up * throttle * 0.07f, ForceMode.Impulse);
+        }
+        else
+        {
+
+        }
         if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S))
         {
             rgb.AddTorque(transform.right * pitch * responsiveness * 10f);
@@ -114,9 +118,11 @@ public class Player : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.H))
             {
-                rgb.useGravity = true;
-                rgb.velocity = Vector3.zero;
-                rgb.MoveRotation(Quaternion.Slerp(rgb.rotation, Quaternion.identity, Time.deltaTime * 10f));
+                gameObject.GetComponent<WeaponController>().totalData.playerMode = PlayerMode.Hover;
+                rgb.useGravity = false;
+                rgb.velocity = Vector3.Slerp(rgb.velocity, Vector3.zero, Time.deltaTime);
+                gameObject.transform.rotation = Quaternion.RotateTowards(gameObject.transform.rotation, Quaternion.Euler(0,0,0), Time.deltaTime);
+                
                 count += 1;
             }
         }
@@ -124,7 +130,8 @@ public class Player : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.H))
             {
-                rgb.useGravity = false;
+                gameObject.GetComponent<WeaponController>().totalData.playerMode = PlayerMode.Default;
+                rgb.useGravity = true;
                 count = 0;
             }
         }

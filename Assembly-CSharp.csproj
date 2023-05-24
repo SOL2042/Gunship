@@ -61,7 +61,9 @@
     <Compile Include="Assets\Script\deadScript.cs" />
     <Compile Include="Assets\Shared\Scripts\SimpleCharacterMotor.cs" />
     <Compile Include="Assets\Script\Unit\T54_InitStatus.cs" />
+    <Compile Include="Assets\Script\Manager\InventoryManager.cs" />
     <Compile Include="Assets\Script\Controller\WeaponController.cs" />
+    <Compile Include="Assets\Script\Module\ItemCell.cs" />
     <Compile Include="Assets\Photon\PhotonLibs\WebSocket\SocketWebTcp.cs" />
     <Compile Include="Assets\Script\Player\Player.cs" />
     <Compile Include="Assets\Script\Controller\SceneController.cs" />
@@ -94,10 +96,11 @@
     <Compile Include="Assets\EffectExamples\Misc Effects\Scripts\SpawnEffect.cs" />
     <Compile Include="Assets\Script\Manager\UI_Manager.cs" />
     <Compile Include="Assets\Script\Weapon\HellFire_Missile.cs" />
+    <Compile Include="Assets\Script\Module\ItemCellManager.cs" />
+    <Compile Include="Assets\Script\Module\Inventory.cs" />
     <Compile Include="Assets\Script\Manager\MainMenuManager.cs" />
     <Compile Include="Assets\Script\Controller\InitSetting.cs" />
     <Compile Include="Assets\Script\Manager\NetworkManager_Room.cs" />
-    <Compile Include="Assets\InventoryManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TerrainSampleAssets\ThirdPartyNotices.txt" />

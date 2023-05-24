@@ -9,6 +9,9 @@ public class GameManager : MonoBehaviour
     Player player;
     private float respwanInterval = 4f;
     private float lastRespwanTime = 0f;
+
+    private bool isPause;
+
     void Start()
     {
         player = FindObjectOfType<Player>();
@@ -17,25 +20,54 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (USBase.instance.gameObject.activeInHierarchy != true)
+        
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
-            Time.timeScale = 0;
-            UI_Manager.instance.Defeat();
+            if (isPause == false)
+            {
+                Time.timeScale = 0;
+                UI_Manager.instance.Pause();
+                isPause = true;
+            }
+            else
+            {
+                Time.timeScale = 1;
+                UI_Manager.instance.pauseUI.SetActive(false);
+                isPause = false;
+            }
+        }
+        if (isPause == false)
+        {
+            if (USBase.instance.gameObject.activeInHierarchy != true)
+            {
+                Time.timeScale = 0;
+                UI_Manager.instance.Defeat();
+            }
+            else
+            {
+                Time.timeScale = 1;
+            }
         }
         else
         {
-            Time.timeScale = 1;
+
         }
 
-        if(player.gameObject.activeInHierarchy == false)
+        if (player.gameObject.activeInHierarchy == false)
         {
             lastRespwanTime += Time.deltaTime;
+            UI_Manager.instance.sucideUI.SetActive(false);
             if (lastRespwanTime >= respwanInterval)
             { 
                 player.GetComponent<WeaponController>().totalData.currentHp = player.GetComponent<WeaponController>().totalData.maxHp;
                 player.GetComponent<WeaponController>().missileCnt = 8;
                 player.GetComponent<WeaponController>().rocketCnt = 38;
                 player.GetComponent<WeaponController>().bulletCnt = 150;
+                player.throttle = 80f;
+                for (int i = 7; i < 15; i++)
+                {
+                    player.gameObject.transform.GetChild(0).GetChild(i).gameObject.SetActive(true);
+                }
                 player.transform.position = RespwanPoint.position;
                 player.GetComponent<Player>().rgb.velocity = Vector3.zero;
                 player.GetComponent<Player>().rgb.freezeRotation = true;

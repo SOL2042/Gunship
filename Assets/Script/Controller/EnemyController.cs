@@ -21,6 +21,7 @@ public class EnemyController : MonoBehaviour
     public float RandomX;
     public float RandomZ;
     float level;
+    float waveRound;
 
     float lastRespwanTime;
     float respwanInterval = 4;
@@ -29,6 +30,7 @@ public class EnemyController : MonoBehaviour
     float timer = 0;
     private void Awake()
     {
+        waveRound = 1;
         t90s = new List<GameObject>();
         t90 = Resources.Load("Prefabs/T90LP ForrestWavyCamo") as GameObject;
     }
@@ -48,6 +50,7 @@ public class EnemyController : MonoBehaviour
         {
             if (t90s[i].gameObject.activeInHierarchy == false)
             {
+                waveRound++;
                 lastRespwanTime += Time.deltaTime;
                 if (lastRespwanTime >= respwanInterval)
                 {
@@ -68,4 +71,11 @@ public class EnemyController : MonoBehaviour
             t90s.Add(Instantiate(t90, new Vector3(RandomX, 0, RandomZ), Quaternion.Euler(0,180,0)));
         }
     }
+
+    private void LevelUp()
+    {
+
+    }
+
+
 }

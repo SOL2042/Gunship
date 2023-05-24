@@ -43,7 +43,6 @@ public class UI_Manager : MonoBehaviour
         }
     }
 
-
     public TextMeshProUGUI missileCnt;
     public TextMeshProUGUI rocketCnt;
     public TextMeshProUGUI bulletCnt;
@@ -51,25 +50,46 @@ public class UI_Manager : MonoBehaviour
     public TextMeshProUGUI creditTxt;
     public TextMeshProUGUI throttleTxt;
     public TextMeshProUGUI USBaseHPTxt;
+    public TextMeshProUGUI ejectCntTxt;
 
     public Slider USBaseSlider;
     public float USbaseHPReciprocal;
 
+    [SerializeField]
+    private GameObject playerAim;
+
     public GameObject defeatUI;
+    public GameObject pauseUI;
+    public GameObject sucideUI;
 
     [SerializeField]
-    private Button restartButton;
+    private Button defeatRestartButton;
     [SerializeField]
-    private Button MainMenuButton;
+    private Button defeatMainMenuButton;
+    
+    [SerializeField]
+    private Button pauseRestartButton;
+    [SerializeField]
+    private Button pauseMainMenuButton;
+
+
 
     // Start is called before the first frame update
     void Start()
     {
-        restartButton.onClick.AddListener(() =>
+        defeatRestartButton.onClick.AddListener(() =>
         {
             EventManager.instance.PostEvent("OpenInGameScene", null);
         });
-        MainMenuButton.onClick.AddListener(() =>
+        defeatMainMenuButton.onClick.AddListener(() =>
+        {
+            EventManager.instance.PostEvent("OpenMainMenuScene", null);
+        });
+        pauseRestartButton.onClick.AddListener(() =>
+        {
+            EventManager.instance.PostEvent("OpenInGameScene", null);
+        });
+        pauseMainMenuButton.onClick.AddListener(() =>
         {
             EventManager.instance.PostEvent("OpenMainMenuScene", null);
         });
@@ -81,20 +101,21 @@ public class UI_Manager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        missileCnt.text = $"Hellfire Missile : {WeaponController.instance.GetComponent<WeaponController>().missileCnt}";
-        rocketCnt.text = $"Rocket : {WeaponController.instance.GetComponent<WeaponController>().rocketCnt}";
-        bulletCnt.text = $"30mm Chain Gun : {WeaponController.instance.GetComponent<WeaponController>().bulletCnt}";
+        missileCnt.text = $"Hellfire Missile : {WeaponController.instance.missileCnt}";
+        rocketCnt.text = $"Rocket : {WeaponController.instance.rocketCnt}";
+        bulletCnt.text = $"30mm Chain Gun : {WeaponController.instance.bulletCnt}";
         scoreTxt.text = $"Score : {score}";
         creditTxt.text = $"Credit : {credit}";
         throttleTxt.text = $"Throttle : {((int)Player.instance.throttle)}%";
         USBaseHPTxt.text = $"Base HP : {(USBase.instance.totalData.currentHp * USbaseHPReciprocal * 100)}%";
         BaseHP();
+        ejectCntTxt.text = $"Eject : {(int)WeaponController.instance.suicideTimer}";
 
     }
 
     private void Reload()
     {
-
+        
     }
 
     private void BaseHP()
@@ -102,10 +123,17 @@ public class UI_Manager : MonoBehaviour
        USBaseSlider.value = 100 - (USBase.instance.totalData.currentHp * USbaseHPReciprocal * 100);
     }
     // USBase.instance.totalData.currentHp = 0;
-
+    public void Sucide()
+    {
+        sucideUI.SetActive(true);
+    }
     public void Defeat()
     {
         defeatUI.SetActive(true);
+    }
+    public void Pause()
+    {
+        pauseUI.SetActive(true);
     }
 
     public IEnumerator FadeTextToFullAlpha(TextMeshProUGUI text) // 알파값 0에서 1로 전환

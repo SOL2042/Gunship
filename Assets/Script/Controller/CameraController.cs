@@ -54,7 +54,6 @@ public class CameraController : MonoBehaviour
         cam.farClipPlane = 100000f;
     }
 
-
     private void PlayerZoom()
     {
         float zoomSensy = 1 - Input.GetAxis("Mouse ScrollWheel");
@@ -62,7 +61,4 @@ public class CameraController : MonoBehaviour
 
         distance = Mathf.Clamp(distance, 1, 40);
     }
-
-
-
 }

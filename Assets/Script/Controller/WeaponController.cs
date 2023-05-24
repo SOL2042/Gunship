@@ -50,9 +50,10 @@ public class WeaponController : UnitData
     float leftRckCooldown;
 
     public float reloadTimer;
-
     public float reloadInterval = 5f;
 
+    public float suicideTimer = 3f;
+    public float suicideInterval = 0f;
     Player player;
     // Weapon Inputs
     
@@ -99,7 +100,27 @@ public class WeaponController : UnitData
         {
             enemy = hit.collider.gameObject; //GameObject.FindWithTag("Enemy").transform;
         }
+
         Die();
+
+        if (Input.GetKey(KeyCode.J))
+        {
+            UI_Manager.instance.Sucide();
+            Debug.Log($"Suicide : {suicideTimer}");
+            suicideTimer -= Time.deltaTime;
+            if (suicideTimer <= suicideInterval)
+            {
+                UI_Manager.instance.sucideUI.SetActive(false);
+                Suicide();
+                suicideTimer = 3f;
+            }
+        }
+        else
+        {
+            UI_Manager.instance.sucideUI.SetActive(false);
+            suicideTimer = 3f;
+        }
+
         Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * 1000.0f, Color.green);
 
         RaycastHit temp;
@@ -147,7 +168,7 @@ public class WeaponController : UnitData
 
                 enemyPosition = enemy.transform;
 
-                if (distanceToEnemy <= shootRange) // 사격 범위 내에 있을 때
+                if (distanceToEnemy <= shootRange) // 사격범위 내에 있을 때
                 {
                     Debug.Log($"enemy : {hit.collider.name}");
                     LaunchMissile();
@@ -355,6 +376,10 @@ public class WeaponController : UnitData
         }
     }
 
+    private void Suicide()
+    {
+        totalData.currentHp -= 1000f;
+    }
     public override void PostHit(UnitData data, RaycastHit hit)
     {
        
