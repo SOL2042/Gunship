@@ -20,13 +20,13 @@ public class MainMenuManager : MonoBehaviourPunCallbacks
         {
             EventManager.instance.PostEvent("OpenSettingRoomScene", null);
         });
-        
-        StartCoroutine(FadeTextToFullAlpha());
-
     }
     void Update()
     {
 
+    }
+    private void Start()
+    {
     }
     public IEnumerator FadeTextToFullAlpha() // 알파값 0에서 1로 전환
     {
@@ -47,6 +47,11 @@ public class MainMenuManager : MonoBehaviourPunCallbacks
             startText.color = new Color(startText.color.r, startText.color.g, startText.color.b, startText.color.a - (Time.deltaTime / 2.0f));
             yield return null;
         }
+        StartCoroutine(FadeTextToFullAlpha());
+    }
+
+    private void OnEnable()
+    {
         StartCoroutine(FadeTextToFullAlpha());
     }
 }

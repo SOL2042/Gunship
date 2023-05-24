@@ -47,8 +47,7 @@ public class T90 : UnitData
         bulletPosition = transform.GetChild(16).GetChild(0).GetChild(0).transform;
         bullet = Resources.Load<GameObject>("Prefabs/T90Bullet");
         deadEffect = Resources.Load<GameObject>("Prefabs/BigExplosion");
-        playerTransform = GameObject.FindGameObjectWithTag("Player").transform; // 플레이어의 Transform 컴포넌트 가져오기
-        USbaseTransform = GameObject.FindGameObjectWithTag("USBase").transform;
+        //playerTransform = GameObject.FindGameObjectWithTag("Player").transform; // 플레이어의 Transform 컴포넌트 가져오기
         tankRigidbody = GetComponent<Rigidbody>(); // 탱크의 Rigidbody 컴포넌트 가져오기
         turretTransform = transform.GetChild(16).transform;
     }
@@ -144,7 +143,7 @@ public class T90 : UnitData
         GameObject go = Instantiate(deadEffect, transform.position, Quaternion.identity);
 
         float RandomX = Random.Range(-100, 100);
-        float RandomZ = Random.Range(400, 550);
+        float RandomZ = Random.Range(800, 900);
 
         gameObject.SetActive(false);
         gameObject.transform.rotation = Quaternion.identity;

@@ -42,28 +42,92 @@ public class UI_Manager : MonoBehaviour
             return _credit;
         }
     }
-    public Text missileCnt;
-    public Text bulletCnt;
+
+
+    public TextMeshProUGUI missileCnt;
+    public TextMeshProUGUI rocketCnt;
+    public TextMeshProUGUI bulletCnt;
     public TextMeshProUGUI scoreTxt;
     public TextMeshProUGUI creditTxt;
-    public TextMeshProUGUI ThrottleTxt;
+    public TextMeshProUGUI throttleTxt;
+    public TextMeshProUGUI USBaseHPTxt;
 
+    public Slider USBaseSlider;
+    public float USbaseHPReciprocal;
+
+    public GameObject defeatUI;
+
+    [SerializeField]
+    private Button restartButton;
+    [SerializeField]
+    private Button MainMenuButton;
 
     // Start is called before the first frame update
     void Start()
     {
-        missileCnt.color = Color.green;
+        restartButton.onClick.AddListener(() =>
+        {
+            EventManager.instance.PostEvent("OpenInGameScene", null);
+        });
+        MainMenuButton.onClick.AddListener(() =>
+        {
+            EventManager.instance.PostEvent("OpenMainMenuScene", null);
+        });
+        USbaseHPReciprocal = 1 / USBase.instance.totalData.maxHp;
         missileCnt.text = "Hellfire Missile : 8";
-        bulletCnt.color = Color.green;
+        rocketCnt.text = "Rocket : 38";
         bulletCnt.text = "30mm Chain Gun : 150";
     }
     // Update is called once per frame
     void Update()
     {
-        missileCnt.text = $"Hellfire Missile : {WeaponController.instance.GetComponent<WeaponController>().missileCnt}" ;
-        bulletCnt.text = $"30mm Chain Gun : {WeaponController.instance.GetComponent<WeaponController>().bulletCnt}" ;
+        missileCnt.text = $"Hellfire Missile : {WeaponController.instance.GetComponent<WeaponController>().missileCnt}";
+        rocketCnt.text = $"Rocket : {WeaponController.instance.GetComponent<WeaponController>().rocketCnt}";
+        bulletCnt.text = $"30mm Chain Gun : {WeaponController.instance.GetComponent<WeaponController>().bulletCnt}";
         scoreTxt.text = $"Score : {score}";
         creditTxt.text = $"Credit : {credit}";
-        ThrottleTxt.text = $"Throttle : {((int)Player.instance.throttle)}%";
+        throttleTxt.text = $"Throttle : {((int)Player.instance.throttle)}%";
+        USBaseHPTxt.text = $"Base HP : {(USBase.instance.totalData.currentHp * USbaseHPReciprocal * 100)}%";
+        BaseHP();
+
     }
+
+    private void Reload()
+    {
+
+    }
+
+    private void BaseHP()
+    {
+       USBaseSlider.value = 100 - (USBase.instance.totalData.currentHp * USbaseHPReciprocal * 100);
+    }
+    // USBase.instance.totalData.currentHp = 0;
+
+    public void Defeat()
+    {
+        defeatUI.SetActive(true);
+    }
+
+    public IEnumerator FadeTextToFullAlpha(TextMeshProUGUI text) // 알파값 0에서 1로 전환
+    {
+        text.color = new Color(text.color.r, text.color.g, text.color.b, 0);
+        while (text.color.a < 1.0f)
+        {
+            text.color = new Color(text.color.r, text.color.g, text.color.b, text.color.a + (Time.deltaTime / 2.0f));
+            yield return null;
+        }
+        StartCoroutine(FadeTextToZero(text));
+    }
+
+    public IEnumerator FadeTextToZero(TextMeshProUGUI text)  // 알파값 1에서 0으로 전환
+    {
+        text.color = new Color(text.color.r, text.color.g, text.color.b, 1);
+        while (missileCnt.color.a > 0.0f)
+        {
+            text.color = new Color(text.color.r, text.color.g, text.color.b, text.color.a - (Time.deltaTime / 2.0f));
+            yield return null;
+        }
+        StartCoroutine(FadeTextToFullAlpha(text));
+    }
+
 }

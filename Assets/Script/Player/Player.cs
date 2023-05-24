@@ -21,7 +21,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    private Rigidbody rgb;
+    public Rigidbody rgb;
 
     [SerializeField] Transform bulletPosition;
     [SerializeField] Transform enemyPosition;
@@ -85,7 +85,7 @@ public class Player : MonoBehaviour
         {
 
         }
-        rgb.AddTorque(transform.up * yaw * responsiveness * 4f);
+        rgb.AddTorque(transform.up * yaw * responsiveness * 7f);
         
         Vector3 currentPosition = transform.position;
         
@@ -114,9 +114,9 @@ public class Player : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.H))
             {
+                rgb.useGravity = true;
                 rgb.velocity = Vector3.zero;
                 rgb.MoveRotation(Quaternion.Slerp(rgb.rotation, Quaternion.identity, Time.deltaTime * 10f));
-                rgb.rotation = Quaternion.Slerp(rgb.rotation, Quaternion.identity, Time.deltaTime * 10f);
                 count += 1;
             }
         }
@@ -124,6 +124,7 @@ public class Player : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.H))
             {
+                rgb.useGravity = false;
                 count = 0;
             }
         }

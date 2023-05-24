@@ -30,6 +30,11 @@ public class WeaponController : UnitData
     [SerializeField]
     Transform leftMissilePosition;
 
+    [SerializeField]
+    Transform rightRocketPosition;
+    [SerializeField]
+    Transform leftRocketPosition;
+
     GameObject enemy;
 
     public float missileCnt;
@@ -39,16 +44,22 @@ public class WeaponController : UnitData
     float leftMslCooldown;
 
     public float bulletCnt;
-   
-    public float gunRPM;
+    public float rocketCnt;
+    public float rocketCooldownTime;
+    float rightRckCooldown;
+    float leftRckCooldown;
 
-    public float fireRange;
+    public float reloadTimer;
+
+    public float reloadInterval = 5f;
 
     Player player;
     // Weapon Inputs
     
     public GameObject missilePrefab;
     // Weapon Callbacks
+
+    public GameObject rocketPrefab;
 
     private Transform ResPosition;
     
@@ -79,15 +90,14 @@ public class WeaponController : UnitData
         cameraTransform = Camera.main.transform;
         player = GetComponent<Player>();
         missileCnt = 8f;
+        rocketCnt = 38f;
         bulletCnt = 150f;
-        fireRange = 400f;
     }
     private void Update()
     {
         if (Physics.SphereCast(new Vector3(gameObject.transform.position.x, gameObject.transform.position.y + 500, gameObject.transform.position.z), shootRange, Vector3.down, out RaycastHit hit, 1000, enemyLayer))
         {
             enemy = hit.collider.gameObject; //GameObject.FindWithTag("Enemy").transform;
-            Debug.Log(enemy);
         }
         Die();
         Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * 1000.0f, Color.green);
@@ -122,6 +132,11 @@ public class WeaponController : UnitData
         {
             CeaseFire();
             fireTimer = 0.09f;
+        }
+
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            LaunchRocket();
         }
 
         if (Input.GetKeyDown(KeyCode.G))
@@ -159,9 +174,13 @@ public class WeaponController : UnitData
                             gameObject.transform.GetChild(0).GetChild(14).gameObject.SetActive(false);
                     }
                 }
+                else
+                {
+                    enemy = null;
+                }
             }
         }
-        else // 사격 범위 밖에 있을 때
+        else 
         {
             enemy = null;
         }
@@ -171,12 +190,13 @@ public class WeaponController : UnitData
                 enemy = null;
             }
            
-        if(Input.GetKeyDown(KeyCode.R))
-        {
-            Reload();
-        }
+        
+        Reload();
+        
         MissileCooldown(ref rightMslCooldown);
         MissileCooldown(ref leftMslCooldown);
+        RocketCooldown(ref rightRckCooldown);
+        RocketCooldown(ref leftRckCooldown);
     }
 
     private void Refresh()
@@ -248,20 +268,78 @@ public class WeaponController : UnitData
         else return;
     }
 
+    private void LaunchRocket()
+    {
+        Vector3 rocketPosition;
+        if (rocketCnt <= 0)
+            return;
+
+        if (leftRckCooldown > 0 && rightRckCooldown > 0)
+        {
+            // Beep sound
+            return;
+        }
+        if (rocketCnt % 2 == 1)
+        {
+            rocketPosition = rightRocketPosition.position;
+            rightRckCooldown = rocketCooldownTime;
+        }
+        else
+        {
+            rocketPosition = leftRocketPosition.position;
+            leftRckCooldown = rocketCooldownTime;
+        }
+
+        GameObject rocket = Instantiate(rocketPrefab, rocketPosition, transform.rotation);
+        Rocket rocketScript = rocket.GetComponent<Rocket>();
+        rocketScript.Launch(player.speed + 15);
+
+        rocketCnt--;
+    }
+
+    void RocketCooldown(ref float cooldown)
+    {
+        if (cooldown > 0)
+        {
+            cooldown -= Time.deltaTime;
+            if (cooldown < 0) cooldown = 0;
+        }
+        else return;
+    }
     private void Reload()
     {
-        if(missileCnt <= 0)
+        if (missileCnt <= 0)
         {
-           missileCnt = 8;
+            reloadTimer += Time.deltaTime;
+            if (reloadTimer >= reloadInterval)
+            {
+                missileCnt = 8;
 
-           for (int i = 7; i < 15; i++)
-           {
-               gameObject.transform.GetChild(0).GetChild(i).gameObject.SetActive(true);
-           }
+                for (int i = 7; i < 15; i++)
+                {
+                    gameObject.transform.GetChild(0).GetChild(i).gameObject.SetActive(true);
+                }
+            }
         }
-        if(bulletCnt <= 0)
+        else if (bulletCnt <= 0)
         {
-            bulletCnt = 150;
+            reloadTimer += Time.deltaTime;
+            if (reloadTimer >= reloadInterval)
+            {
+                bulletCnt = 150;
+            }
+        }
+        else if (rocketCnt <= 0)
+        {
+            reloadTimer += Time.deltaTime;
+            if (reloadTimer >= reloadInterval)
+            {
+                rocketCnt = 38;
+            }
+        }
+        else
+        {
+            reloadTimer = 0;
         }
     }
 
@@ -286,19 +364,30 @@ public class WeaponController : UnitData
     {
         if(other.gameObject.layer == 15)
         {
-            myData.currentHp -= 1000f;
+            totalData.currentHp -= 1000f;
             Debug.Log(myData.currentHp);
             
             Refresh();
         }
+        if(other.gameObject.layer == 9)
+        {
+            myData.currentHp -= 1000f;
+        }
+        if (Player.instance.rgb.velocity.x >= 15f || Player.instance.rgb.velocity.x <= -15f)
+        {
+            totalData.currentHp -= 1000f;
+        }
+        else if (Player.instance.rgb.velocity.y > 15f || Player.instance.rgb.velocity.y <= -15f)
+        {
+            totalData.currentHp -= 1000f;
+        }
+        else if (Player.instance.rgb.velocity.z > 15f || Player.instance.rgb.velocity.z <= -15f)
+        {
+            totalData.currentHp -= 1000f;
+        }
     }
 
-    public IEnumerator Respawn()
-    {
-        gameObject.SetActive(true);
-        yield return new WaitForSeconds(3f);
-    }
-
+   
     public override void SetHit(UnitData data)
     {
         

@@ -21,11 +21,7 @@ public class Bullet : MonoBehaviour
     {
         this.speed = speed;
     }
-    public Bullet(Vector3 target, bool hit)
-    {
-        this.target = target;
-        this.hit = hit;
-    }
+    
     private void Awake()
     {
         
@@ -48,7 +44,6 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log(other);
         GameObject go = Instantiate(gunEffect, transform.localPosition, Quaternion.identity);
         Destroy(go, 3);
         Destroy(gameObject);

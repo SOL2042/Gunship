@@ -20,8 +20,10 @@ public class EnemyController : MonoBehaviour
     [SerializeField] Transform resPosition;
     public float RandomX;
     public float RandomZ;
+    float level;
 
-    float randomRange;
+    float lastRespwanTime;
+    float respwanInterval = 4;
 
     float resTime = 3;
     float timer = 0;
@@ -30,42 +32,40 @@ public class EnemyController : MonoBehaviour
         t90s = new List<GameObject>();
         t90 = Resources.Load("Prefabs/T90LP ForrestWavyCamo") as GameObject;
     }
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
     void Update()
     {
         //randomRange = Random.Range(100, 200);
         RandomX = Random.Range(-100, 100);
-        RandomZ = Random.Range(400, 450);
+        RandomZ = Random.Range(800, 900);
         timer += Time.deltaTime;
-        if(timer >= resTime)
+        if (timer >= resTime)
         {
             Instantiate();
-            for (int i = 0; i < t90s.Count; i++)
-            {
-                t90s[i].SetActive(true);
-            }
             timer = 0;
+        }
+        for (int i = 0; i < t90s.Count; i++)
+        {
+            if (t90s[i].gameObject.activeInHierarchy == false)
+            {
+                lastRespwanTime += Time.deltaTime;
+                if (lastRespwanTime >= respwanInterval)
+                {
+                    t90s[i].SetActive(true);
+                }
+            }
+            else
+            {
+                lastRespwanTime = 0;
+            }
         }
     }
 
     private void Instantiate()
     {
-        if (t90s.Count <= 2)
+        if (t90s.Count <= 8 + level)
         {
             t90s.Add(Instantiate(t90, new Vector3(RandomX, 0, RandomZ), Quaternion.Euler(0,180,0)));
-
-           //for (int i = 0; i < t90s.Count; i++)
-           //{
-           //    t90s[i].gameObject.GetComponent<UnitData>().myData.unitshootRange = randomRange;
-           //}
         }
     }
-
-
 }
