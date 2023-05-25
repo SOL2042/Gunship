@@ -20,7 +20,6 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (isPause == false)
@@ -60,6 +59,7 @@ public class GameManager : MonoBehaviour
             if (lastRespwanTime >= respwanInterval)
             { 
                 player.GetComponent<WeaponController>().totalData.currentHp = player.GetComponent<WeaponController>().totalData.maxHp;
+                player.GetComponent<WeaponController>().totalData.flyMode = FlyMode.Default;
                 player.GetComponent<WeaponController>().missileCnt = 8;
                 player.GetComponent<WeaponController>().rocketCnt = 38;
                 player.GetComponent<WeaponController>().bulletCnt = 150;
@@ -82,14 +82,6 @@ public class GameManager : MonoBehaviour
         {
             lastRespwanTime = 0;
         }
-        //if(player.gameObject.activeInHierarchy == false)
-        //{
-        //    StartCoroutine(player.GetComponent<WeaponController>().Respawn());
-        //}
-        //else
-        //{
-        //    StopCoroutine(player.GetComponent<WeaponController>().Respawn());
-        //}
     }
 
     

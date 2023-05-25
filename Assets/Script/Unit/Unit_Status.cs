@@ -6,9 +6,18 @@ public enum UnitSidetype
 {
     Default = 0, team1, team2
 }
-public enum PlayerMode
+public enum FlyMode
 {
     Default = 0, Hover = 1
+}
+public enum UnitType
+{
+    Default = 0, 
+    tank,
+    infantry,
+    helicoptor,
+    fighter,
+    howitcher
 }
 public class Unit_Status
 {
@@ -29,10 +38,12 @@ public class Unit_Status
 
     public bool isSelected;
     public UnitSidetype unitSideType;
-    public PlayerMode playerMode;
+    public FlyMode flyMode;
+    public UnitType unitType;
     public string code = "";
     public string unitName = "";
     public string unitDescripts = "";
+    public Sprite unitSprite;
 
 
 

@@ -17,14 +17,9 @@ public class Bullet : MonoBehaviour
 
     float layerTimer = 0.2f;
     float layerTime = 0;
-    public void Speed(ref float speed)
+    public void Speed(float speed)
     {
         this.speed = speed;
-    }
-    
-    private void Awake()
-    {
-        
     }
     private void Start()
     {
@@ -34,7 +29,7 @@ public class Bullet : MonoBehaviour
         
         gunEffect = Resources.Load<GameObject>("Prefabs/DustExplosion");
 
-        rgb.AddForce(bulletPosition.forward * 12000);
+        rgb.AddForce(bulletPosition.forward * speed * 1200);
     }
     // Update is called once per frame
     void Update()

@@ -63,7 +63,7 @@ public class Player : MonoBehaviour
     float originalYRotation;
     private void FixedUpdate()
     {
-        if (gameObject.GetComponent<WeaponController>().totalData.playerMode == PlayerMode.Default)
+        if (gameObject.GetComponent<WeaponController>().totalData.flyMode == FlyMode.Default)
         {
             rgb.AddForce(transform.up * throttle * 0.07f, ForceMode.Impulse);
         }
@@ -94,7 +94,6 @@ public class Player : MonoBehaviour
         Vector3 currentPosition = transform.position;
         
         float PositionY = Mathf.Clamp(currentPosition.y, -10, 200);
-   
         
         transform.position = new Vector3(transform.position.x, PositionY, transform.position.z);
         
@@ -118,11 +117,10 @@ public class Player : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.H))
             {
-                gameObject.GetComponent<WeaponController>().totalData.playerMode = PlayerMode.Hover;
+                gameObject.GetComponent<WeaponController>().totalData.flyMode = FlyMode.Hover;
                 rgb.useGravity = false;
                 rgb.velocity = Vector3.Slerp(rgb.velocity, Vector3.zero, Time.deltaTime);
                 gameObject.transform.rotation = Quaternion.RotateTowards(gameObject.transform.rotation, Quaternion.Euler(0,0,0), Time.deltaTime);
-                
                 count += 1;
             }
         }
@@ -130,7 +128,7 @@ public class Player : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.H))
             {
-                gameObject.GetComponent<WeaponController>().totalData.playerMode = PlayerMode.Default;
+                gameObject.GetComponent<WeaponController>().totalData.flyMode = FlyMode.Default;
                 rgb.useGravity = true;
                 count = 0;
             }

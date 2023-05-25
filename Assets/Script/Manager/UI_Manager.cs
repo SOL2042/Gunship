@@ -51,6 +51,7 @@ public class UI_Manager : MonoBehaviour
     public TextMeshProUGUI throttleTxt;
     public TextMeshProUGUI USBaseHPTxt;
     public TextMeshProUGUI ejectCntTxt;
+    public TextMeshProUGUI WaveTxt;
 
     public Slider USBaseSlider;
     public float USbaseHPReciprocal;
@@ -72,9 +73,6 @@ public class UI_Manager : MonoBehaviour
     [SerializeField]
     private Button pauseMainMenuButton;
 
-
-
-    // Start is called before the first frame update
     void Start()
     {
         defeatRestartButton.onClick.AddListener(() =>
@@ -98,7 +96,6 @@ public class UI_Manager : MonoBehaviour
         rocketCnt.text = "Rocket : 38";
         bulletCnt.text = "30mm Chain Gun : 150";
     }
-    // Update is called once per frame
     void Update()
     {
         missileCnt.text = $"Hellfire Missile : {WeaponController.instance.missileCnt}";
@@ -110,19 +107,50 @@ public class UI_Manager : MonoBehaviour
         USBaseHPTxt.text = $"Base HP : {(USBase.instance.totalData.currentHp * USbaseHPReciprocal * 100)}%";
         BaseHP();
         ejectCntTxt.text = $"Eject : {(int)WeaponController.instance.suicideTimer}";
-
+        WaveTxt.text = $"Wave : {EnemyController.instance.waveRound}";
     }
 
+    private void OnEnable()
+    {
+        Reload();
+    }
+    
     private void Reload()
     {
-        
+        //StopAllCoroutines();
+        //if(WeaponController.instance.missileCnt <= 0)
+        //{
+        //    StartCoroutine(FadeTextToFullAlpha(missileCnt));
+        //}
+        //else
+        //{
+        //    StopCoroutine(FadeTextToZero(missileCnt));
+        //    StopCoroutine(FadeTextToFullAlpha(missileCnt));
+        //}
+        //if (WeaponController.instance.rocketCnt <= 0)
+        //{
+        //    StartCoroutine(FadeTextToFullAlpha(rocketCnt));
+        //}
+        //else
+        //{
+        //    StopCoroutine(FadeTextToZero(rocketCnt));
+        //    StopCoroutine(FadeTextToFullAlpha(rocketCnt));
+        //}
+        //if (WeaponController.instance.bulletCnt <= 0)
+        //{
+        //    StartCoroutine(FadeTextToFullAlpha(bulletCnt));
+        //}
+        //else
+        //{
+        //    StopCoroutine(FadeTextToZero(bulletCnt));
+        //    StopCoroutine(FadeTextToFullAlpha(bulletCnt));
+        //}
     }
 
     private void BaseHP()
     {
        USBaseSlider.value = 100 - (USBase.instance.totalData.currentHp * USbaseHPReciprocal * 100);
     }
-    // USBase.instance.totalData.currentHp = 0;
     public void Sucide()
     {
         sucideUI.SetActive(true);
@@ -136,7 +164,7 @@ public class UI_Manager : MonoBehaviour
         pauseUI.SetActive(true);
     }
 
-    public IEnumerator FadeTextToFullAlpha(TextMeshProUGUI text) // 알파값 0에서 1로 전환
+    private IEnumerator FadeTextToFullAlpha(TextMeshProUGUI text) // 알파값 0에서 1로 전환
     {
         text.color = new Color(text.color.r, text.color.g, text.color.b, 0);
         while (text.color.a < 1.0f)
@@ -147,7 +175,7 @@ public class UI_Manager : MonoBehaviour
         StartCoroutine(FadeTextToZero(text));
     }
 
-    public IEnumerator FadeTextToZero(TextMeshProUGUI text)  // 알파값 1에서 0으로 전환
+    private IEnumerator FadeTextToZero(TextMeshProUGUI text)  // 알파값 1에서 0으로 전환
     {
         text.color = new Color(text.color.r, text.color.g, text.color.b, 1);
         while (missileCnt.color.a > 0.0f)

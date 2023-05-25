@@ -6,6 +6,8 @@ public class T54_InitStatus : Unit_Status
 {
     public T54_InitStatus()
     {
+        unitType = UnitType.tank;
+        unitSprite = null;
         isSelected = false;
         unitSideType = 0;
         code = "0002";

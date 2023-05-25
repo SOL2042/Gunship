@@ -63,7 +63,6 @@ public class WeaponController : UnitData
     public GameObject rocketPrefab;
 
     private Transform ResPosition;
-    
 
     [SerializeField] Transform bulletPosition;
 
@@ -74,6 +73,8 @@ public class WeaponController : UnitData
     public LayerMask enemyLayer;
 
     GameObject deadEffect;
+
+    float boresightAngle = 60f;
 
     public WeaponController()
     {
@@ -100,6 +101,8 @@ public class WeaponController : UnitData
         {
             enemy = hit.collider.gameObject; //GameObject.FindWithTag("Enemy").transform;
         }
+
+        Debug.Log($"Enemy : {enemy}");
 
         Die();
 
@@ -234,7 +237,9 @@ public class WeaponController : UnitData
             player.transform.GetChild(0).GetChild(2).gameObject.SetActive(true);
             GameObject go = Resources.Load<GameObject>("Prefabs/Bullet");
             GameObject bullet = Instantiate(go, bulletPosition.position + new Vector3(Random.Range(-0.3f, 0.3f), Random.Range(-0.3f, 0.3f), 0), Quaternion.identity);
-            
+            Bullet bulletScript = bullet.GetComponent<Bullet>();
+            bulletScript.Speed(player.speed + 15);
+
             bulletCnt--;
             Destroy(bullet, 3);
         }
@@ -327,6 +332,7 @@ public class WeaponController : UnitData
         }
         else return;
     }
+
     private void Reload()
     {
         if (missileCnt <= 0)
@@ -398,15 +404,15 @@ public class WeaponController : UnitData
         {
             myData.currentHp -= 1000f;
         }
-        if (Player.instance.rgb.velocity.x >= 15f || Player.instance.rgb.velocity.x <= -15f)
+        if (Player.instance.rgb.velocity.x >= 20f || Player.instance.rgb.velocity.x <= -20f)
         {
             totalData.currentHp -= 1000f;
         }
-        else if (Player.instance.rgb.velocity.y > 15f || Player.instance.rgb.velocity.y <= -15f)
+        else if (Player.instance.rgb.velocity.y > 20f || Player.instance.rgb.velocity.y <= -20f)
         {
             totalData.currentHp -= 1000f;
         }
-        else if (Player.instance.rgb.velocity.z > 15f || Player.instance.rgb.velocity.z <= -15f)
+        else if (Player.instance.rgb.velocity.z > 20f || Player.instance.rgb.velocity.z <= -20f)
         {
             totalData.currentHp -= 1000f;
         }

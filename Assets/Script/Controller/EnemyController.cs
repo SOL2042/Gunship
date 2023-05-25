@@ -21,13 +21,16 @@ public class EnemyController : MonoBehaviour
     public float RandomX;
     public float RandomZ;
     float level;
-    float waveRound;
+    public float waveRound;
 
     float lastRespwanTime;
     float respwanInterval = 4;
 
     float resTime = 3;
     float timer = 0;
+
+    float enemyDeadCnt = 0;
+
     private void Awake()
     {
         waveRound = 1;
@@ -37,7 +40,6 @@ public class EnemyController : MonoBehaviour
 
     void Update()
     {
-        //randomRange = Random.Range(100, 200);
         RandomX = Random.Range(-100, 100);
         RandomZ = Random.Range(800, 900);
         timer += Time.deltaTime;
@@ -46,11 +48,15 @@ public class EnemyController : MonoBehaviour
             Instantiate();
             timer = 0;
         }
+        Respwan();
+    }
+
+    private void Respwan()
+    {
         for (int i = 0; i < t90s.Count; i++)
         {
             if (t90s[i].gameObject.activeInHierarchy == false)
             {
-                waveRound++;
                 lastRespwanTime += Time.deltaTime;
                 if (lastRespwanTime >= respwanInterval)
                 {

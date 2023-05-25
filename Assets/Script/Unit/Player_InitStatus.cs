@@ -6,7 +6,7 @@ public class Player_InitStatus : Unit_Status
 {
     public Player_InitStatus()
     {
-        playerMode = PlayerMode.Default;
+        flyMode = FlyMode.Default;
         isSelected = false;
         unitSideType = 0;
         code = "0000";

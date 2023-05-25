@@ -28,7 +28,7 @@ public class MainMenuManager : MonoBehaviourPunCallbacks
     private void Start()
     {
     }
-    public IEnumerator FadeTextToFullAlpha() // 알파값 0에서 1로 전환
+    private IEnumerator FadeTextToFullAlpha() // 알파값 0에서 1로 전환
     {
         startText.color = new Color(startText.color.r, startText.color.g, startText.color.b, 0);
         while (startText.color.a < 1.0f)
@@ -39,7 +39,7 @@ public class MainMenuManager : MonoBehaviourPunCallbacks
         StartCoroutine(FadeTextToZero());
     }
 
-    public IEnumerator FadeTextToZero()  // 알파값 1에서 0으로 전환
+    private IEnumerator FadeTextToZero()  // 알파값 1에서 0으로 전환
     {
         startText.color = new Color(startText.color.r, startText.color.g, startText.color.b, 1);
         while (startText.color.a > 0.0f)

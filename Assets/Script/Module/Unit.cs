@@ -2,8 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Inventory
+public class Unit 
 {
-
+    
+    public Unit()
+    {
+        
+    }
 
 }
