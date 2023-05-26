@@ -52,6 +52,7 @@ public class UI_Manager : MonoBehaviour
     public TextMeshProUGUI USBaseHPTxt;
     public TextMeshProUGUI ejectCntTxt;
     public TextMeshProUGUI WaveTxt;
+    public TextMeshProUGUI FlyModeTxt;
 
     public Slider USBaseSlider;
     public float USbaseHPReciprocal;
@@ -62,6 +63,7 @@ public class UI_Manager : MonoBehaviour
     public GameObject defeatUI;
     public GameObject pauseUI;
     public GameObject sucideUI;
+    public GameObject AAMissileRadarUI;
 
     [SerializeField]
     private Button defeatRestartButton;
@@ -108,6 +110,7 @@ public class UI_Manager : MonoBehaviour
         BaseHP();
         ejectCntTxt.text = $"Eject : {(int)WeaponController.instance.suicideTimer}";
         WaveTxt.text = $"Wave : {EnemyController.instance.waveRound}";
+        FlyModeTxt.text = $"Mode : {WeaponController.instance.totalData.flyMode}";
     }
 
     private void OnEnable()
@@ -163,7 +166,17 @@ public class UI_Manager : MonoBehaviour
     {
         pauseUI.SetActive(true);
     }
-
+    public void AAMissileRadar()
+    {
+        if (AAMissileRadarUI.activeInHierarchy == false)
+        {
+            AAMissileRadarUI.SetActive(true);
+        }
+        else
+        {
+            AAMissileRadarUI.SetActive(false);
+        }
+    }
     private IEnumerator FadeTextToFullAlpha(TextMeshProUGUI text) // 알파값 0에서 1로 전환
     {
         text.color = new Color(text.color.r, text.color.g, text.color.b, 0);

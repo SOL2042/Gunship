@@ -27,6 +27,7 @@ public class Rocket : MonoBehaviour
     {
         explosionPrefab = Resources.Load<GameObject>("Prefabs/BigExplosion");
         Destroy(gameObject, lifeTime);
+       
     }
     private void FixedUpdate()
     {
@@ -46,6 +47,7 @@ public class Rocket : MonoBehaviour
     private void OnDisable()
     {
         rgb.velocity = Vector3.zero;
+        
     }
     private void OnTriggerEnter(Collider other)
     {

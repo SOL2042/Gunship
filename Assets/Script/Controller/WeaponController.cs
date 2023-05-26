@@ -102,6 +102,11 @@ public class WeaponController : UnitData
             enemy = hit.collider.gameObject; //GameObject.FindWithTag("Enemy").transform;
         }
 
+        if(Input.GetKeyDown(KeyCode.F))
+        {
+            UI_Manager.instance.AAMissileRadar();
+        }
+
         Debug.Log($"Enemy : {enemy}");
 
         Die();

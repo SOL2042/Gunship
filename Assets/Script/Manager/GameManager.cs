@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour
     private float lastRespwanTime = 0f;
 
     private bool isPause;
-
+    
     void Start()
     {
         player = FindObjectOfType<Player>();
@@ -63,6 +63,8 @@ public class GameManager : MonoBehaviour
                 player.GetComponent<WeaponController>().missileCnt = 8;
                 player.GetComponent<WeaponController>().rocketCnt = 38;
                 player.GetComponent<WeaponController>().bulletCnt = 150;
+                
+                UI_Manager.instance.AAMissileRadarUI.SetActive(false);
                 player.throttle = 80f;
                 for (int i = 7; i < 15; i++)
                 {

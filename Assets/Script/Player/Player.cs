@@ -4,12 +4,6 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    private enum Mode
-    {
-        normal,
-        Hover
-    }
-
     private static Player _instance;
 
     public static Player instance
@@ -34,33 +28,27 @@ public class Player : MonoBehaviour
     private float pitch;
     private float yaw;
 
-    float count = 0;
     public float speed;
 
-    //public float maxSpeed = 30.0f; // 최대 속력
-    //public float accelAmount; // 가속 
+    private float limitRotationX;
+    private float limitRotationZ;
 
-    //float speedReciprocal; // maxSpeed의 역수
-    //float accelValue; // 컨트롤러로 얻어오는 값
-
-    void Start()
-    {
-        speed = rgb.velocity.z;
-        //rb = GetComponent<Rigidbody>();
-        //rb.drag = drag;
-        //rb.angularDrag = angularDrag;
-    }
-
+    float count = 0;
+    
     private void Awake()
     {
         rgb = GetComponent<Rigidbody>();
     }
-
+    void Start()
+    {
+        speed = rgb.velocity.z;
+        limitRotationX = Mathf.Clamp(limitRotationX, -30, 30);
+        limitRotationZ = Mathf.Clamp(limitRotationZ, -30, 30);
+    }
     void Update()
     {
         HandleInputs();
     }
-    float originalYRotation;
     private void FixedUpdate()
     {
         if (gameObject.GetComponent<WeaponController>().totalData.flyMode == FlyMode.Default)
@@ -96,9 +84,8 @@ public class Player : MonoBehaviour
         float PositionY = Mathf.Clamp(currentPosition.y, -10, 200);
         
         transform.position = new Vector3(transform.position.x, PositionY, transform.position.z);
-        
+        Hover();
     }
-
     private void HandleInputs()
     {
         roll = Input.GetAxis("Roll");
@@ -112,16 +99,25 @@ public class Player : MonoBehaviour
         {
             throttle -= Time.deltaTime * throttleAmt;
         }
-        //호버링 모드
-        if (count == 0)
+        throttle = Mathf.Clamp(throttle, 0f, 100f);
+    }
+
+    //호버링 모드
+    private void Hover()
+    {
+        if (gameObject.GetComponent<WeaponController>().totalData.flyMode == FlyMode.Default)
         {
+            rgb.useGravity = true;
             if (Input.GetKeyDown(KeyCode.H))
             {
+                count++;
+                Debug.Log(count);
                 gameObject.GetComponent<WeaponController>().totalData.flyMode = FlyMode.Hover;
                 rgb.useGravity = false;
                 rgb.velocity = Vector3.Slerp(rgb.velocity, Vector3.zero, Time.deltaTime);
-                gameObject.transform.rotation = Quaternion.RotateTowards(gameObject.transform.rotation, Quaternion.Euler(0,0,0), Time.deltaTime);
-                count += 1;
+                rgb.MoveRotation(Quaternion.Euler(limitRotationX, 0, limitRotationZ));
+
+                gameObject.transform.rotation = Quaternion.RotateTowards(gameObject.transform.rotation, Quaternion.Euler(0, 0, 0), Time.deltaTime);
             }
         }
         else
@@ -130,13 +126,11 @@ public class Player : MonoBehaviour
             {
                 gameObject.GetComponent<WeaponController>().totalData.flyMode = FlyMode.Default;
                 rgb.useGravity = true;
-                count = 0;
+                count++;
+                Debug.Log(count);
             }
         }
-
-        throttle = Mathf.Clamp(throttle, 0f, 100f);
     }
-
     //public float maxTiltAngle = 30f;
     //public float smooth = 1f;
     //public float engineForce = 100f;
