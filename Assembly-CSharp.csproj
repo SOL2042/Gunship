@@ -65,6 +65,7 @@
     <Compile Include="Assets\Script\Controller\WeaponController.cs" />
     <Compile Include="Assets\Script\Module\UnitCell.cs" />
     <Compile Include="Assets\Photon\PhotonLibs\WebSocket\SocketWebTcp.cs" />
+    <Compile Include="Assets\Script\Module\Unit.cs" />
     <Compile Include="Assets\Script\Player\Player.cs" />
     <Compile Include="Assets\Script\Controller\SceneController.cs" />
     <Compile Include="Assets\Script\Weapon\Bullet.cs" />
@@ -82,6 +83,7 @@
     <Compile Include="Assets\Script\Controller\EnemyController.cs" />
     <Compile Include="Assets\Shared\Ramps\Runtime\RampAsset.cs" />
     <Compile Include="Assets\Script\Unit\AH64_Status.cs" />
+    <Compile Include="Assets\Script\Module\Unit_Status_NoUnit.cs" />
     <Compile Include="Assets\Script\Unit\military_vehicle.cs" />
     <Compile Include="Assets\Script\Weapon\BulletEx.cs" />
     <Compile Include="Assets\Script\Weapon\MainGun.cs" />
@@ -101,8 +103,6 @@
     <Compile Include="Assets\Script\Manager\MainMenuManager.cs" />
     <Compile Include="Assets\Script\Controller\InitSetting.cs" />
     <Compile Include="Assets\Script\Manager\NetworkManager_Room.cs" />
-    <Compile Include="Assets\Script\Module\Unit.cs" />
-    <Compile Include="Assets\Script\Module\Unit_Status_NoUnit.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TerrainSampleAssets\ThirdPartyNotices.txt" />
