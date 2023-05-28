@@ -160,11 +160,22 @@ public class UI_Manager : MonoBehaviour
     }
     public void Defeat()
     {
-        defeatUI.SetActive(true);
+        if (defeatUI.activeInHierarchy != true)
+        {
+            defeatUI.SetActive(true);
+        }
+       
     }
     public void Pause()
     {
-        pauseUI.SetActive(true);
+        if (pauseUI.activeInHierarchy != true)
+        {
+            pauseUI.SetActive(true);
+        }
+        else
+        {
+            pauseUI.SetActive(false);
+        }
     }
     public void AAMissileRadar()
     {

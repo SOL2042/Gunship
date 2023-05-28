@@ -101,33 +101,9 @@ public class WeaponController : UnitData
         {
             enemy = hit.collider.gameObject; //GameObject.FindWithTag("Enemy").transform;
         }
+        //Debug.Log($"Enemy : {enemy}");
 
-        if(Input.GetKeyDown(KeyCode.F))
-        {
-            UI_Manager.instance.AAMissileRadar();
-        }
-
-        Debug.Log($"Enemy : {enemy}");
-
-        Die();
-
-        if (Input.GetKey(KeyCode.J))
-        {
-            UI_Manager.instance.Sucide();
-            Debug.Log($"Suicide : {suicideTimer}");
-            suicideTimer -= Time.deltaTime;
-            if (suicideTimer <= suicideInterval)
-            {
-                UI_Manager.instance.sucideUI.SetActive(false);
-                Suicide();
-                suicideTimer = 3f;
-            }
-        }
-        else
-        {
-            UI_Manager.instance.sucideUI.SetActive(false);
-            suicideTimer = 3f;
-        }
+        
 
         Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * 1000.0f, Color.green);
 
@@ -148,7 +124,7 @@ public class WeaponController : UnitData
             bulletPosition.rotation = dir;
         }
 
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButton(0))    //기총 발사 
         {
             fireTimer += Time.deltaTime;
             if (fireTimer >= 0.1f)
@@ -163,24 +139,24 @@ public class WeaponController : UnitData
             fireTimer = 0.09f;
         }
 
-        if(Input.GetKeyDown(KeyCode.Space))
+        if(Input.GetKeyDown(KeyCode.Space)) // 로켓 발사 
         {
             LaunchRocket();
         }
 
-        if (Input.GetKeyDown(KeyCode.G))
+        if (Input.GetKeyDown(KeyCode.G))    // 미사일 발사
         {
-            if (enemy != null)
+            if (enemy != null)  // 적이 있으면
             {
-                float distanceToEnemy = Vector3.Distance(transform.position, enemy.transform.position);
+                float distanceToEnemy = Vector3.Distance(transform.position, enemy.transform.position); // 플레이어와 적과의 거리값 
 
-                enemyPosition = enemy.transform;
+                enemyPosition = enemy.transform;    // 적의 위치
 
                 if (distanceToEnemy <= shootRange) // 사격범위 내에 있을 때
                 {
-                    Debug.Log($"enemy : {hit.collider.name}");
-                    LaunchMissile();
-                    if (missileCnt % 2 == 1)
+                    LaunchMissile();                // 미사일 발사 함수
+
+                    if (missileCnt % 2 == 1)        // 헬기에 달려있는 양옆의 미사일 오브젝트 번갈아 끄기
                     {
                         if (missileCnt == 7)
                             gameObject.transform.GetChild(0).GetChild(7).gameObject.SetActive(false);
@@ -203,23 +179,41 @@ public class WeaponController : UnitData
                             gameObject.transform.GetChild(0).GetChild(14).gameObject.SetActive(false);
                     }
                 }
-                else
+                else                                    // 거리내에 적이 없을 경우 null을 넘겨줌
                 {
                     enemy = null;
                 }
             }
         }
-        else 
-        {
-            enemy = null;
-        }
-        if (enemy != null)
+        if (enemy != null)                              //적이 null값이 아닌데 하이어라키에 활성화 상태가 아닐경우 적을 null로 만듬
             if (enemy.activeInHierarchy == false)
             {
                 enemy = null;
             }
-           
-        
+
+        if (Input.GetKeyDown(KeyCode.F))                    // 대공미사일 레이더 키기 (구현 요망)
+        {
+            UI_Manager.instance.AAMissileRadar();
+        }
+        if (Input.GetKey(KeyCode.J))                        // 자살용 코드
+        {
+            UI_Manager.instance.Sucide();
+            Debug.Log($"Suicide : {suicideTimer}");
+            suicideTimer -= Time.deltaTime;
+            if (suicideTimer <= suicideInterval)
+            {
+                UI_Manager.instance.sucideUI.SetActive(false);
+                Suicide();
+                suicideTimer = 3f;
+            }
+        }
+        else
+        {
+            UI_Manager.instance.sucideUI.SetActive(false);
+            suicideTimer = 3f;
+        }
+       
+        Die();
         Reload();
         
         MissileCooldown(ref rightMslCooldown);
@@ -375,7 +369,7 @@ public class WeaponController : UnitData
         }
     }
 
-    private void Die()
+    private void Die()                          // 플레이어 죽을 경우 함수
     {
         if (totalData.currentHp <= 0)
         {
@@ -387,7 +381,7 @@ public class WeaponController : UnitData
         }
     }
 
-    private void Suicide()
+    private void Suicide()                      // 자살 함수
     {
         totalData.currentHp -= 1000f;
     }
@@ -396,20 +390,17 @@ public class WeaponController : UnitData
        
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider other)         // 트리거 충돌 함수            
     {
-        if(other.gameObject.layer == 15)
+        if(other.gameObject.layer == 15)                //other의 레이어가 EnemyBullet일 경우
         {
-            totalData.currentHp -= 1000f;
+            totalData.currentHp -= 1000f;               
             Debug.Log(myData.currentHp);
             
             Refresh();
         }
-        if(other.gameObject.layer == 9)
-        {
-            myData.currentHp -= 1000f;
-        }
-        if (Player.instance.rgb.velocity.x >= 20f || Player.instance.rgb.velocity.x <= -20f)
+       
+        if (Player.instance.rgb.velocity.x >= 20f || Player.instance.rgb.velocity.x <= -20f)            //플레이어의 속도에 따라 터질지 안터질지 구분
         {
             totalData.currentHp -= 1000f;
         }

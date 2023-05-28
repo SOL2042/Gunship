@@ -74,6 +74,7 @@
     <Compile Include="Assets\TutorialInfo\Scripts\Readme.cs" />
     <Compile Include="Assets\Script\Manager\NetworkManager_Loading.cs" />
     <Compile Include="Assets\Script\Manager\EventManager.cs" />
+    <Compile Include="Assets\Script\UI\TargetUI.cs" />
     <Compile Include="Assets\Script\Controller\CameraController.cs" />
     <Compile Include="Assets\Script\Weapon\TankBullet.cs" />
     <Compile Include="Assets\Script\Unit\T90.cs" />
@@ -103,7 +104,6 @@
     <Compile Include="Assets\Script\Manager\MainMenuManager.cs" />
     <Compile Include="Assets\Script\Controller\InitSetting.cs" />
     <Compile Include="Assets\Script\Manager\NetworkManager_Room.cs" />
-    <Compile Include="Assets\Script\UI\TargetUI.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TerrainSampleAssets\ThirdPartyNotices.txt" />

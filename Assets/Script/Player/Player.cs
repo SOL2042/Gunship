@@ -30,9 +30,7 @@ public class Player : MonoBehaviour
 
     public float speed;
 
-    private float limitRotationX;
-    private float limitRotationZ;
-
+   
     float count = 0;
     
     private void Awake()
@@ -42,15 +40,31 @@ public class Player : MonoBehaviour
     void Start()
     {
         speed = rgb.velocity.z;
-        limitRotationX = Mathf.Clamp(limitRotationX, -30, 30);
-        limitRotationZ = Mathf.Clamp(limitRotationZ, -30, 30);
+       
     }
     void Update()
     {
-        HandleInputs();
     }
     private void FixedUpdate()
     {
+        HandleInputs();
+        Hover();
+    }
+    private void HandleInputs()
+    {
+        roll = Input.GetAxis("Roll");
+        pitch = Input.GetAxis("Pitch");
+        yaw = Input.GetAxis("Yaw");
+        if(Input.GetKey(KeyCode.LeftShift))
+        {
+            throttle += Time.deltaTime * throttleAmt;
+        }
+        else if (Input.GetKey(KeyCode.LeftControl))
+        {
+            throttle -= Time.deltaTime * throttleAmt;
+        }
+        throttle = Mathf.Clamp(throttle, 0f, 100f);
+
         if (gameObject.GetComponent<WeaponController>().totalData.flyMode == FlyMode.Default)
         {
             rgb.AddForce(transform.up * throttle * 0.07f, ForceMode.Impulse);
@@ -78,28 +92,6 @@ public class Player : MonoBehaviour
 
         }
         rgb.AddTorque(transform.up * yaw * responsiveness * 7f);
-        
-        Vector3 currentPosition = transform.position;
-        
-        float PositionY = Mathf.Clamp(currentPosition.y, -10, 200);
-        
-        transform.position = new Vector3(transform.position.x, PositionY, transform.position.z);
-        Hover();
-    }
-    private void HandleInputs()
-    {
-        roll = Input.GetAxis("Roll");
-        pitch = Input.GetAxis("Pitch");
-        yaw = Input.GetAxis("Yaw");
-        if(Input.GetKey(KeyCode.LeftShift))
-        {
-            throttle += Time.deltaTime * throttleAmt;
-        }
-        else if (Input.GetKey(KeyCode.LeftControl))
-        {
-            throttle -= Time.deltaTime * throttleAmt;
-        }
-        throttle = Mathf.Clamp(throttle, 0f, 100f);
     }
 
     //호버링 모드
@@ -115,7 +107,6 @@ public class Player : MonoBehaviour
                 gameObject.GetComponent<WeaponController>().totalData.flyMode = FlyMode.Hover;
                 rgb.useGravity = false;
                 rgb.velocity = Vector3.Slerp(rgb.velocity, Vector3.zero, Time.deltaTime);
-                rgb.MoveRotation(Quaternion.Euler(limitRotationX, 0, limitRotationZ));
 
                 gameObject.transform.rotation = Quaternion.RotateTowards(gameObject.transform.rotation, Quaternion.Euler(0, 0, 0), Time.deltaTime);
             }

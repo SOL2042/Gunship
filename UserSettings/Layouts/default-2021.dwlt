@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 1920
     height: 997
   m_ShowMode: 4
-  m_Title: Hierarchy
+  m_Title: Game
   m_RootView: {fileID: 2}
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
@@ -121,7 +121,7 @@ MonoBehaviour:
   m_MinSize: {x: 400, y: 200}
   m_MaxSize: {x: 32384, y: 16192}
   vertical: 0
-  controlID: 53962
+  controlID: 1384
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -146,7 +146,7 @@ MonoBehaviour:
   m_MinSize: {x: 100, y: 200}
   m_MaxSize: {x: 8096, y: 16192}
   vertical: 1
-  controlID: 53912
+  controlID: 1455
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -276,7 +276,7 @@ MonoBehaviour:
   m_MinSize: {x: 100, y: 200}
   m_MaxSize: {x: 8096, y: 16192}
   vertical: 1
-  controlID: 53865
+  controlID: 1385
 --- !u!114 &12
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -704,9 +704,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: -173.94916, y: 58.388287, z: -172.23058}
+    m_Target: {x: -68.72977, y: 3.3372154, z: -188.72188}
     speed: 2
-    m_Value: {x: -173.94916, y: 58.388287, z: -172.23058}
+    m_Value: {x: -68.72977, y: 3.3372154, z: -188.72188}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -753,13 +753,13 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: -0.16788639, y: -0.6883628, z: 0.1687398, w: -0.6853815}
+    m_Target: {x: -0.25249457, y: -0.51528853, z: 0.16225126, w: -0.8028303}
     speed: 2
-    m_Value: {x: 0.16788638, y: 0.6883628, z: -0.1687398, w: 0.6853815}
+    m_Value: {x: 0.2524946, y: 0.51528853, z: -0.16225128, w: 0.80283034}
   m_Size:
-    m_Target: 5.7623606
+    m_Target: 33.315685
     speed: 2
-    m_Value: 5.7623606
+    m_Value: 33.315685
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -883,9 +883,9 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 962ef8ff
-      m_LastClickedID: -512362
-      m_ExpandedIDs: 50e5ebff08fdedff10fdedff802ff8ff9010f9ff702ef9ff08f7fefffcfaffff244e00006e4f0000d2500000845400000eec0100b8ec0100b8ef01008af00100
+      m_SelectedIDs: 
+      m_LastClickedID: 0
+      m_ExpandedIDs: 26dcfffffcfaffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -951,21 +951,21 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Resources/Prefabs
+    - Assets/Script/Player
     m_Globs: []
     m_OriginalText: 
   m_ViewMode: 0
   m_StartGridSize: 64
   m_LastFolders: []
   m_LastFoldersGridSize: -1
-  m_LastProjectPath: C:\Users\user\Documents\GitHub\Gunship
+  m_LastProjectPath: C:\Users\Counter\Documents\GitHub\Gunship
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: ee7a0000
     m_LastClickedID: 31470
-    m_ExpandedIDs: ffffffff00000000ca5b0000005c00000a5c0000105c0000125c0000545c0000986700009a6700009c670000a0670000f20e02000013020002130200141302001613020020130200b06d0200
+    m_ExpandedIDs: ffffffff000000007a5d00007c5d00007e5d0000805d0000825d0000845d0000865d0000885d00008a5d00008c5d00008e5d0000905d0000925d0000945d0000965d0000985d00009a5d00009c5d00009e5d0000a05d0000a25d0000a45d0000a65d0000a85d0000aa5d0000ac5d0000ae5d0000b05d0000b25d0000b45d0000b65d0000b85d0000ba5d0000bc5d0000be5d0000c05d0000c25d0000c45d0000c65d0000c85d0000ca5d0000cc5d0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -990,10 +990,10 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_AssetTreeState:
-    scrollPos: {x: 0, y: 240}
+    scrollPos: {x: 0, y: 972}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: ffffffff00000000ca5b0000005c00000a5c0000105c0000125c0000545c0000986700009a6700009c670000a0670000f20e02000013020002130200141302001613020020130200b06d0200
+    m_ExpandedIDs: ffffffff000000007a5d00007c5d00007e5d0000805d0000825d0000845d0000865d0000885d00008a5d00008c5d00008e5d0000905d0000925d0000945d0000965d0000985d00009a5d00009c5d00009e5d0000a05d0000a25d0000a45d0000a65d0000a85d0000aa5d0000ac5d0000ae5d0000b05d0000b25d0000b45d0000b65d0000b85d0000ba5d0000bc5d0000be5d0000c05d0000c25d0000c45d0000c65d0000c85d0000ca5d0000cc5d0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
