@@ -29,7 +29,6 @@ public class CameraController : MonoBehaviour
     {
         PlayerRotate();
         PlayerZoom();
-        Debug.Log($"distance : {distance}");
         
         if (Input.GetKeyDown(KeyCode.Z))
         {

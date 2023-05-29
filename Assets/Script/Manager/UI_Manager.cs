@@ -64,6 +64,7 @@ public class UI_Manager : MonoBehaviour
     public GameObject pauseUI;
     public GameObject sucideUI;
     public GameObject AAMissileRadarUI;
+    public GameObject hellFire_MissileTargetUI;
 
     [SerializeField]
     private Button defeatRestartButton;
@@ -115,41 +116,40 @@ public class UI_Manager : MonoBehaviour
 
     private void OnEnable()
     {
-        Reload();
+
     }
     
-    private void Reload()
+    public void Reload()
     {
-        //StopAllCoroutines();
-        //if(WeaponController.instance.missileCnt <= 0)
-        //{
-        //    StartCoroutine(FadeTextToFullAlpha(missileCnt));
-        //}
-        //else
-        //{
-        //    StopCoroutine(FadeTextToZero(missileCnt));
-        //    StopCoroutine(FadeTextToFullAlpha(missileCnt));
-        //}
-        //if (WeaponController.instance.rocketCnt <= 0)
-        //{
-        //    StartCoroutine(FadeTextToFullAlpha(rocketCnt));
-        //}
-        //else
-        //{
-        //    StopCoroutine(FadeTextToZero(rocketCnt));
-        //    StopCoroutine(FadeTextToFullAlpha(rocketCnt));
-        //}
-        //if (WeaponController.instance.bulletCnt <= 0)
-        //{
-        //    StartCoroutine(FadeTextToFullAlpha(bulletCnt));
-        //}
-        //else
-        //{
-        //    StopCoroutine(FadeTextToZero(bulletCnt));
-        //    StopCoroutine(FadeTextToFullAlpha(bulletCnt));
-        //}
+        StopAllCoroutines();
+        if (WeaponController.instance.missileCnt <= 0)
+        {
+            StartCoroutine(FadeTextToFullAlpha(missileCnt));
+        }
+        else
+        {
+            StopCoroutine(FadeTextToZero(missileCnt));
+            StopCoroutine(FadeTextToFullAlpha(missileCnt));
+        }
+        if (WeaponController.instance.rocketCnt <= 0)
+        {
+            StartCoroutine(FadeTextToFullAlpha(rocketCnt));
+        }
+        else
+        {
+            StopCoroutine(FadeTextToZero(rocketCnt));
+            StopCoroutine(FadeTextToFullAlpha(rocketCnt));
+        }
+        if (WeaponController.instance.bulletCnt <= 0)
+        {
+            StartCoroutine(FadeTextToFullAlpha(bulletCnt));
+        }
+        else
+        {
+            StopCoroutine(FadeTextToZero(bulletCnt));
+            StopCoroutine(FadeTextToFullAlpha(bulletCnt));
+        }
     }
-
     private void BaseHP()
     {
        USBaseSlider.value = 100 - (USBase.instance.totalData.currentHp * USbaseHPReciprocal * 100);
@@ -164,7 +164,6 @@ public class UI_Manager : MonoBehaviour
         {
             defeatUI.SetActive(true);
         }
-       
     }
     public void Pause()
     {
@@ -179,7 +178,7 @@ public class UI_Manager : MonoBehaviour
     }
     public void AAMissileRadar()
     {
-        if (AAMissileRadarUI.activeInHierarchy == false)
+        if (AAMissileRadarUI.activeInHierarchy != true)
         {
             AAMissileRadarUI.SetActive(true);
         }
@@ -188,6 +187,18 @@ public class UI_Manager : MonoBehaviour
             AAMissileRadarUI.SetActive(false);
         }
     }
+
+    public void MissileTarget()
+    {
+        if(hellFire_MissileTargetUI.activeInHierarchy != true)
+        {
+            hellFire_MissileTargetUI.SetActive(true);
+        }
+        
+    }
+
+
+
     private IEnumerator FadeTextToFullAlpha(TextMeshProUGUI text) // 알파값 0에서 1로 전환
     {
         text.color = new Color(text.color.r, text.color.g, text.color.b, 0);

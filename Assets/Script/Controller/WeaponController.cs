@@ -49,7 +49,9 @@ public class WeaponController : UnitData
     float rightRckCooldown;
     float leftRckCooldown;
 
-    public float reloadTimer;
+    public float reloadMissileTimer;
+    public float reloadRocketTimer;
+    public float reloadBulletTimer;
     public float reloadInterval = 5f;
 
     public float suicideTimer = 3f;
@@ -97,13 +99,16 @@ public class WeaponController : UnitData
     }
     private void Update()
     {
-        if (Physics.SphereCast(new Vector3(gameObject.transform.position.x, gameObject.transform.position.y + 500, gameObject.transform.position.z), shootRange, Vector3.down, out RaycastHit hit, 1000, enemyLayer))
+        //if (Physics.SphereCast(new Vector3(gameObject.transform.position.x, gameObject.transform.position.y + 500, gameObject.transform.position.z), shootRange, Vector3.down, out RaycastHit hit, 1000, enemyLayer))
+        //{
+        if (Physics.BoxCast(cameraTransform.transform.position, transform.lossyScale / 2, cameraTransform.transform.forward, out RaycastHit hit, cameraTransform.rotation, 400f, (-1) - (1 << 6) & (-1) - (1 << 13) & (-1) - (1 << 14)))
         {
-            enemy = hit.collider.gameObject; //GameObject.FindWithTag("Enemy").transform;
-        }
-        //Debug.Log($"Enemy : {enemy}");
+            enemy = hit.collider.gameObject;
+            Vector2 enemyTransform = new Vector2(enemy.transform.position.x, enemy.transform.position.z);
+            UI_Manager.instance.MissileTarget();
+            UI_Manager.instance.hellFire_MissileTargetUI.transform.position = enemyTransform;
 
-        
+        }
 
         Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * 1000.0f, Color.green);
 
@@ -336,8 +341,8 @@ public class WeaponController : UnitData
     {
         if (missileCnt <= 0)
         {
-            reloadTimer += Time.deltaTime;
-            if (reloadTimer >= reloadInterval)
+            reloadMissileTimer += Time.deltaTime;
+            if (reloadMissileTimer >= reloadInterval)
             {
                 missileCnt = 8;
 
@@ -347,25 +352,33 @@ public class WeaponController : UnitData
                 }
             }
         }
-        else if (bulletCnt <= 0)
+        else
         {
-            reloadTimer += Time.deltaTime;
-            if (reloadTimer >= reloadInterval)
-            {
-                bulletCnt = 150;
-            }
+            reloadMissileTimer = 0;
         }
-        else if (rocketCnt <= 0)
+        if (rocketCnt <= 0)
         {
-            reloadTimer += Time.deltaTime;
-            if (reloadTimer >= reloadInterval)
+            reloadRocketTimer += Time.deltaTime;
+            if (reloadRocketTimer >= reloadInterval)
             {
                 rocketCnt = 38;
             }
         }
         else
         {
-            reloadTimer = 0;
+            reloadRocketTimer = 0;
+        }
+        if (bulletCnt <= 0)
+        {
+            reloadBulletTimer += Time.deltaTime;
+            if (reloadBulletTimer >= reloadInterval)
+            {
+                bulletCnt = 150;
+            }
+        }
+        else
+        {
+            reloadBulletTimer = 0;
         }
     }
 
@@ -413,7 +426,7 @@ public class WeaponController : UnitData
             totalData.currentHp -= 1000f;
         }
     }
-
+    
    
     public override void SetHit(UnitData data)
     {
