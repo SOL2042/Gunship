@@ -37,12 +37,6 @@ public class Rocket : MonoBehaviour
         }
         rgb.velocity = transform.forward * speed;
     }
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-    
 
     private void OnDisable()
     {

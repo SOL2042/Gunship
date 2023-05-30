@@ -194,7 +194,6 @@ public class UI_Manager : MonoBehaviour
         {
             hellFire_MissileTargetUI.SetActive(true);
         }
-        
     }
 
 

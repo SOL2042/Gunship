@@ -62,7 +62,7 @@
     <Compile Include="Assets\Shared\Scripts\SimpleCharacterMotor.cs" />
     <Compile Include="Assets\Script\Unit\T54_InitStatus.cs" />
     <Compile Include="Assets\Script\Manager\InventoryManager.cs" />
-    <Compile Include="Assets\Script\Controller\WeaponController.cs" />
+    <Compile Include="Assets\Script\Player\WeaponController.cs" />
     <Compile Include="Assets\Script\Module\UnitCell.cs" />
     <Compile Include="Assets\Photon\PhotonLibs\WebSocket\SocketWebTcp.cs" />
     <Compile Include="Assets\Script\Module\Unit.cs" />
@@ -105,6 +105,11 @@
     <Compile Include="Assets\Script\Manager\MainMenuManager.cs" />
     <Compile Include="Assets\Script\Controller\InitSetting.cs" />
     <Compile Include="Assets\Script\Manager\NetworkManager_Room.cs" />
+    <Compile Include="Assets\Script\Module\ScriptTableObject.cs" />
+    <Compile Include="Assets\Script\Module\ObjectInfo.cs" />
+    <Compile Include="Assets\Script\UI\TargetObject.cs" />
+    <Compile Include="Assets\Script\UI\TargetController.cs" />
+    <Compile Include="Assets\Artillery.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TerrainSampleAssets\ThirdPartyNotices.txt" />

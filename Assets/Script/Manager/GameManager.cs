@@ -59,7 +59,6 @@ public class GameManager : MonoBehaviour
             lastRespwanTime = 0;
         }
     }
-
     private void UIControll()
     {
         if (isDefeat != true)
@@ -98,7 +97,5 @@ public class GameManager : MonoBehaviour
         {
 
         }
-
-
     }
 }

@@ -29,10 +29,10 @@ public class Player : MonoBehaviour
     private float yaw;
 
     public float speed;
-
    
     float count = 0;
-    
+
+    Vector3 rotateValue;
     private void Awake()
     {
         rgb = GetComponent<Rigidbody>();
@@ -40,10 +40,13 @@ public class Player : MonoBehaviour
     void Start()
     {
         speed = rgb.velocity.z;
-       
+        Mathf.Clamp(gameObject.transform.position.y, -1, 200);
+
+
     }
     void Update()
     {
+        
     }
     private void FixedUpdate()
     {
@@ -93,7 +96,16 @@ public class Player : MonoBehaviour
         }
         rgb.AddTorque(transform.up * yaw * responsiveness * 7f);
     }
+    void Autopilot(out Vector3 rotateVector)
+    {
+        rotateVector = -transform.rotation.eulerAngles;
+        if (rotateVector.x < -180) rotateVector.x += 360;
+        if (rotateVector.z < -180) rotateVector.z += 360;
 
+        rotateVector.x = Mathf.Clamp(rotateVector.x * 2, -pitch * 10f, pitch * 10f);
+        rotateVector.z = Mathf.Clamp(rotateVector.z * 2, -roll * 10f, roll * 10f);
+        rotateVector.y = 0;
+    }
     //호버링 모드
     private void Hover()
     {
