@@ -80,4 +80,9 @@ public class Unit_Status
         left.misileRPM -= right.misileRPM;
         return left;
     }
+
+    public void UseItem()
+    {
+
+    }
 }

@@ -2,16 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UnitCellManager : MonoBehaviour
+public class AircraftController : MonoBehaviour
 {
-    UnitCell unitCell;
-
-
+    // Start is called before the first frame update
     void Start()
     {
         
     }
 
+    // Update is called once per frame
     void Update()
     {
         

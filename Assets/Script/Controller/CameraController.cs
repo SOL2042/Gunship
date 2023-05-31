@@ -45,8 +45,6 @@ public class CameraController : MonoBehaviour
                 count = 0;
             }
         }
-        
-        
     }
 
     private void PlayerRotate()
@@ -89,7 +87,7 @@ public class CameraController : MonoBehaviour
         while (timer < duration)
         {
             timer += Time.deltaTime;
-            float t = Mathf.Clamp01(timer / duration); // 보간에 사용할 시간 값 계산
+            float t = Mathf.Clamp01(timer / duration); // 보간에 사용할 시간 값 계산 
 
             // 보간 처리
             distance = Mathf.Lerp(distance, 1f, t);

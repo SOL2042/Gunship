@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class UnitCell
 {
-    private int unitCount;
-    private Unit_Status unit_Status;
+    public int unitCount = 0;
+    public Unit_Status unit_Status;
 
     public UnitCell()
     {

@@ -60,17 +60,20 @@
     <Compile Include="Assets\Photon\PhotonLibs\WebSocket\WebSocket.cs" />
     <Compile Include="Assets\Script\deadScript.cs" />
     <Compile Include="Assets\Shared\Scripts\SimpleCharacterMotor.cs" />
+    <Compile Include="Assets\Script\Unit\Artillery.cs" />
     <Compile Include="Assets\Script\Unit\T54_InitStatus.cs" />
-    <Compile Include="Assets\Script\Manager\InventoryManager.cs" />
+    <Compile Include="Assets\Script\Module\Inventory\InventoryManager.cs" />
     <Compile Include="Assets\Script\Player\WeaponController.cs" />
-    <Compile Include="Assets\Script\Module\UnitCell.cs" />
+    <Compile Include="Assets\Script\Module\Inventory\UnitCell.cs" />
     <Compile Include="Assets\Photon\PhotonLibs\WebSocket\SocketWebTcp.cs" />
     <Compile Include="Assets\Script\Module\Unit.cs" />
     <Compile Include="Assets\Script\Player\Player.cs" />
     <Compile Include="Assets\Script\Controller\SceneController.cs" />
+    <Compile Include="Assets\Script\UI\TargetObject.cs" />
     <Compile Include="Assets\Script\Weapon\Bullet.cs" />
     <Compile Include="Assets\Script\Unit\Mi24_Status.cs" />
     <Compile Include="Assets\Shared\Scripts\ProximityActivate.cs" />
+    <Compile Include="Assets\Script\UI\TargetController.cs" />
     <Compile Include="Assets\TutorialInfo\Scripts\Readme.cs" />
     <Compile Include="Assets\Script\Manager\NetworkManager_Loading.cs" />
     <Compile Include="Assets\Script\Manager\EventManager.cs" />
@@ -86,6 +89,7 @@
     <Compile Include="Assets\Shared\Ramps\Runtime\RampAsset.cs" />
     <Compile Include="Assets\Script\Unit\AH64_Status.cs" />
     <Compile Include="Assets\Script\Module\Unit_Status_NoUnit.cs" />
+    <Compile Include="Assets\Script\Module\ObjectInfo.cs" />
     <Compile Include="Assets\Script\Unit\military_vehicle.cs" />
     <Compile Include="Assets\Script\Weapon\BulletEx.cs" />
     <Compile Include="Assets\Script\Weapon\MainGun.cs" />
@@ -97,19 +101,16 @@
     <Compile Include="Assets\Script\Unit\CH47.cs" />
     <Compile Include="Assets\Script\Unit\UnitData.cs" />
     <Compile Include="Assets\Script\Unit\USBase_Status.cs" />
+    <Compile Include="Assets\Script\Module\ScriptTableObject.cs" />
     <Compile Include="Assets\EffectExamples\Misc Effects\Scripts\SpawnEffect.cs" />
     <Compile Include="Assets\Script\Manager\UI_Manager.cs" />
     <Compile Include="Assets\Script\Weapon\HellFire_Missile.cs" />
-    <Compile Include="Assets\Script\Module\UnitCellManager.cs" />
-    <Compile Include="Assets\Script\Module\Inventory.cs" />
+    <Compile Include="Assets\Script\Module\Inventory\UnitCellManager.cs" />
+    <Compile Include="Assets\Script\Module\Inventory\Inventory.cs" />
     <Compile Include="Assets\Script\Manager\MainMenuManager.cs" />
     <Compile Include="Assets\Script\Controller\InitSetting.cs" />
     <Compile Include="Assets\Script\Manager\NetworkManager_Room.cs" />
-    <Compile Include="Assets\Script\Module\ScriptTableObject.cs" />
-    <Compile Include="Assets\Script\Module\ObjectInfo.cs" />
-    <Compile Include="Assets\Script\UI\TargetObject.cs" />
-    <Compile Include="Assets\Script\UI\TargetController.cs" />
-    <Compile Include="Assets\Artillery.cs" />
+    <Compile Include="Assets\Script\AircraftController.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TerrainSampleAssets\ThirdPartyNotices.txt" />
