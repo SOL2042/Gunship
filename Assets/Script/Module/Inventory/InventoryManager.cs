@@ -46,11 +46,11 @@ public class InventoryManager : MonoBehaviour
     private void Awake()
     {
         inventory = new Inventory();
-        unitCellPrefab = Resources.Load<GameObject>("Prefabs/ItemCell");
+        unitCellPrefab = Resources.Load<GameObject>("Prefabs/UnitCell");
         unitCells = new UnitCellManager[inventory.unitCell.Length];
         for (int i = 0; i < inventory.unitCell.Length; i++)
         {
-            unitCells[i] = Instantiate(unitCellPrefab, unitCellParent).GetComponent<UnitCellManager>();
+            unitCells[i] = Instantiate(unitCellPrefab, unitCellParent).GetComponent<UnitCellManager>(); 
         }
         Refresh();
 

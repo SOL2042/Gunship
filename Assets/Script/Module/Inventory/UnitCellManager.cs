@@ -2,14 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class UnitCellManager : MonoBehaviour
 {
     private UnitCell cell;
-    [SerializeField] private GameObject unitCell;
+    [SerializeField] private GameObject unitData;
     [SerializeField] private Image unitImage;
-    [SerializeField] private Text unitName;
-    [SerializeField] private Text unitCount;
+    [SerializeField] private TextMeshProUGUI unitName;
+    [SerializeField] private TextMeshProUGUI unitCount;
 
     private void Awake()
     {
@@ -25,11 +26,11 @@ public class UnitCellManager : MonoBehaviour
 
         if (cell.unit_Status.code == "")
         {
-            unitCell.SetActive(false);
+            unitData.SetActive(false);
         }
         else
         {
-            unitCell.SetActive(true);
+            unitData.SetActive(true);
             unitImage.sprite = cell.unit_Status.unitSprite;
             unitName.text = cell.unit_Status.unitName;
             unitCount.text = cell.unitCount.ToString();

@@ -65,6 +65,7 @@ public class UI_Manager : MonoBehaviour
     public GameObject sucideUI;
     public GameObject AAMissileRadarUI;
     public GameObject hellFire_MissileTargetUI;
+    public GameObject inventory;
 
     [SerializeField]
     private Button defeatRestartButton;

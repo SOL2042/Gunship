@@ -8,7 +8,7 @@ public class Inventory
 
     public Inventory()
     {
-        unitCell = new UnitCell[24];
+        unitCell = new UnitCell[5];
         Start();
     }
 

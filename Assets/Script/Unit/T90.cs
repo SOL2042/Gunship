@@ -54,16 +54,13 @@ public class T90 : UnitData
 
     private void Update()
     {
-        //Debug.Log(enemy);
         Move();
-        //USbaseTransform = GameObject.FindWithTag("USBase").transform;
-        //Debug.Log(USbaseTransform.name);
     }
     private void Move()
     {
         if (Physics.SphereCast(new Vector3(gameObject.transform.position.x, gameObject.transform.position.y + 40, gameObject.transform.position.z), shootRange, Vector3.down, out RaycastHit hit, 1000, enemyLayer))
         {
-            enemy = hit.collider.gameObject; //GameObject.FindWithTag("Enemy").transform;
+            enemy = hit.collider.gameObject; 
 
             float distanceToEnemy = Vector3.Distance(transform.position, enemy.transform.position);
             turretTransform.LookAt(enemy.transform);

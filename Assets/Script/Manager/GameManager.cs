@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
 
     private bool isPause;
     private bool isDefeat;
+    private bool viewInventory = false;
     
     void Start()
     {
@@ -23,7 +24,15 @@ public class GameManager : MonoBehaviour
     {
         UIControll();
         PlayerRespwan();
+        
     }
+    private void ViewInventoryUI(bool value)
+    {
+        viewInventory = value;
+        UI_Manager.instance.inventory.SetActive(value);
+    }
+
+
     private void PlayerRespwan()
     {
         if (player.gameObject.activeInHierarchy == false)
@@ -91,11 +100,16 @@ public class GameManager : MonoBehaviour
             {
                 isDefeat = false;
                 Time.timeScale = 1;
+                if (Input.GetKeyDown(KeyCode.Tab))
+                {
+                    ViewInventoryUI(!viewInventory);
+                }
             }
+
         }
         else
         {
-
+            
         }
     }
 }
