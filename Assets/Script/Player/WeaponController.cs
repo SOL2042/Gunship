@@ -396,7 +396,8 @@ public class WeaponController : UnitData
 
     private void Suicide()                      // 자살 함수
     {
-        totalData.currentHp -= 1000f;
+        myData.currentHp -= 1000f;
+        Refresh();
     }
     public override void PostHit(UnitData data, RaycastHit hit)
     {
@@ -407,8 +408,9 @@ public class WeaponController : UnitData
     {
         if(other.gameObject.layer == 15)                //other의 레이어가 EnemyBullet일 경우
         {
-            totalData.currentHp -= 1000f;               
+            myData.currentHp -= 1000f;               
             Debug.Log(myData.currentHp);
+            Debug.Log(totalData.currentHp);
             
             Refresh();
         }

@@ -96,6 +96,7 @@
     <Compile Include="Assets\Script\Unit\Player_InitStatus.cs" />
     <Compile Include="Assets\Script\Unit\Unit_Status.cs" />
     <Compile Include="Assets\Shared\Scripts\SimpleCameraController.cs" />
+    <Compile Include="Assets\Script\AircraftController.cs" />
     <Compile Include="Assets\Script\Unit\T90_InitStatus.cs" />
     <Compile Include="Assets\Script\Manager\GameManager.cs" />
     <Compile Include="Assets\Script\Unit\CH47.cs" />
@@ -110,7 +111,6 @@
     <Compile Include="Assets\Script\Manager\MainMenuManager.cs" />
     <Compile Include="Assets\Script\Controller\InitSetting.cs" />
     <Compile Include="Assets\Script\Manager\NetworkManager_Room.cs" />
-    <Compile Include="Assets\Script\AircraftController.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TerrainSampleAssets\ThirdPartyNotices.txt" />
