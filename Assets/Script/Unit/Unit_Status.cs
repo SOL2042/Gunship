@@ -81,7 +81,7 @@ public class Unit_Status
         return left;
     }
 
-    public void UseItem()
+    public void UseUnit()
     {
 
     }

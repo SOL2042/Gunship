@@ -2,12 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AddItemInfo
+public class AddUnitInfo                                    // 유닛 정보 추가 클래스
 {
-    public Unit_Status data;
-    public int count;
+    public Unit_Status data;                                // 유닛 데이터
+    public int count;                                       // 유닛 숫자
 
-    public AddItemInfo(Unit_Status data, int count)
+    public AddUnitInfo(Unit_Status data, int count)         
     {
         this.data = data;
         this.count = count;
@@ -27,48 +27,52 @@ public class InventoryManager : MonoBehaviour
         }
     }
     #endregion
-    Inventory inventory;
+    Inventory inventory;                                    // 인벤토리 변수
 
-    public Inventory GetInventory() => inventory;
+    public Inventory GetInventory() => inventory;           
 
-    public void AddItem(Unit_Status data, int count)
+    public void AddUnit(Unit_Status data, int count)        // 인벤토리에 유닛 추가
     {
-        inventory.AddItem(data, count);
+        inventory.AddUnit(data, count);
         Refresh();
     }
 
     [SerializeField]
-    private Transform unitCellParent;
-    private GameObject unitCellPrefab;
+    private Transform unitCellParent;                       // unitCell의 부모 위치
+    private GameObject unitCellPrefab;                      // unitCell 프리팹
 
-    private UnitCellManager[] unitCells;
+    private UnitCellManager[] unitCells;                    // UnitCellManager 배열 unitCells
 
     private void Awake()
     {
-        inventory = new Inventory();
-        unitCellPrefab = Resources.Load<GameObject>("Prefabs/UnitCell");
-        unitCells = new UnitCellManager[inventory.unitCell.Length];
-        for (int i = 0; i < inventory.unitCell.Length; i++)
+        inventory = new Inventory();                                                                        // 인벤토리 초기화
+        unitCellPrefab = Resources.Load<GameObject>("Prefabs/UnitCell");                                    // 유닛 프리팹 가져오기
+        unitCells = new UnitCellManager[inventory.unitCell.Length];                                         // unitCells에 인벤토리의 유닛칸의 길이만큼 새 UnitCellManager 추가
+        for (int i = 0; i < inventory.unitCell.Length; i++)                                                 //  유닛칸의 길이만큼 반복
         {
-            unitCells[i] = Instantiate(unitCellPrefab, unitCellParent).GetComponent<UnitCellManager>(); 
+            unitCells[i] = Instantiate(unitCellPrefab, unitCellParent).GetComponent<UnitCellManager>();     // unitCells에 게임 오브젝트 생성
         }
-        Refresh();
+        Refresh();                                                                                          // 초기화
 
-        EventManager.instance.AddListener("Inventory.AddItem", (p) =>
+        EventManager.instance.AddListener("Inventory.AddUnit", (p) =>
         {
-            AddItemInfo info = (AddItemInfo)p;
-            inventory.AddItem(info.data, info.count);
-            EventManager.instance.PostEvent("GetItem", null);
+            AddUnitInfo info = (AddUnitInfo)p;
+            inventory.AddUnit(info.data, info.count);
+            EventManager.instance.PostEvent("GetUnit", null);
             Refresh();
         });
 
-        EventManager.instance.AddListener("Inventory.UseItem", (p) =>
+        EventManager.instance.AddListener("Inventory.UseUnit", (p) =>
         {
-            UseItem((int)p);
+            UseUnit((int)p);
             Refresh();
         });
     }
+    private void Update()
+    {
+        
 
+    }
     private void Refresh()
     {
         for (int i = 0; i < unitCells.Length; i++)
@@ -77,9 +81,9 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
-    public void UseItem(int index)
+    public void UseUnit(int index)
     {
-        inventory.unitCell[index].unit_Status.UseItem();
+        inventory.unitCell[index].unit_Status.UseUnit();
         inventory.unitCell[index].unitCount--;
         Refresh();
     }
