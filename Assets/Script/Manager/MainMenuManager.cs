@@ -50,7 +50,7 @@ public class MainMenuManager : MonoBehaviourPunCallbacks
         StartCoroutine(FadeTextToFullAlpha());
     }
 
-    private void OnEnable()
+    void OnEnable()
     {
         StartCoroutine(FadeTextToFullAlpha());
     }
