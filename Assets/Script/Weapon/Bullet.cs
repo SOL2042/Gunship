@@ -17,6 +17,9 @@ public class Bullet : MonoBehaviour
 
     float layerTimer = 0.2f;
     float layerTime = 0;
+
+    float damage = 50f;
+
     public void Speed(float speed)
     {
         this.speed = speed;

@@ -52,8 +52,8 @@ public class Inventory
         {
             if (!alreadyAdded)                                      // 이미 추가되지 않았다면
             {
-                unitCell[blankCell].unit_Status = data;             // unitCell[i]의 유닛데이터에 매개변수 data
-                unitCell[blankCell].unitCount = count;              // unitCell[i]의 유닛 숫자에 매개변수 count
+                unitCell[blankCell].unit_Status = data;             // unitCell[i]의 유닛데이터에 매개변수 data 대입
+                unitCell[blankCell].unitCount = count;              // unitCell[i]의 유닛 숫자에 매개변수 count 대입
             }
         }
         else                                                        // blankCell이 -1이면
