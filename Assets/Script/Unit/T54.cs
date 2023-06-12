@@ -9,6 +9,8 @@ public class T54 : UnitData
     GameObject bullet;
 
     Transform originPosition;
+    [SerializeField]
+    Transform respwanPosition;
 
     [SerializeField] private float moveSpeed = 20f; // 이동 속도
     [SerializeField] private float turnSpeed = 900f; // 회전 속도
@@ -28,6 +30,7 @@ public class T54 : UnitData
 
     private void Start()
     {
+        respwanPosition = GameObject.Find("Transform :: AllyRespwanPoint").transform;
         originPosition = transform;
         t54_InitStatus = new T54_InitStatus();
         EventManager.instance.AddListener("addTankScore", (p) =>
@@ -129,7 +132,7 @@ public class T54 : UnitData
         GameObject go = Instantiate(deadEffect, transform.position, Quaternion.identity);
 
         gameObject.SetActive(false);
-        gameObject.transform.position = new Vector3(EnemyController.instance.RandomX, 0, EnemyController.instance.RandomZ);
+        gameObject.transform.position = respwanPosition.position;
         Destroy(go, 3);
     }
 
