@@ -26,7 +26,7 @@ public class Inventory
         }
     }
 
-    public void AddUnit(Unit_Status data, int count)                // 유닛 추가
+    public void AddUnit(Unit_Status data, int cost)                // 유닛 추가
     {
         int blankCell = -1;                                         // 비어있는 칸
         bool alreadyAdded = false;                                  // 이미 추가했는지 확인하는 변수
@@ -39,12 +39,12 @@ public class Inventory
             }
             else                                                    // unitCell[i]의 코드가 있으면
             {
-                if (unitCell[i].unit_Status.code == data.code)      // unitCell[i]의 코드가 data의 코드와 같다면
-                {
-                    unitCell[i].unitCount += count;                 // unitCell[i]의 숫자에 매개변수 count를 더해줌
-                    alreadyAdded = true;                            // 이미 추가되었다는걸로 변경
-                    break;                                          // 반복문에서 벗어남
-                }
+                /*if (unitCell[i].unit_Status.code == data.code)*/      // unitCell[i]의 코드가 data의 코드와 같다면
+                //{
+                /*    unitCell[i].unitCost += cost;             */    // unitCell[i]의 숫자에 매개변수 count를 더해줌
+                /*    alreadyAdded = true;                      */      // 이미 추가되었다는걸로 변경
+                /*    break;                                    */      // 반복문에서 벗어남
+                //}
             }
         }
 
@@ -53,38 +53,38 @@ public class Inventory
             if (!alreadyAdded)                                      // 이미 추가되지 않았다면
             {
                 unitCell[blankCell].unit_Status = data;             // unitCell[i]의 유닛데이터에 매개변수 data 대입
-                unitCell[blankCell].unitCount = count;              // unitCell[i]의 유닛 숫자에 매개변수 count 대입
+                unitCell[blankCell].unitCost = cost;              // unitCell[i]의 유닛 숫자에 매개변수 count 대입
             }
         }
         else                                                        // blankCell이 -1이면
         {
             if (!alreadyAdded)                                      // 이미 추가되지 않았다면                              
             {
-                Debug.Log("유닛창이 꽉참");
+                //Debug.Log("유닛창이 꽉참");
             }
         }
     }
 
-    public void RemoveItem(Unit_Status data, int count)
-    {
-        for (int i = 0; i < unitCell.Length; i++)
-        {
-            if (unitCell[i].unit_Status.code == data.code)
-            {
-                if (unitCell[i].unitCount <= count)
-                {
-                    count -= unitCell[i].unitCount;
-                    unitCell[i].unit_Status = new Unit_Status_NoUnit();
-                    unitCell[i].unitCount = 0;
-                }
-                else
-                {
-                    unitCell[i].unitCount -= count;
-                    break;
-                }
-            }
-        }
-    }
+    //public void RemoveItem(Unit_Status data, int cost)
+    //{
+    //    for (int i = 0; i < unitCell.Length; i++)
+    //    {
+    //        if (unitCell[i].unit_Status.code == data.code)
+    //        {
+    //            if (unitCell[i].unitCost <= cost)
+    //            {
+    //                cost -= unitCell[i].unitCost;
+    //                unitCell[i].unit_Status = new Unit_Status_NoUnit();
+    //                unitCell[i].unitCost = 0;
+    //            }
+    //            else
+    //            {
+    //                unitCell[i].unitCost -= cost;
+    //                break;
+    //            }
+    //        }
+    //    }
+    //}
 
     public int FindUnitCount(Unit_Status data)
     {
@@ -94,7 +94,7 @@ public class Inventory
         {
             if (unitCell[i].unit_Status.code == data.code)
             {
-                result += unitCell[i].unitCount;
+                result += unitCell[i].unitCost;
             }
         }
         return result;

@@ -133,6 +133,7 @@ public class T54 : UnitData
 
         gameObject.SetActive(false);
         gameObject.transform.position = respwanPosition.position;
+        gameObject.transform.rotation = Quaternion.identity;
         Destroy(go, 3);
     }
 

@@ -224,7 +224,7 @@ GameObject:
   - component: {fileID: 3424263935990051998}
   - component: {fileID: 3424263935990051999}
   m_Layer: 5
-  m_Name: Unit.Data.Count
+  m_Name: Unit.Data.Cost
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -248,7 +248,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 80, y: 60}
+  m_SizeDelta: {x: 120, y: 60}
   m_Pivot: {x: 1, y: 0.5}
 --- !u!222 &3424263935990051998
 CanvasRenderer:
@@ -441,7 +441,7 @@ MonoBehaviour:
   unitData: {fileID: 3424263936591251881}
   unitImage: {fileID: 3424263936631927133}
   unitName: {fileID: 3424263935404372056}
-  unitCount: {fileID: 3424263935990051999}
+  unitCost: {fileID: 3424263935990051999}
 --- !u!1 &3424263936591251881
 GameObject:
   m_ObjectHideFlags: 0

@@ -20,7 +20,13 @@ public class GameManager : MonoBehaviour
     private float level = 1;
     [SerializeField]
     private float randomX;
-    private float maxTankCnt = 10f;
+    private float maxTankCnt = 20f;
+
+    private void FixedUpdate()
+    {
+        randomX = Random.Range(-20, 80);
+
+    }
 
     void Start()
     {
@@ -28,25 +34,26 @@ public class GameManager : MonoBehaviour
         t54s = new List<GameObject>();
         t54 = Resources.Load("Prefabs/T54") as GameObject;
         Instantiate();
+        InventoryManager.instance.AddUnit(new T54_InitStatus(), 1000);
+        InventoryManager.instance.AddUnit(new T90_InitStatus(), 2000);
     }
     void Update()
     {
         UIControll();
         PlayerRespwan();
+        if(viewInventory)
         CreateUnit();
-        randomX = Random.Range(-20, 80);
+        for (int i = 0; i < t54s.Count; i++)
+        {
+            if (!t54s[i].activeInHierarchy)
+                t54s[i].transform.position = new Vector3(randomX, t54s[i].transform.position.y, t54s[i].transform.position.z);
+        }
     }
     private void ViewInventoryUI(bool value)
     {
         viewInventory = value;
         UI_Manager.instance.inventory.SetActive(value);
-        if(viewInventory)
-        {
-            
-        }
-
     }
-
 
     private void PlayerRespwan()
     {
@@ -132,25 +139,29 @@ public class GameManager : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.Alpha1))
         {
-            int unActivedUnit = -1;                                         // 비어있는 칸
+            int unActivedUnit = -1;                               
 
-            for (int i = 0; i < t54s.Count; i++)                   // 순서대로 유닛칸이 비어있는지 차있는지 전부 확인하는 반복문 
+            for (int i = 0; i < t54s.Count; i++)                  
             {
-                if (t54s[i].activeInHierarchy != true)                 // unitCell[i]의 코드가 없으면
+                if (t54s[i].activeInHierarchy != true)            
                 {
-                    if (unActivedUnit == -1) unActivedUnit = i;                 // blankCell이 -1 이면 i를 대입
+                    if (unActivedUnit == -1) unActivedUnit = i;   
                 }
-                else                                                    // unitCell[i]의 코드가 있으면
+                else                                              
                 {
                     
                 }
             }
 
-            if (unActivedUnit != -1)                                        // blankCell이 앞서 확인한 i면
+            if (unActivedUnit != -1)                              
             {
-                t54s[unActivedUnit].SetActive(true);
+                if (UI_Manager.instance.credit >= 1000)
+                {
+                    t54s[unActivedUnit].SetActive(true);
+                    InventoryManager.instance.UseUnit(0);
+                }
             }
-            else                                                        // blankCell이 -1이면
+            else                                                  
             {
                 
             }
@@ -164,11 +175,7 @@ public class GameManager : MonoBehaviour
         {
             t54s.Add(Instantiate(t54, allyRespwan));
             t54s[i].SetActive(false);
-            t54s[i].transform.position = new Vector3(t54s[i].transform.position.x + randomX, t54s[i].transform.position.y, t54s[i].transform.position.z);
         }
-
-
-        
     }
 
 }

@@ -7,10 +7,9 @@ public class AddUnitInfo                                    // 유닛 정보 추가 클
     public Unit_Status data;                                // 유닛 데이터
     public int count;                                       // 유닛 숫자
 
-    public AddUnitInfo(Unit_Status data, int count)         
+    public AddUnitInfo(Unit_Status data)         
     {
         this.data = data;
-        this.count = count;
     }
 }
 
@@ -31,9 +30,9 @@ public class InventoryManager : MonoBehaviour
 
     public Inventory GetInventory() => inventory;           
 
-    public void AddUnit(Unit_Status data, int count)        // 인벤토리에 유닛 추가
+    public void AddUnit(Unit_Status data, int cost)        // 인벤토리에 유닛 추가
     {
-        inventory.AddUnit(data, count);
+        inventory.AddUnit(data, cost);
         Refresh();
     }
 
@@ -68,11 +67,7 @@ public class InventoryManager : MonoBehaviour
             Refresh();
         });
     }
-    private void Update()
-    {
-        
-
-    }
+    
     private void Refresh()
     {
         for (int i = 0; i < unitCells.Length; i++)
@@ -84,7 +79,7 @@ public class InventoryManager : MonoBehaviour
     public void UseUnit(int index)
     {
         inventory.unitCell[index].unit_Status.UseUnit();
-        inventory.unitCell[index].unitCount--;
+        UI_Manager.instance.credit -= inventory.unitCell[index].unitCost;
         Refresh();
     }
 }
