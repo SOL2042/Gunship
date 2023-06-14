@@ -166,6 +166,37 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &2019327927845225911
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1874718823835024962}
+  m_Layer: 0
+  m_Name: BulletPosition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1874718823835024962
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2019327927845225911}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -3.2, z: 13.61}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8557522284471576582}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3483512270231511690
 GameObject:
   m_ObjectHideFlags: 0
@@ -346,9 +377,10 @@ GameObject:
   - component: {fileID: 221412792147711389}
   - component: {fileID: 1200034014938811448}
   - component: {fileID: 8246929160891416467}
-  m_Layer: 0
+  - component: {fileID: -4937931220232052555}
+  m_Layer: 11
   m_Name: Mi24
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -372,6 +404,7 @@ Transform:
   - {fileID: 7845564673795530112}
   - {fileID: 6368128766591082887}
   - {fileID: 3290145089142604079}
+  - {fileID: 1874718823835024962}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -476,6 +509,30 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 3.17, y: 7.1938696, z: 25.32}
   m_Center: {x: 0, y: -0.4104749, z: -0.16519833}
+--- !u!114 &-4937931220232052555
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4654809918832646677}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ecff3db6d83047f41ae6e5c5c3c22c94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxSpeed: 100
+  minSpeed: 10
+  defaultSpeed: 30
+  speedLerpAmount: 20
+  turningForce: 10
+  turningTime: 0
+  initialWaypoints: []
+  shootInterval: 0.1
+  lastShootTime: 0
+  bullet: {fileID: 0}
+  deadEffect: {fileID: 0}
+  bulletPosition: {fileID: 0}
 --- !u!1 &6069791931016499438
 GameObject:
   m_ObjectHideFlags: 0

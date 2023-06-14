@@ -1680,6 +1680,11 @@ PrefabInstance:
       propertyPath: m_UseGravity
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1200034014938811448, guid: bbc0830f6c6092f4c92e8b0a1fc21db9,
+        type: 3}
+      propertyPath: m_Constraints
+      value: 16
+      objectReference: {fileID: 0}
     - target: {fileID: 3290145089142604079, guid: bbc0830f6c6092f4c92e8b0a1fc21db9,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1830,6 +1835,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ecff3db6d83047f41ae6e5c5c3c22c94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxSpeed: 300
+  minSpeed: 10
+  defaultSpeed: 50
+  speedLerpAmount: 20
+  turningForce: 10
+  turningTime: 0
+  initialWaypoints: []
+  shootInterval: 0.1
+  lastShootTime: 0
+  bullet: {fileID: 0}
+  deadEffect: {fileID: 0}
+  bulletPosition: {fileID: 0}
 --- !u!1 &136244501
 GameObject:
   m_ObjectHideFlags: 0
@@ -10487,6 +10504,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ecff3db6d83047f41ae6e5c5c3c22c94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxSpeed: 300
+  minSpeed: 10
+  defaultSpeed: 50
+  speedLerpAmount: 20
+  turningForce: 10
+  turningTime: 0
+  initialWaypoints: []
+  shootInterval: 4
+  lastShootTime: 0
+  bullet: {fileID: 0}
+  deadEffect: {fileID: 0}
+  bulletPosition: {fileID: 0}
 --- !u!4 &758275291 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4973204057689193222, guid: 71c4d116ffca5b347bc489ee5842cb23,
@@ -25110,6 +25139,11 @@ PrefabInstance:
       propertyPath: m_UseGravity
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1200034014938811448, guid: bbc0830f6c6092f4c92e8b0a1fc21db9,
+        type: 3}
+      propertyPath: m_Constraints
+      value: 16
+      objectReference: {fileID: 0}
     - target: {fileID: 3290145089142604079, guid: bbc0830f6c6092f4c92e8b0a1fc21db9,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -26263,6 +26297,11 @@ PrefabInstance:
       propertyPath: m_UseGravity
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1200034014938811448, guid: bbc0830f6c6092f4c92e8b0a1fc21db9,
+        type: 3}
+      propertyPath: m_Constraints
+      value: 16
+      objectReference: {fileID: 0}
     - target: {fileID: 3290145089142604079, guid: bbc0830f6c6092f4c92e8b0a1fc21db9,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -26413,6 +26452,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ecff3db6d83047f41ae6e5c5c3c22c94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxSpeed: 300
+  minSpeed: 10
+  defaultSpeed: 50
+  speedLerpAmount: 20
+  turningForce: 10
+  turningTime: 0
+  initialWaypoints: []
+  shootInterval: 0.1
+  lastShootTime: 0
+  bullet: {fileID: 0}
+  deadEffect: {fileID: 0}
+  bulletPosition: {fileID: 0}
 --- !u!1 &1972549262
 GameObject:
   m_ObjectHideFlags: 0
