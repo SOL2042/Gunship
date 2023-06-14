@@ -105,13 +105,13 @@
     <Compile Include="Assets\Script\Module\ScriptTableObject.cs" />
     <Compile Include="Assets\EffectExamples\Misc Effects\Scripts\SpawnEffect.cs" />
     <Compile Include="Assets\Script\Manager\UI_Manager.cs" />
+    <Compile Include="Assets\Script\WeaponData.cs" />
     <Compile Include="Assets\Script\Weapon\HellFire_Missile.cs" />
     <Compile Include="Assets\Script\Module\Inventory\UnitCellManager.cs" />
     <Compile Include="Assets\Script\Module\Inventory\Inventory.cs" />
     <Compile Include="Assets\Script\Manager\MainMenuManager.cs" />
     <Compile Include="Assets\Script\Controller\InitSetting.cs" />
     <Compile Include="Assets\Script\Manager\NetworkManager_Room.cs" />
-    <Compile Include="Assets\Script\WeaponData.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TerrainSampleAssets\ThirdPartyNotices.txt" />
