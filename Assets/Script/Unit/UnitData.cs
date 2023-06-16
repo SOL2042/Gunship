@@ -8,6 +8,6 @@ public abstract class UnitData : MonoBehaviour
     public Unit_Status myData = new Unit_Status();
     //public List<BuffSkill> buffSkill = new List<BuffSkill>();
 
-    public abstract void PostHit(UnitData data, RaycastHit hit);
-    public abstract void SetHit(UnitData data);
+    public abstract void PostHit(WeaponData data);
+   
 }

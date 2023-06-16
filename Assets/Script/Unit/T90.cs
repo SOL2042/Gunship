@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class T90 : UnitData
 {
+    T90 t90;
     TankBullet tankBullet;
     GameObject deadEffect;
     GameObject bullet;
 
     [SerializeField] private float moveSpeed = 20f; // 이동 속도
-    [SerializeField] private float turnSpeed = 100f; // 회전 속도
-    [SerializeField] private float turretTurnSpeed = 70f; // 회전 속도
+    //[SerializeField] private float turnSpeed = 100f; // 회전 속도
+    //[SerializeField] private float turretTurnSpeed = 70f; // 회전 속도
     [SerializeField] private float shootRange = 100f;
-    //[SerializeField] private float shootRange = 100f; // 사격 범위
     [SerializeField] private float shootInterval = 4f; // 사격 간격
     [SerializeField] private Transform turretTransform; // 포탑 Transform 컴포넌트
 
@@ -20,15 +20,17 @@ public class T90 : UnitData
     private Transform USbaseTransform; // 플레이어 기지의 Transform 컴포넌트
     private Rigidbody tankRigidbody; // 탱크의 Rigidbody 컴포넌트
     private float lastShootTime; // 마지막 사격 시간
-    private float deadEffectTime = 3;
-    private float deadEffectTimer = 3;
     [SerializeField] private Transform bulletPosition;
     T90_InitStatus t90_InitStatus;
+    
     private int score = 100;
     private int credit = 500;
+    
     private GameObject enemy;
 
     public LayerMask enemyLayer;
+
+    private float damage = 500;
 
     public T90()
     {
@@ -36,6 +38,8 @@ public class T90 : UnitData
     }
     private void Start()
     {
+        t90 = new T90();
+        
         EventManager.instance.AddListener("addTankScore", (p)=>
         {
             Score();
@@ -44,14 +48,13 @@ public class T90 : UnitData
         {
             Credit();
         });
+
         bulletPosition = transform.GetChild(16).GetChild(0).GetChild(0).transform;
         bullet = Resources.Load<GameObject>("Prefabs/T90Bullet");
         deadEffect = Resources.Load<GameObject>("Prefabs/BigExplosion");
-        //playerTransform = GameObject.FindGameObjectWithTag("Player").transform; // 플레이어의 Transform 컴포넌트 가져오기
         tankRigidbody = GetComponent<Rigidbody>(); // 탱크의 Rigidbody 컴포넌트 가져오기
         turretTransform = transform.GetChild(16).transform;
     }
-
     private void Update()
     {
         Move();
@@ -61,11 +64,9 @@ public class T90 : UnitData
         if (Physics.SphereCast(new Vector3(gameObject.transform.position.x, gameObject.transform.position.y + 40, gameObject.transform.position.z), shootRange, Vector3.down, out RaycastHit hit, 1000, enemyLayer))
         {
             enemy = hit.collider.gameObject; 
-
             float distanceToEnemy = Vector3.Distance(transform.position, enemy.transform.position);
             turretTransform.LookAt(enemy.transform);
-            
-            //Debug.Log(turretTransform.rotation);
+
             if (distanceToEnemy <= shootRange) // 사격 범위 내에 있을 때
             {
                 moveSpeed = 0;
@@ -99,21 +100,21 @@ public class T90 : UnitData
             {
                 enemy = null;
             }
-
     }
     private void Shoot()
     {
         GameObject go = Resources.Load<GameObject>("Prefabs/T90Bullet");
         GameObject bullet = Instantiate(go, bulletPosition.position, Quaternion.identity);
         bullet.transform.rotation = bulletPosition.transform.rotation;
-        
+        tankBullet = bullet.GetComponent<TankBullet>();
+        tankBullet.Damage(ref damage);
         Destroy(bullet, 3);
     }
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Player")
         {
-            Dead();
+            PostHit(other.GetComponent<TankBullet>());
         }
     }
     private void Score()
@@ -124,11 +125,14 @@ public class T90 : UnitData
     {
         UI_Manager.instance.credit += credit;
     }
-    public override void PostHit(UnitData data, RaycastHit hit)
+    public override void PostHit(WeaponData data)
     {
-        totalData.currentHp -= data.totalData.bulletAtk;
-
-        if (totalData.currentHp <= 0)
+        Debug.Log($"data : {data}");
+        Debug.Log($"data.damage : {data.damage}");
+        Debug.Log($"totalData.currentHp : {t90.totalData.currentHp}");
+        t90.totalData.currentHp -= data.damage;
+        Debug.Log(t90.totalData.currentHp);
+        if (t90.totalData.currentHp <= 0)
         {
             Dead();
         }
@@ -138,7 +142,13 @@ public class T90 : UnitData
         EventManager.instance.PostEvent("addTankScore", null);
         EventManager.instance.PostEvent("addTankCredit", null);
         GameObject go = Instantiate(deadEffect, transform.position, Quaternion.identity);
+        Refresh();
+        Destroy(go, 3);
+    }
 
+    private void Refresh()
+    {
+        t90.totalData.currentHp = t90.totalData.maxHp;
         float RandomX = Random.Range(-100, 100);
         float RandomZ = Random.Range(800, 900);
 
@@ -147,10 +157,7 @@ public class T90 : UnitData
         gameObject.transform.GetChild(16).rotation = Quaternion.identity;
         gameObject.transform.rotation = Quaternion.Euler(0, 180, 0);
         gameObject.transform.position = new Vector3(RandomX, 2, RandomZ);
-        Destroy(go, 3);
     }
-    public override void SetHit(UnitData data)
-    {
-        
-    }
+
+ 
 }

@@ -35,6 +35,7 @@ public class EnemyController : MonoBehaviour
     {
         waveRound = 1;
         t90s = new List<GameObject>();
+        
         t90 = Resources.Load("Prefabs/T90LP ForrestWavyCamo") as GameObject;
     }
 
@@ -49,6 +50,7 @@ public class EnemyController : MonoBehaviour
             timer = 0;
         }
         Respwan();
+
     }
 
     private void Respwan()
@@ -75,6 +77,7 @@ public class EnemyController : MonoBehaviour
         if (t90s.Count <= 8 + level)
         {
             t90s.Add(Instantiate(t90, new Vector3(RandomX, 0, RandomZ), Quaternion.Euler(0,180,0)));
+
         }
     }
 

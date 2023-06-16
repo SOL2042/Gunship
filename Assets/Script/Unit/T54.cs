@@ -100,7 +100,7 @@ public class T54 : UnitData
         GameObject go = Resources.Load<GameObject>("Prefabs/T54Bullet");
         GameObject bullet = Instantiate(go, bulletPosition.position, Quaternion.identity);
         bullet.transform.rotation = bulletPosition.transform.rotation;
-
+        
         Destroy(bullet, 3);
     }
 
@@ -117,9 +117,9 @@ public class T54 : UnitData
         UI_Manager.instance.score += score;
     }
 
-    public override void PostHit(UnitData data, RaycastHit hit)
+    public override void PostHit(WeaponData data)
     {
-        totalData.currentHp -= data.totalData.bulletAtk;
+        totalData.currentHp -= data.damage;
 
         if (totalData.currentHp <= 0)
         {
@@ -137,8 +137,4 @@ public class T54 : UnitData
         Destroy(go, 3);
     }
 
-    public override void SetHit(UnitData data)
-    {
-
-    }
 }

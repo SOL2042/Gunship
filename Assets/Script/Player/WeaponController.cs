@@ -388,7 +388,6 @@ public class WeaponController : UnitData
         {
             gameObject.SetActive(false);
             GameObject go = Instantiate(deadEffect, transform.position, Quaternion.identity);
-            
             Destroy(go, 3);
             gameObject.transform.rotation = Quaternion.identity;
         }
@@ -399,7 +398,7 @@ public class WeaponController : UnitData
         myData.currentHp -= 1000f;
         Refresh();
     }
-    public override void PostHit(UnitData data, RaycastHit hit)
+    public override void PostHit(WeaponData data)
     {
        
     }
@@ -429,9 +428,5 @@ public class WeaponController : UnitData
         }
     }
     
-   
-    public override void SetHit(UnitData data)
-    {
-        
-    }
+  
 }

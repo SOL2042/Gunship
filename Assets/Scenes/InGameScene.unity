@@ -26947,6 +26947,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -4937931220232052555, guid: bbc0830f6c6092f4c92e8b0a1fc21db9,
+        type: 3}
+      propertyPath: shootInterval
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4654809918832646677, guid: bbc0830f6c6092f4c92e8b0a1fc21db9,
         type: 3}
       propertyPath: m_Name

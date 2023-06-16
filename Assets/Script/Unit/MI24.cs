@@ -23,8 +23,8 @@ public class MI24 : UnitData
     float turningTime;                          // 선회시간
 
     [SerializeField]
-    List<Transform> initialWaypoints;           // 웨이포인트 리스트
-    Queue<Transform> waypointQueue;             // 웨이포인트 큐
+    List<Transform> initialWaypoints;           // 초기 웨이포인트 리스트
+    Queue<Transform> waypointQueue;             // 웨이포인트 넣는 큐
 
     Transform currentWaypoint;                  // 현재 웨이포인트
 
@@ -36,9 +36,13 @@ public class MI24 : UnitData
     float currRotY;                             // 현재의 Y 회전
     float rotateAmount;                         // 회전량
     float zRotateValue;                         // z회전량
+    [SerializeField]
+    float zRotateMaxThreshold = 0.5f;
+    [SerializeField]
+    float zRotateAmount = 90;
 
-    [SerializeField] private float shootInterval = 0.3f; // 사격 간격
-    [SerializeField] private float lastShootTime = 0f; // 사격 간격
+    private float shootInterval = 1f;    // 사격 간격
+    [SerializeField] private float lastShootTime = 0f;      // 사격 간격
     private int score = 500;                                // 스코어  
     private int credit = 20000;                             // 크레딧
 
@@ -67,7 +71,7 @@ public class MI24 : UnitData
 
         if (waypointDistance >= prevWaypointDistance) // Aircraft is going farther from the waypoint        // 현재 웨이포인트의 거리가 이전 웨이포인트의 거리보다 크거나 같을때
         {
-            if (isComingClose == true)                                                                      //  가까워졌다면
+            if (isComingClose == true)                                                                      // 웨이포인트에 가까워졌다면
             {
                 //ChangeWaypoint();                                                                         // 웨이포인트 변경
             }
@@ -93,6 +97,10 @@ public class MI24 : UnitData
         {
             float lerpAmount = Mathf.SmoothDampAngle(delta, 0.0f, ref rotateAmount, turningTime);
             lerpAmount = 1.0f - (lerpAmount / delta);
+
+            Vector3 eulerAngle = lookRotation.eulerAngles;
+            eulerAngle.z += zRotateValue * zRotateAmount;
+            lookRotation = Quaternion.Euler(eulerAngle);
             transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, lerpAmount);
         }
     }
@@ -102,19 +110,16 @@ public class MI24 : UnitData
         currRotY = transform.eulerAngles.y;
         float diff = prevRotY - currRotY;
         if (diff < -180) diff += 360;
-        else if (diff > 180) diff -= 360;
+        if (diff > 180) diff -= 360;
 
-        zRotateValue = Mathf.Lerp(transform.eulerAngles.z, Mathf.Clamp(diff / Time.deltaTime, -90, 90), turningForce);
-
-        transform.rotation = Quaternion.Euler(transform.eulerAngles.x, transform.eulerAngles.y, zRotateValue);
         prevRotY = transform.eulerAngles.y;
+        zRotateValue = Mathf.Lerp(zRotateValue, Mathf.Clamp(diff / zRotateMaxThreshold, -1, 1), turningForce * Time.deltaTime);
     }
 
     void Move()
     {
         transform.Translate(new Vector3(0, 0, speed) * Time.deltaTime);
     }
-
 
     void Start()
     {
@@ -143,15 +148,13 @@ public class MI24 : UnitData
         deadEffect = Resources.Load<GameObject>("Prefabs/BigExplosion");
     }
 
-
-
-
     void Update()
     {
         currentWaypoint = target;
+
         CheckWaypoint();
         Rotate();
-        //ZAxisRotate();
+        ZAxisRotate();
         if (waypointDistance >= 200f)
         {
             Move();
@@ -213,14 +216,11 @@ public class MI24 : UnitData
         bullet.transform.rotation = bulletPosition.transform.rotation;
         Destroy(bullet, 3);
     }
-    public override void PostHit(UnitData data, RaycastHit hit)
+    public override void PostHit(WeaponData data)
     {
 
     }
-    public override void SetHit(UnitData data)
-    {
-
-    }
+    
 
 
 

@@ -2,13 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TankBullet : MonoBehaviour
+public class TankBullet : WeaponData
 {
-
-    T90 t90;
-    Transform bulletPosition;
     private float speed;
-    Rigidbody rgb;
+    private float damage;
     GameObject gunEffect;
 
     public Vector3 target;
@@ -18,36 +15,23 @@ public class TankBullet : MonoBehaviour
     {
         this.speed = speed;
     }
-    public TankBullet(Vector3 target, bool hit)
+    public void Damage(ref float damage)
     {
-        this.target = target;
-        this.hit = hit;
+        this.damage = damage;
     }
-    private void Awake()
-    {
-        //t90 = FindObjectOfType<T90>();
-    }
+   
     private void Start()
     {
-        //rgb = GetComponent<Rigidbody>();
-        //bulletPosition = t90.GetComponent<T90>().transform.GetChild(16).GetChild(0).GetChild(0).transform;
-
         gunEffect = Resources.Load<GameObject>("Prefabs/DustExplosion");
-
-        //rgb.AddForce(bulletPosition.forward * 12000);
-
-
     }
     // Update is called once per frame
     void Update()
     {
         transform.Translate(new Vector3(0, 0, 200 * Time.deltaTime));
-
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        //Debug.Log(other);
         GameObject go = Instantiate(gunEffect, transform.localPosition, Quaternion.identity);
         Destroy(go, 3);
         Destroy(gameObject);

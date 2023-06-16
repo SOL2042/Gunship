@@ -53,12 +53,8 @@ public class USBase : UnitData
             gameObject.SetActive(false);
         }
     }
-    public override void PostHit(UnitData data, RaycastHit hit)
-    {
 
-    }
-
-    public override void SetHit(UnitData data)
+    public override void PostHit(WeaponData data)
     {
 
     }
