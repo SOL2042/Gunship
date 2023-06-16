@@ -29,7 +29,7 @@ public class MI24 : UnitData
     Transform currentWaypoint;                  // 현재 웨이포인트
 
     float prevWaypointDistance;                 // 이전의 웨이포인트 거리
-    float waypointDistance;                     // 웨이포인트 거리
+    float waypointDistance;                     // 나와 현재 웨이포인트 사이의 거리
     bool isComingClose;                         // 가까워졌는지 확인
 
     float prevRotY;                             // 이전의 Y 회전
@@ -39,48 +39,45 @@ public class MI24 : UnitData
 
     [SerializeField] private float shootInterval = 0.3f; // 사격 간격
     [SerializeField] private float lastShootTime = 0f; // 사격 간격
-    private int score = 500;
-    private int credit = 20000;
-    private GameObject enemy;
+    private int score = 500;                                // 스코어  
+    private int credit = 20000;                             // 크레딧
 
-    [SerializeField] GameObject bullet;
-    [SerializeField] GameObject deadEffect;
+    [SerializeField] GameObject deadEffect;                 // 죽는 이펙트
+    [SerializeField] Transform bulletPosition;              // 총알 포지션
 
-    [SerializeField] Transform bulletPosition;
-
-    void ChangeWaypoint()
+    void ChangeWaypoint()                                    // 웨이포인트 변경 함수
     {
-        if (waypointQueue.Count == 0)
+        if (waypointQueue.Count == 0)                           // waypointQueue 안의 갯수가 0이라면
         {
-            currentWaypoint = null;
-            return;
+            currentWaypoint = null;                             // 현재 웨이포인트는 null
+            return;                                             // 빠져나온다
         }
 
-        currentWaypoint = waypointQueue.Dequeue();
-        waypointDistance = Vector3.Distance(transform.position, currentWaypoint.position);
-        prevWaypointDistance = waypointDistance;
+        currentWaypoint = waypointQueue.Dequeue();                                                  // 현재 웨이포인트에 Queue에 저장되어있는 마지막 웨이포인트 반환 및 제거 
+        waypointDistance = Vector3.Distance(transform.position, currentWaypoint.position);          // 나와 현재 웨이포인트 사이의 거리
+        prevWaypointDistance = waypointDistance;                                                    // 이전의 웨이포인트 거리에 대입
 
-        isComingClose = false;
+        isComingClose = false;                                                                      // 가까워졌는지 확인하는 변수 false
     }
 
-    void CheckWaypoint()
+    void CheckWaypoint()                                                                                    // 웨이포인트 체크하는 함수
     {
-        if (currentWaypoint == null) return;
-        waypointDistance = Vector3.Distance(transform.position, currentWaypoint.position);
+        if (currentWaypoint == null) return;                                                                // 현재 웨이포인트가 없을 경우 탈출
+        waypointDistance = Vector3.Distance(transform.position, currentWaypoint.position);                  // 현재 웨이포인트와 나와의 거리
 
-        if (waypointDistance >= prevWaypointDistance) // Aircraft is going farther from the waypoint
+        if (waypointDistance >= prevWaypointDistance) // Aircraft is going farther from the waypoint        // 현재 웨이포인트의 거리가 이전 웨이포인트의 거리보다 크거나 같을때
         {
-            if (isComingClose == true)
+            if (isComingClose == true)                                                                      //  가까워졌다면
             {
-                //ChangeWaypoint();
+                //ChangeWaypoint();                                                                         // 웨이포인트 변경
             }
         }
-        else
+        else                                                                                                // 이전 웨이포인트의 거리가 더 크다면
         {
-            isComingClose = true;
+            isComingClose = true;                                                                           // isComingClose를 true로 변경
         }
 
-        prevWaypointDistance = waypointDistance;
+        prevWaypointDistance = waypointDistance;                                                            // 이전 웨이포인트에 대입
     }
 
     void Rotate()
@@ -143,7 +140,6 @@ public class MI24 : UnitData
             Credit();
         });
         bulletPosition = transform.GetChild(7).transform;
-        bullet = Resources.Load<GameObject>("Prefabs/MI24_Bullet");
         deadEffect = Resources.Load<GameObject>("Prefabs/BigExplosion");
     }
 
@@ -153,7 +149,6 @@ public class MI24 : UnitData
     void Update()
     {
         currentWaypoint = target;
-
         CheckWaypoint();
         Rotate();
         //ZAxisRotate();
@@ -165,14 +160,13 @@ public class MI24 : UnitData
         {
             if (Time.time - lastShootTime >= shootInterval) // 사격 간격이 지난 경우
             {
-                if (target.parent.gameObject.activeInHierarchy)
+                if (target.gameObject.activeInHierarchy)
                 {
                     Fire(); // 사격
                     lastShootTime = Time.time; // 마지막 사격 시간 갱신
                 }
             }
         }
-        //Find();
 
     }
     private void OnTriggerEnter(Collider other)
@@ -217,9 +211,7 @@ public class MI24 : UnitData
         GameObject go = Resources.Load<GameObject>("Prefabs/MI24_Bullet");
         GameObject bullet = Instantiate(go, bulletPosition.position, Quaternion.identity);
         bullet.transform.rotation = bulletPosition.transform.rotation;
-
         Destroy(bullet, 3);
-
     }
     public override void PostHit(UnitData data, RaycastHit hit)
     {
