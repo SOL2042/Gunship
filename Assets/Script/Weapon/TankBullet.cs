@@ -5,7 +5,7 @@ using UnityEngine;
 public class TankBullet : WeaponData
 {
     private float speed;
-    private float damage;
+    
     GameObject gunEffect;
 
     public Vector3 target;
@@ -28,6 +28,7 @@ public class TankBullet : WeaponData
     void Update()
     {
         transform.Translate(new Vector3(0, 0, 200 * Time.deltaTime));
+        Debug.Log(this.damage);
     }
 
     private void OnTriggerEnter(Collider other)

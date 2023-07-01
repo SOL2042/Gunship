@@ -28,8 +28,19 @@ public class T54 : UnitData
 
     public LayerMask enemyLayer;
 
+    private float damage = 100;
+
+    T54 t54;
+
+    public T54()
+    {
+        totalData = new T54_InitStatus();
+        myData = new T54_InitStatus();
+    }
+
     private void Start()
     {
+        t54 = new T54();
         respwanPosition = GameObject.Find("Transform :: AllyRespwanPoint").transform;
         originPosition = transform;
         t54_InitStatus = new T54_InitStatus();
@@ -58,7 +69,7 @@ public class T54 : UnitData
             turretTransform.LookAt(enemy.transform);
             if (distanceToEnemy <= shootRange + 10) // 사격 범위 내에 있을 때
             {
-                Debug.Log($"enemy : {enemy}");
+                //Debug.Log($"enemy : {enemy}");
                 moveSpeed = 0;
                 if (Time.time - lastShootTime >= shootInterval) // 사격 간격이 지난 경우
                 {
@@ -96,11 +107,12 @@ public class T54 : UnitData
 
     private void Shoot()
     {
-        // 사격 로직 구현
         GameObject go = Resources.Load<GameObject>("Prefabs/T54Bullet");
         GameObject bullet = Instantiate(go, bulletPosition.position, Quaternion.identity);
         bullet.transform.rotation = bulletPosition.transform.rotation;
-        
+        tankBullet = bullet.GetComponent<TankBullet>();
+        tankBullet.Damage(ref damage);
+        Debug.Log($"T54 damage: {damage}");
         Destroy(bullet, 3);
     }
 
@@ -108,7 +120,7 @@ public class T54 : UnitData
     {
         if (other.gameObject.tag == "Enemy")
         {
-            Dead();
+            PostHit(other.gameObject.GetComponent<TankBullet>());
         }
     }
 
@@ -119,9 +131,9 @@ public class T54 : UnitData
 
     public override void PostHit(WeaponData data)
     {
-        totalData.currentHp -= data.damage;
+        t54.totalData.currentHp -= data.GetComponent<TankBullet>().damage;
 
-        if (totalData.currentHp <= 0)
+        if (t54.totalData.currentHp <= 0)
         {
             Dead();
         }
@@ -130,11 +142,17 @@ public class T54 : UnitData
     private void Dead()
     {
         GameObject go = Instantiate(deadEffect, transform.position, Quaternion.identity);
-
         gameObject.SetActive(false);
+        Refresh();
+        Destroy(go, 3);
+    }
+
+    private void Refresh()
+    {
+        t54.totalData.currentHp = t54.totalData.maxHp;
+
         gameObject.transform.position = respwanPosition.position;
         gameObject.transform.rotation = Quaternion.identity;
-        Destroy(go, 3);
     }
 
 }

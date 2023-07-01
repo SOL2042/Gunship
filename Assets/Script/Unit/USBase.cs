@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class USBase : UnitData
 {
+    #region ΩÃ±€≈Ê ∆–≈œ
     private static USBase _instance;
-
     public static USBase instance
     {
         get
@@ -14,6 +14,7 @@ public class USBase : UnitData
             return _instance;
         }
     }
+    #endregion
     public USBase()
     {
         totalData = new USBase_Status();

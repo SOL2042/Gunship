@@ -24,17 +24,19 @@ public class T90 : UnitData
     T90_InitStatus t90_InitStatus;
     
     private int score = 100;
-    private int credit = 500;
+    private int credit = 200;
     
     private GameObject enemy;
 
     public LayerMask enemyLayer;
 
-    private float damage = 500;
+    private float damage = 200;
 
+    [SerializeField] GameObject unitHpUI;
     public T90()
     {
-        t90_InitStatus = new T90_InitStatus();
+        totalData = new T90_InitStatus();
+        myData = new T90_InitStatus();
     }
     private void Start()
     {
@@ -58,6 +60,7 @@ public class T90 : UnitData
     private void Update()
     {
         Move();
+        UnitHP();
     }
     private void Move()
     {
@@ -108,6 +111,7 @@ public class T90 : UnitData
         bullet.transform.rotation = bulletPosition.transform.rotation;
         tankBullet = bullet.GetComponent<TankBullet>();
         tankBullet.Damage(ref damage);
+        Debug.Log($"T90 damage: {damage}");
         Destroy(bullet, 3);
     }
     private void OnTriggerEnter(Collider other)
@@ -128,10 +132,9 @@ public class T90 : UnitData
     public override void PostHit(WeaponData data)
     {
         Debug.Log($"data : {data}");
-        Debug.Log($"data.damage : {data.damage}");
+        Debug.Log($"data.damage : {data.GetComponent<TankBullet>().damage}");
         Debug.Log($"totalData.currentHp : {t90.totalData.currentHp}");
-        t90.totalData.currentHp -= data.damage;
-        Debug.Log(t90.totalData.currentHp);
+        t90.totalData.currentHp -= data.GetComponent<TankBullet>().damage;
         if (t90.totalData.currentHp <= 0)
         {
             Dead();
@@ -159,5 +162,9 @@ public class T90 : UnitData
         gameObject.transform.position = new Vector3(RandomX, 2, RandomZ);
     }
 
+    private void UnitHP()
+    {
+        unitHpUI.transform.position = Camera.main.WorldToScreenPoint(transform.position + Vector3.up * 10f);
+    }
  
 }

@@ -29,12 +29,7 @@ public class Bullet : MonoBehaviour
 
         rgb.AddForce(bulletPosition.forward * speed * 1200);
     }
-    // Update is called once per frame
-    void Update()
-    {
-       
-    }
-
+   
     private void OnTriggerEnter(Collider other)
     {
         GameObject go = Instantiate(gunEffect, transform.localPosition, Quaternion.identity);
