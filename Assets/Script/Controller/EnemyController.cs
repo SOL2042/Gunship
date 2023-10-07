@@ -15,13 +15,19 @@ public class EnemyController : MonoBehaviour
         }
     }
     
-    private GameObject t90;
+    private GameObject t90; 
     public List<GameObject> t90s;
-    [SerializeField] Transform resPosition;
+    [SerializeField] Transform t90ResPosition;
     public float RandomX;
     public float RandomZ;
     float level;
     public float waveRound;
+
+    private GameObject mi24;
+    public List<GameObject> mi24s;
+    [SerializeField]
+    Transform mi24ResPosition;
+
 
     float lastRespwanTime;
     float respwanInterval = 4;
@@ -29,7 +35,6 @@ public class EnemyController : MonoBehaviour
     float resTime = 3;
     float timer = 0;
 
-    float enemyDeadCnt = 0;
 
     private void Awake()
     {
@@ -70,6 +75,7 @@ public class EnemyController : MonoBehaviour
                 lastRespwanTime = 0;
             }
         }
+
     }
 
     private void Instantiate()

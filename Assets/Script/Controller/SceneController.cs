@@ -16,10 +16,12 @@ public class SceneController : MonoBehaviour
         EventManager.instance.AddListener("OpenMainMenuScene", (e) =>
         {
             SceneManager.LoadScene("MainMenuScene");
+            SoundManager.instance.PlayBgm("16");
         });
         EventManager.instance.AddListener("OpenInGameScene", (e) =>
         {
             SceneManager.LoadScene("InGameScene");
+            SoundManager.instance.PlayBgm($"{Random.Range(1,35)}");
         });
 
     }

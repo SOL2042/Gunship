@@ -86,7 +86,6 @@ public class T90 : UnitData
                 Vector3 movement = transform.forward * moveSpeed * Time.deltaTime;
                 tankRigidbody.MovePosition(tankRigidbody.position + movement);
             }
-
         }
         else // 사격 범위 밖에 있을 때
         {
@@ -111,14 +110,25 @@ public class T90 : UnitData
         bullet.transform.rotation = bulletPosition.transform.rotation;
         tankBullet = bullet.GetComponent<TankBullet>();
         tankBullet.Damage(ref damage);
-        Debug.Log($"T90 damage: {damage}");
         Destroy(bullet, 3);
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Player")
+        if (other.gameObject.GetComponent<TankBullet>())
         {
             PostHit(other.GetComponent<TankBullet>());
+        }
+        if (other.gameObject.GetComponent<Bullet>())
+        {
+            PostHit(other.GetComponent<Bullet>());
+        }
+        if (other.gameObject.GetComponent<Rocket>())
+        {
+            PostHit(other.GetComponent<Rocket>());
+        }
+        if (other.gameObject.GetComponent<HellFire_Missile>())
+        {
+            PostHit(other.GetComponent<HellFire_Missile>());
         }
     }
     private void Score()
@@ -132,9 +142,9 @@ public class T90 : UnitData
     public override void PostHit(WeaponData data)
     {
         Debug.Log($"data : {data}");
-        Debug.Log($"data.damage : {data.GetComponent<TankBullet>().damage}");
+        Debug.Log($"data.damage : {data.damage}");
         Debug.Log($"totalData.currentHp : {t90.totalData.currentHp}");
-        t90.totalData.currentHp -= data.GetComponent<TankBullet>().damage;
+        t90.totalData.currentHp -= data.damage;
         if (t90.totalData.currentHp <= 0)
         {
             Dead();
@@ -166,5 +176,4 @@ public class T90 : UnitData
     {
         unitHpUI.transform.position = Camera.main.WorldToScreenPoint(transform.position + Vector3.up * 10f);
     }
- 
 }

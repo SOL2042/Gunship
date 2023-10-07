@@ -78,6 +78,9 @@ public class WeaponController : UnitData
 
     float boresightAngle = 60f;
 
+    float bulletDamage = 50f;
+    float rocketDamage = 200f;
+    float missileDamage = 1000f;
     public WeaponController()
     {
         totalData = new Player_InitStatus();
@@ -226,7 +229,6 @@ public class WeaponController : UnitData
         RocketCooldown(ref rightRckCooldown);
         RocketCooldown(ref leftRckCooldown);
     }
-
     private void Refresh()
     {
         totalData = new Unit_Status();
@@ -243,6 +245,7 @@ public class WeaponController : UnitData
             GameObject bullet = Instantiate(go, bulletPosition.position + new Vector3(Random.Range(-0.3f, 0.3f), Random.Range(-0.3f, 0.3f), 0), Quaternion.identity);
             Bullet bulletScript = bullet.GetComponent<Bullet>();
             bulletScript.Speed(player.speed + 15);
+            bulletScript.Damage(ref bulletDamage); 
 
             bulletCnt--;
             Destroy(bullet, 3);
@@ -252,12 +255,10 @@ public class WeaponController : UnitData
             CeaseFire();
         }
     }
-
     private void CeaseFire()
     {
         gameObject.transform.GetChild(0).GetChild(2).gameObject.SetActive(false);
     }
-
     private void LaunchMissile()
     {
         Vector3 missilePosition;
@@ -284,7 +285,7 @@ public class WeaponController : UnitData
         GameObject missile = Instantiate(missilePrefab, missilePosition, transform.rotation);
         HellFire_Missile missileScript = missile.GetComponent<HellFire_Missile>();
         missileScript.Launch(enemyPosition, player.speed + 15);
-
+        missileScript.Damage(ref missileDamage);
         missileCnt--;
     }
 
@@ -323,7 +324,7 @@ public class WeaponController : UnitData
         GameObject rocket = Instantiate(rocketPrefab, rocketPosition, transform.rotation);
         Rocket rocketScript = rocket.GetComponent<Rocket>();
         rocketScript.Launch(player.speed + 15);
-
+        rocketScript.Damage(ref rocketDamage);
         rocketCnt--;
     }
 
@@ -384,7 +385,7 @@ public class WeaponController : UnitData
 
     private void Die()                          // 플레이어 죽을 경우 함수
     {
-        if (totalData.currentHp <= 0)
+        if (myData.currentHp <= 0)
         {
             gameObject.SetActive(false);
             GameObject go = Instantiate(deadEffect, transform.position, Quaternion.identity);
@@ -395,37 +396,45 @@ public class WeaponController : UnitData
 
     private void Suicide()                      // 자살 함수
     {
-        myData.currentHp -= 1000f;
+        myData.currentHp -= totalData.maxHp;
         Refresh();
     }
     public override void PostHit(WeaponData data)
     {
-       
+        myData.currentHp -= data.damage;
+        Refresh();
     }
 
     private void OnTriggerEnter(Collider other)         // 트리거 충돌 함수            
     {
-        if(other.gameObject.layer == 15)                //other의 레이어가 EnemyBullet일 경우
+        if(other.GetComponent<MI24_Bullet>())                //other의 레이어가 EnemyBullet일 경우
         {
-            myData.currentHp -= 1000f;               
+            PostHit(other.GetComponent<MI24_Bullet>());
             Debug.Log(myData.currentHp);
             Debug.Log(totalData.currentHp);
-            
-            Refresh();
         }
-       
-        if (Player.instance.rgb.velocity.x >= 20f || Player.instance.rgb.velocity.x <= -20f)            //플레이어의 속도에 따라 터질지 안터질지 구분
+        if (other.GetComponent<TankBullet>())                //other의 레이어가 EnemyBullet일 경우
         {
-            totalData.currentHp -= 1000f;
+            PostHit(other.GetComponent<TankBullet>());
+            Debug.Log(myData.currentHp);
+            Debug.Log(totalData.currentHp);
         }
-        else if (Player.instance.rgb.velocity.y > 20f || Player.instance.rgb.velocity.y <= -20f)
+        if (other.gameObject.layer == 9)
         {
-            totalData.currentHp -= 1000f;
+            if (Player.instance.rgb.velocity.x >= 20f || Player.instance.rgb.velocity.x <= -20f)            //플레이어의 속도에 따라 터질지 안터질지 구분
+            {
+                myData.currentHp -= 1000f;
+            }
+            else if (Player.instance.rgb.velocity.y > 20f || Player.instance.rgb.velocity.y <= -20f)
+            {
+                myData.currentHp -= 1000f;
+            }
+            else if (Player.instance.rgb.velocity.z > 20f || Player.instance.rgb.velocity.z <= -20f)
+            {
+                myData.currentHp -= 1000f;
+            }
         }
-        else if (Player.instance.rgb.velocity.z > 20f || Player.instance.rgb.velocity.z <= -20f)
-        {
-            totalData.currentHp -= 1000f;
-        }
+        Refresh();
     }
     
   

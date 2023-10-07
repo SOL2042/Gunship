@@ -18,7 +18,7 @@ public class Mi24_Status : Unit_Status
         flyMode = FlyMode.Default;
         unitType = UnitType.helicoptor;
         code = "0003";
-        unitName = "Mi-24 HInd";
+        unitName = "Mi-24 Hind";
         unitDescripts = "Enemy Helicopter";
         unitSprite = null;
     }

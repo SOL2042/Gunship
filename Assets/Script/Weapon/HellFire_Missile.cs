@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HellFire_Missile : MonoBehaviour
+public class HellFire_Missile : WeaponData
 {
     //초기속도
     //유도될 대상
@@ -19,12 +19,15 @@ public class HellFire_Missile : MonoBehaviour
     float boresightAngle = 50;
     public float targetSearchSpeed;
     public float lockDistance;
+    public void Damage(ref float damage)
+    {
+        this.damage = damage;
+    }
     public void Launch(Transform target, float launchSpeed) //target : 유도 대상 launchSpeed : 초기속도 layer: 대상의 레이어
     {
         this.target = target;
         speed = launchSpeed;
     }
-
     private void Awake()
     {
         rgb = GetComponent<Rigidbody>();
@@ -34,7 +37,6 @@ public class HellFire_Missile : MonoBehaviour
         explosionPrefab = Resources.Load<GameObject>("Prefabs/BigExplosion");
         Destroy(gameObject, lifeTime);
     }
-
     private void FixedUpdate()
     {
         LookAtTarget();
@@ -56,7 +58,6 @@ public class HellFire_Missile : MonoBehaviour
         rgb.velocity = Vector3.zero;
         rgb.angularVelocity = Vector3.zero;
     }
-
     void LookAtTarget()
     {
         if (target == null)

@@ -20,16 +20,9 @@ public class USBase : UnitData
         totalData = new USBase_Status();
         myData = new USBase_Status();
     }
-    // Start is called before the first frame update
     void Start()
     {
         Refresh();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 
     private void OnTriggerEnter(Collider other)
@@ -46,7 +39,6 @@ public class USBase : UnitData
         totalData = new Unit_Status();
         totalData += myData;
     }
-
     private void Die()
     {
         if (totalData.currentHp <= 0)
@@ -54,7 +46,6 @@ public class USBase : UnitData
             gameObject.SetActive(false);
         }
     }
-
     public override void PostHit(WeaponData data)
     {
 

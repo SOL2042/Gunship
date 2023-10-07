@@ -60,7 +60,6 @@
     <Compile Include="Assets\Photon\PhotonLibs\WebSocket\WebSocket.cs" />
     <Compile Include="Assets\Script\deadScript.cs" />
     <Compile Include="Assets\Shared\Scripts\SimpleCharacterMotor.cs" />
-    <Compile Include="Assets\Script\Unit\Artillery.cs" />
     <Compile Include="Assets\Script\Unit\T54_InitStatus.cs" />
     <Compile Include="Assets\Script\Module\Inventory\InventoryManager.cs" />
     <Compile Include="Assets\Script\Player\WeaponController.cs" />
@@ -73,6 +72,7 @@
     <Compile Include="Assets\Script\Weapon\Bullet.cs" />
     <Compile Include="Assets\Script\Unit\Mi24_Status.cs" />
     <Compile Include="Assets\Shared\Scripts\ProximityActivate.cs" />
+    <Compile Include="Assets\SoundManager.cs" />
     <Compile Include="Assets\Script\UI\TargetController.cs" />
     <Compile Include="Assets\TutorialInfo\Scripts\Readme.cs" />
     <Compile Include="Assets\Script\Manager\NetworkManager_Loading.cs" />

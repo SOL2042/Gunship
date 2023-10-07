@@ -110,16 +110,10 @@ public class UI_Manager : MonoBehaviour
         throttleTxt.text = $"Throttle : {((int)Player.instance.throttle)}%";
         USBaseHPTxt.text = $"Base HP : {(USBase.instance.totalData.currentHp * USbaseHPReciprocal * 100)}%";
         BaseHP();
-        ejectCntTxt.text = $"Eject : {(int)WeaponController.instance.suicideTimer}";
+        ejectCntTxt.text = $"Eject : {(int)WeaponController.instance.suicideTimer + 1}";
         WaveTxt.text = $"Wave : {EnemyController.instance.waveRound}";
         FlyModeTxt.text = $"Mode : {WeaponController.instance.totalData.flyMode}";
     }
-
-    private void OnEnable()
-    {
-
-    }
-    
     public void Reload()
     {
         StopAllCoroutines();
@@ -188,7 +182,6 @@ public class UI_Manager : MonoBehaviour
             AAMissileRadarUI.SetActive(false);
         }
     }
-
     public void MissileTarget()
     {
         if(hellFire_MissileTargetUI.activeInHierarchy != true)
@@ -196,9 +189,6 @@ public class UI_Manager : MonoBehaviour
             hellFire_MissileTargetUI.SetActive(true);
         }
     }
-
-
-
     private IEnumerator FadeTextToFullAlpha(TextMeshProUGUI text) // 알파값 0에서 1로 전환
     {
         text.color = new Color(text.color.r, text.color.g, text.color.b, 0);

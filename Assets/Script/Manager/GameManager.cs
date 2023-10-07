@@ -21,13 +21,11 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private float randomX;
     private float maxTankCnt = 20f;
-
     private void FixedUpdate()
     {
         randomX = Random.Range(-20, 80);
 
     }
-
     void Start()
     {
         player = FindObjectOfType<Player>();
@@ -48,6 +46,10 @@ public class GameManager : MonoBehaviour
             if (!t54s[i].activeInHierarchy)
                 t54s[i].transform.position = new Vector3(randomX, t54s[i].transform.position.y, t54s[i].transform.position.z);
         }
+        if (!SoundManager.instance.audioSourceBgm.isPlaying)
+        {
+            SoundManager.instance.PlayBgm($"{Random.Range(1, 35)}");
+        }
     }
     private void ViewInventoryUI(bool value)
     {
@@ -63,8 +65,8 @@ public class GameManager : MonoBehaviour
             UI_Manager.instance.sucideUI.SetActive(false);
             if (lastRespwanTime >= respwanInterval)
             {
-                player.GetComponent<WeaponController>().totalData.currentHp = player.GetComponent<WeaponController>().totalData.maxHp;
-                player.GetComponent<WeaponController>().totalData.flyMode = FlyMode.Default;
+                player.GetComponent<WeaponController>().myData.currentHp = player.GetComponent<WeaponController>().totalData.maxHp;
+                player.GetComponent<WeaponController>().myData.flyMode = FlyMode.Default;
                 player.GetComponent<WeaponController>().missileCnt = 8;
                 player.GetComponent<WeaponController>().rocketCnt = 38;
                 player.GetComponent<WeaponController>().bulletCnt = 150;
@@ -168,7 +170,6 @@ public class GameManager : MonoBehaviour
         }
 
     }
-
     private void Instantiate()
     {
         for (int i = 0; i < maxTankCnt; i++)
@@ -177,5 +178,4 @@ public class GameManager : MonoBehaviour
             t54s[i].SetActive(false);
         }
     }
-
 }

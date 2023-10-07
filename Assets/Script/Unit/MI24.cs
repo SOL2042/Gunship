@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class MI24 : UnitData
 {
+    MI24 mi_24;
     Transform target;
 
     [SerializeField]
@@ -41,14 +42,16 @@ public class MI24 : UnitData
     [SerializeField]
     float zRotateAmount = 90;
 
-    private float shootInterval = 1f;    // 사격 간격
+    private float shootInterval = 0.1f;    // 사격 간격
     [SerializeField] private float lastShootTime = 0f;      // 사격 간격
     private int score = 500;                                // 스코어  
     private int credit = 20000;                             // 크레딧
 
     [SerializeField] GameObject deadEffect;                 // 죽는 이펙트
     [SerializeField] Transform bulletPosition;              // 총알 포지션
+    List<GameObject> bullets;
 
+    float bulletDamage = 10f;
     void ChangeWaypoint()                                    // 웨이포인트 변경 함수
     {
         if (waypointQueue.Count == 0)                           // waypointQueue 안의 갯수가 0이라면
@@ -123,6 +126,9 @@ public class MI24 : UnitData
 
     void Start()
     {
+        bullets = new List<GameObject>();
+        mi_24 = new MI24();
+
         target = FindObjectOfType<Player>().transform;
 
         speed = defaultSpeed;
@@ -161,12 +167,24 @@ public class MI24 : UnitData
         }
         else
         {
+            transform.Translate(new Vector3(10, 0, 0) * Time.deltaTime);
             if (Time.time - lastShootTime >= shootInterval) // 사격 간격이 지난 경우
             {
                 if (target.gameObject.activeInHierarchy)
                 {
-                    Fire(); // 사격
-                    lastShootTime = Time.time; // 마지막 사격 시간 갱신
+                    if (bullets.Count <= 10)
+                    {
+                        Fire(); // 사격
+                        lastShootTime = Time.time; // 마지막 사격 시간 갱신
+                    }
+                    else
+                    {
+                        if(Time.time - lastShootTime >= 2)
+                        {
+                            lastShootTime = Time.time;
+                            bullets.Clear();
+                        }
+                    }
                 }
             }
         }
@@ -174,9 +192,21 @@ public class MI24 : UnitData
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Player")
+        if (other.gameObject.GetComponent<TankBullet>())
         {
-            Dead();
+            PostHit(other.GetComponent<TankBullet>());
+        }
+        if (other.gameObject.GetComponent<Bullet>())
+        {
+            PostHit(other.GetComponent<Bullet>());
+        }
+        if (other.gameObject.GetComponent<Rocket>())
+        {
+            PostHit(other.GetComponent<Rocket>());
+        }
+        if (other.gameObject.GetComponent<HellFire_Missile>())
+        {
+            PostHit(other.GetComponent<HellFire_Missile>());
         }
     }
 
@@ -214,14 +244,21 @@ public class MI24 : UnitData
         GameObject go = Resources.Load<GameObject>("Prefabs/MI24_Bullet");
         GameObject bullet = Instantiate(go, bulletPosition.position, Quaternion.identity);
         bullet.transform.rotation = bulletPosition.transform.rotation;
+        MI24_Bullet bulletScript = bullet.GetComponent<MI24_Bullet>();
+        bulletScript.Damage(ref bulletDamage);
+        bullets.Add(bullet);
         Destroy(bullet, 3);
     }
     public override void PostHit(WeaponData data)
     {
-
+        Debug.Log($"data : {data}");
+        Debug.Log($"data.damage : {data.damage}");
+        Debug.Log($"totalData.currentHp : {mi_24.totalData.currentHp}");
+        mi_24.totalData.currentHp -= data.damage;
+        if (mi_24.totalData.currentHp <= 0)
+        {
+            Dead();
+        }
+        
     }
-    
-
-
-
 }

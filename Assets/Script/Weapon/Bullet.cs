@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bullet : MonoBehaviour
+public class Bullet : WeaponData
 {
     Player player;
 
@@ -10,11 +10,9 @@ public class Bullet : MonoBehaviour
     Rigidbody rgb;
     GameObject gunEffect;
 
-    public Vector3 target;
-    public bool hit;
     [SerializeField]
     Transform bulletPosition;
-
+    
     public void Speed(float speed)
     {
         this.speed = speed;
@@ -28,12 +26,18 @@ public class Bullet : MonoBehaviour
         gunEffect = Resources.Load<GameObject>("Prefabs/DustExplosion");
 
         rgb.AddForce(bulletPosition.forward * speed * 1200);
+       
     }
-   
+
     private void OnTriggerEnter(Collider other)
     {
         GameObject go = Instantiate(gunEffect, transform.localPosition, Quaternion.identity);
         Destroy(go, 3);
         Destroy(gameObject);
+        
+    }
+    public void Damage(ref float damage)
+    {
+        this.damage = damage;
     }
 }

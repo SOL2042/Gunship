@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Rocket : MonoBehaviour
+public class Rocket : WeaponData
 {
     float speed;
     Rigidbody rgb;
@@ -14,7 +14,10 @@ public class Rocket : MonoBehaviour
     public float MaxSpeed;
     public float accelAmount;
     public float lifeTime;
-
+    public void Damage(ref float damage)
+    {
+        this.damage = damage;
+    }
     public void Launch(float launchSpeed)
     {
         speed = launchSpeed;
@@ -25,7 +28,7 @@ public class Rocket : MonoBehaviour
     }
     void Start()
     {
-        explosionPrefab = Resources.Load<GameObject>("Prefabs/BigExplosion");
+        explosionPrefab = Resources.Load<GameObject>("Prefabs/MiddleExplosion");
         Destroy(gameObject, lifeTime);
        
     }
@@ -37,7 +40,6 @@ public class Rocket : MonoBehaviour
         }
         rgb.velocity = transform.forward * speed;
     }
-
     private void OnDisable()
     {
         rgb.velocity = Vector3.zero;
@@ -50,4 +52,6 @@ public class Rocket : MonoBehaviour
         Destroy(go, 3);
         Destroy(gameObject);
     }
+
+   
 }
