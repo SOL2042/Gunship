@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class MI24_Bullet : WeaponData
 {
-    private float speed;
     Rigidbody rgb;
     GameObject gunEffect;
 
@@ -15,16 +14,12 @@ public class MI24_Bullet : WeaponData
     {
         this.damage = damage;
     }
-    public void Speed(float speed)
-    {
-        this.speed = speed;
-    }
     private void Start()
     {
         rgb = GetComponent<Rigidbody>();
         gunEffect = Resources.Load<GameObject>("Prefabs/DustExplosion");
     }
-    // Update is called once per frame
+    
     void Update()
     {
         transform.Translate(new Vector3(0, 0, 200 * Time.deltaTime));

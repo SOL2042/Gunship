@@ -39,13 +39,8 @@ public class Player : MonoBehaviour
     {
         speed = rgb.velocity.z;
         Mathf.Clamp(gameObject.transform.position.y, -1, 200);
-
-
     }
-    void Update()
-    {
-        
-    }
+  
     private void FixedUpdate()
     {
         HandleInputs();

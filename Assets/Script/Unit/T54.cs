@@ -37,7 +37,6 @@ public class T54 : UnitData
         totalData = new T54_InitStatus();
         myData = new T54_InitStatus();
     }
-
     private void Start()
     {
         t54 = new T54();
@@ -58,7 +57,6 @@ public class T54 : UnitData
     {
         Move();
     }
-
     private void Move()
     {
         if (Physics.SphereCast(new Vector3(gameObject.transform.position.x, gameObject.transform.position.y + 200, gameObject.transform.position.z), shootRange, Vector3.down, out RaycastHit hit, 1000, enemyLayer))
@@ -69,7 +67,6 @@ public class T54 : UnitData
             turretTransform.LookAt(enemy.transform);
             if (distanceToEnemy <= shootRange + 10) // 사격 범위 내에 있을 때
             {
-                //Debug.Log($"enemy : {enemy}");
                 moveSpeed = 0;
                 if (Time.time - lastShootTime >= shootInterval) // 사격 간격이 지난 경우
                 {
@@ -104,7 +101,6 @@ public class T54 : UnitData
                 enemy = null;
             }
     }
-
     private void Shoot()
     {
         GameObject go = Resources.Load<GameObject>("Prefabs/T54Bullet");
@@ -115,7 +111,6 @@ public class T54 : UnitData
         Debug.Log($"T54 damage: {damage}");
         Destroy(bullet, 3);
     }
-
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Enemy")
@@ -123,22 +118,18 @@ public class T54 : UnitData
             PostHit(other.gameObject.GetComponent<TankBullet>());
         }
     }
-
     private void Score()
     {
         UI_Manager.instance.score += score;
     }
-
     public override void PostHit(WeaponData data)
     {
         t54.totalData.currentHp -= data.GetComponent<TankBullet>().damage;
-
         if (t54.totalData.currentHp <= 0)
         {
             Dead();
         }
     }
-
     private void Dead()
     {
         GameObject go = Instantiate(deadEffect, transform.position, Quaternion.identity);
@@ -146,13 +137,10 @@ public class T54 : UnitData
         Refresh();
         Destroy(go, 3);
     }
-
     private void Refresh()
     {
         t54.totalData.currentHp = t54.totalData.maxHp;
-
         gameObject.transform.position = respwanPosition.position;
         gameObject.transform.rotation = Quaternion.identity;
     }
-
 }

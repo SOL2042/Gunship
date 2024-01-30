@@ -114,37 +114,7 @@ public class UI_Manager : MonoBehaviour
         WaveTxt.text = $"Wave : {EnemyController.instance.waveRound}";
         FlyModeTxt.text = $"Mode : {WeaponController.instance.totalData.flyMode}";
     }
-    public void Reload()
-    {
-        StopAllCoroutines();
-        if (WeaponController.instance.missileCnt <= 0)
-        {
-            StartCoroutine(FadeTextToFullAlpha(missileCnt));
-        }
-        else
-        {
-            StopCoroutine(FadeTextToZero(missileCnt));
-            StopCoroutine(FadeTextToFullAlpha(missileCnt));
-        }
-        if (WeaponController.instance.rocketCnt <= 0)
-        {
-            StartCoroutine(FadeTextToFullAlpha(rocketCnt));
-        }
-        else
-        {
-            StopCoroutine(FadeTextToZero(rocketCnt));
-            StopCoroutine(FadeTextToFullAlpha(rocketCnt));
-        }
-        if (WeaponController.instance.bulletCnt <= 0)
-        {
-            StartCoroutine(FadeTextToFullAlpha(bulletCnt));
-        }
-        else
-        {
-            StopCoroutine(FadeTextToZero(bulletCnt));
-            StopCoroutine(FadeTextToFullAlpha(bulletCnt));
-        }
-    }
+
     private void BaseHP()
     {
        USBaseSlider.value = 100 - (USBase.instance.totalData.currentHp * USbaseHPReciprocal * 100);
@@ -188,27 +158,9 @@ public class UI_Manager : MonoBehaviour
         {
             hellFire_MissileTargetUI.SetActive(true);
         }
-    }
-    private IEnumerator FadeTextToFullAlpha(TextMeshProUGUI text) // 알파값 0에서 1로 전환
-    {
-        text.color = new Color(text.color.r, text.color.g, text.color.b, 0);
-        while (text.color.a < 1.0f)
+        else
         {
-            text.color = new Color(text.color.r, text.color.g, text.color.b, text.color.a + (Time.deltaTime / 2.0f));
-            yield return null;
-        }
-        StartCoroutine(FadeTextToZero(text));
+            hellFire_MissileTargetUI.SetActive(false);
+        }    
     }
-
-    private IEnumerator FadeTextToZero(TextMeshProUGUI text)  // 알파값 1에서 0으로 전환
-    {
-        text.color = new Color(text.color.r, text.color.g, text.color.b, 1);
-        while (missileCnt.color.a > 0.0f)
-        {
-            text.color = new Color(text.color.r, text.color.g, text.color.b, text.color.a - (Time.deltaTime / 2.0f));
-            yield return null;
-        }
-        StartCoroutine(FadeTextToFullAlpha(text));
-    }
-
 }

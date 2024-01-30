@@ -168,14 +168,14 @@ public class MI24 : UnitData
         else
         {
             transform.Translate(new Vector3(10, 0, 0) * Time.deltaTime);
-            if (Time.time - lastShootTime >= shootInterval) // 사격 간격이 지난 경우
+            if (Time.time - lastShootTime >= shootInterval)
             {
                 if (target.gameObject.activeInHierarchy)
                 {
                     if (bullets.Count <= 10)
                     {
                         Fire(); // 사격
-                        lastShootTime = Time.time; // 마지막 사격 시간 갱신
+                        lastShootTime = Time.time; // 마지막사격 시간 갱신
                     }
                     else
                     {

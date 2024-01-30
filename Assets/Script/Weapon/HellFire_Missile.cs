@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class HellFire_Missile : WeaponData
 {
-    //초기속도
-    //유도될 대상
     Rigidbody rgb;
     Transform target;
     float turningForce = 4f;
@@ -48,7 +46,6 @@ public class HellFire_Missile : WeaponData
     }
     private void OnTriggerEnter(Collider other)
     {
-        //Debug.Log(other);
         GameObject go = Instantiate(explosionPrefab, transform.position, Quaternion.identity);
         Destroy(go, 3);
         Destroy(gameObject);

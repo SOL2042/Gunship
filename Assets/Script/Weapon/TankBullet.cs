@@ -11,10 +11,6 @@ public class TankBullet : WeaponData
     public Vector3 target;
     public bool hit;
     
-    public void Speed(ref float speed)
-    {
-        this.speed = speed;
-    }
     public void Damage(ref float damage)
     {
         this.damage = damage;
@@ -24,7 +20,6 @@ public class TankBullet : WeaponData
     {
         gunEffect = Resources.Load<GameObject>("Prefabs/DustExplosion");
     }
-    // Update is called once per frame
     void Update()
     {
         transform.Translate(new Vector3(0, 0, 200 * Time.deltaTime));

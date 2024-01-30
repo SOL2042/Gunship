@@ -30,7 +30,6 @@ public class Rocket : WeaponData
     {
         explosionPrefab = Resources.Load<GameObject>("Prefabs/MiddleExplosion");
         Destroy(gameObject, lifeTime);
-       
     }
     private void FixedUpdate()
     {
@@ -43,7 +42,6 @@ public class Rocket : WeaponData
     private void OnDisable()
     {
         rgb.velocity = Vector3.zero;
-        
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -52,6 +50,4 @@ public class Rocket : WeaponData
         Destroy(go, 3);
         Destroy(gameObject);
     }
-
-   
 }

@@ -5,7 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class SceneController : MonoBehaviour
 {
-    
     private void Awake()
     {
         
@@ -23,13 +22,5 @@ public class SceneController : MonoBehaviour
             SceneManager.LoadScene("InGameScene");
             SoundManager.instance.PlayBgm($"{Random.Range(1,35)}");
         });
-
     }
-
-    private void OpenScene(string sceneName)
-    {
-        
-    }
-
-    
 }

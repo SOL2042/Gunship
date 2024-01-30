@@ -11,7 +11,6 @@ public class military_vehicle : MonoBehaviour
         rgb = GetComponent<Rigidbody>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         rgb.velocity = Vector3.Lerp(rgb.velocity, Vector3.zero, Time.deltaTime);

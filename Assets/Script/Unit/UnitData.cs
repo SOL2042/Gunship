@@ -8,5 +8,4 @@ public abstract class UnitData : MonoBehaviour
     public Unit_Status myData = new Unit_Status();
 
     public abstract void PostHit(WeaponData data);
-   
 }

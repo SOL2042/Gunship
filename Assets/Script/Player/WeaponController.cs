@@ -17,7 +17,15 @@ public class WeaponController : UnitData
     }
     #endregion
 
-    Bullet bullet;
+    [SerializeField]
+    Transform rocketSpawnPoint; // 로켓 발사 위치
+    [SerializeField]
+    LayerMask rocketTargetLayer; // 레이저가 맞춰질 레이어
+    [SerializeField]
+    RectTransform aimPointUI; // UI로 표시될 조준점
+
+    [SerializeField]
+    LayerMask missileTargetLayer;
 
     [SerializeField]
     Transform cameraTransform;
@@ -64,7 +72,6 @@ public class WeaponController : UnitData
 
     public GameObject rocketPrefab;
 
-    private Transform ResPosition;
 
     [SerializeField] Transform bulletPosition;
 
@@ -81,6 +88,8 @@ public class WeaponController : UnitData
     float bulletDamage = 50f;
     float rocketDamage = 200f;
     float missileDamage = 1000f;
+
+    Vector3 enemyTransform;
     public WeaponController()
     {
         totalData = new Player_InitStatus();
@@ -102,15 +111,35 @@ public class WeaponController : UnitData
     }
     private void Update()
     {
-        //if (Physics.SphereCast(new Vector3(gameObject.transform.position.x, gameObject.transform.position.y + 500, gameObject.transform.position.z), shootRange, Vector3.down, out RaycastHit hit, 1000, enemyLayer))
-        //{
-        if (Physics.BoxCast(cameraTransform.transform.position, transform.lossyScale / 2, cameraTransform.transform.forward, out RaycastHit hit, cameraTransform.rotation, 400f, (-1) - (1 << 6) & (-1) - (1 << 13) & (-1) - (1 << 14)))
+        Ray rocketRay = new Ray(rocketSpawnPoint.position, rocketSpawnPoint.forward);
+        RaycastHit rocketRayhit;
+
+        if (Physics.Raycast(rocketRay, out rocketRayhit, Mathf.Infinity, rocketTargetLayer))
+        {
+            // 레이저가 레이어에 맞았을 때 UI로 조준점 표시
+            Vector3 screenPoint = Camera.main.WorldToScreenPoint(rocketRayhit.point);
+            aimPointUI.position = screenPoint;
+        }
+
+
+        if (Physics.BoxCast(cameraTransform.transform.position, transform.lossyScale / 2, cameraTransform.transform.forward, out RaycastHit hit, cameraTransform.rotation, 400f, missileTargetLayer))
         {
             enemy = hit.collider.gameObject;
-            Vector2 enemyTransform = new Vector2(enemy.transform.position.x, enemy.transform.position.z);
-            UI_Manager.instance.MissileTarget();
-            UI_Manager.instance.hellFire_MissileTargetUI.transform.position = enemyTransform;
-
+        }
+        
+        if (enemy != null)
+        {
+            if (enemy.activeInHierarchy == true)
+            {
+                enemyTransform = enemy.transform.position;
+                Vector3 screenPosition = Camera.main.WorldToScreenPoint(enemyTransform);
+                UI_Manager.instance.MissileTarget();
+                UI_Manager.instance.hellFire_MissileTargetUI.transform.position = screenPosition;
+            }
+            else
+            {
+                UI_Manager.instance.hellFire_MissileTargetUI.SetActive(false);
+            }
         }
 
         Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * 1000.0f, Color.green);

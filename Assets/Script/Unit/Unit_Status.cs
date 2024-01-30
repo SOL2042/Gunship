@@ -45,8 +45,6 @@ public class Unit_Status
     public string unitDescripts = "";
     public Sprite unitSprite;
 
-
-
     public static Unit_Status operator +(Unit_Status left, Unit_Status right)
     {
         left.maxHp += right.maxHp;

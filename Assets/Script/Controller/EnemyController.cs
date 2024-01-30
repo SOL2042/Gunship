@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
+    #region ΩÃ±€≈Ê
     private static EnemyController _instance;
-
     public static EnemyController instance
     {
         get
@@ -14,7 +14,8 @@ public class EnemyController : MonoBehaviour
             return _instance;
         }
     }
-    
+    #endregion
+
     private GameObject t90; 
     public List<GameObject> t90s;
     [SerializeField] Transform t90ResPosition;
@@ -28,13 +29,11 @@ public class EnemyController : MonoBehaviour
     [SerializeField]
     Transform mi24ResPosition;
 
-
     float lastRespwanTime;
     float respwanInterval = 4;
 
     float resTime = 3;
     float timer = 0;
-
 
     private void Awake()
     {
@@ -55,7 +54,6 @@ public class EnemyController : MonoBehaviour
             timer = 0;
         }
         Respwan();
-
     }
 
     private void Respwan()
@@ -75,7 +73,6 @@ public class EnemyController : MonoBehaviour
                 lastRespwanTime = 0;
             }
         }
-
     }
 
     private void Instantiate()
@@ -83,7 +80,6 @@ public class EnemyController : MonoBehaviour
         if (t90s.Count <= 8 + level)
         {
             t90s.Add(Instantiate(t90, new Vector3(RandomX, 0, RandomZ), Quaternion.Euler(0,180,0)));
-
         }
     }
 
@@ -91,6 +87,4 @@ public class EnemyController : MonoBehaviour
     {
 
     }
-
-
 }
