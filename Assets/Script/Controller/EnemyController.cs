@@ -42,7 +42,6 @@ public class EnemyController : MonoBehaviour
         
         t90 = Resources.Load("Prefabs/T90LP ForrestWavyCamo") as GameObject;
     }
-
     void Update()
     {
         RandomX = Random.Range(-100, 100);

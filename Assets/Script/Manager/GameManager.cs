@@ -28,6 +28,8 @@ public class GameManager : MonoBehaviour
     }
     void Start()
     {
+        Cursor.lockState = CursorLockMode.Confined;
+        Cursor.visible = false;
         player = FindObjectOfType<Player>();
         t54s = new List<GameObject>();
         t54 = Resources.Load("Prefabs/T54") as GameObject;
@@ -100,12 +102,16 @@ public class GameManager : MonoBehaviour
             {
                 if (isPause == false)
                 {
+                    Cursor.lockState = CursorLockMode.None;
+                    Cursor.visible = true;
                     Time.timeScale = 0;
                     UI_Manager.instance.Pause();
                     isPause = true;
                 }
                 else
                 {
+                    Cursor.lockState = CursorLockMode.Locked;
+                    Cursor.visible = false;
                     Time.timeScale = 1;
                     UI_Manager.instance.Pause();
                     isPause = false;
@@ -116,6 +122,7 @@ public class GameManager : MonoBehaviour
         {
             if (USBase.instance.gameObject.activeInHierarchy != true)
             {
+                Cursor.visible = true;
                 Time.timeScale = 0;
                 UI_Manager.instance.Defeat();
                 isDefeat = true;
@@ -131,10 +138,6 @@ public class GameManager : MonoBehaviour
             }
 
         }
-        else
-        {
-            
-        }
     }
 
     private void CreateUnit()
@@ -149,10 +152,6 @@ public class GameManager : MonoBehaviour
                 {
                     if (unActivedUnit == -1) unActivedUnit = i;   
                 }
-                else                                              
-                {
-                    
-                }
             }
 
             if (unActivedUnit != -1)                              
@@ -162,10 +161,6 @@ public class GameManager : MonoBehaviour
                     t54s[unActivedUnit].SetActive(true);
                     InventoryManager.instance.UseUnit(0);
                 }
-            }
-            else                                                  
-            {
-                
             }
         }
 

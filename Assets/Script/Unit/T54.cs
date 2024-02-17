@@ -84,9 +84,16 @@ public class T54 : UnitData
             enemy = null;
             if (enemy == null)
             {
-                moveSpeed = 20f;
-                Vector3 movement = transform.forward * moveSpeed * Time.deltaTime;
-                tankRigidbody.MovePosition(tankRigidbody.position + movement);
+                if (transform.position.z <= 800)
+                {
+                    moveSpeed = 20f;
+                    Vector3 movement = transform.forward * moveSpeed * Time.deltaTime;
+                    tankRigidbody.MovePosition(tankRigidbody.position + movement);
+                }
+                else
+                {
+                    moveSpeed = 0f;
+                }
             }
             else
             {

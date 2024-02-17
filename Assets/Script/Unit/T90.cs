@@ -60,7 +60,6 @@ public class T90 : UnitData
     private void Update()
     {
         Move();
-        UnitHP();
     }
     private void Move()
     {
@@ -170,10 +169,5 @@ public class T90 : UnitData
         gameObject.transform.GetChild(16).rotation = Quaternion.identity;
         gameObject.transform.rotation = Quaternion.Euler(0, 180, 0);
         gameObject.transform.position = new Vector3(RandomX, 2, RandomZ);
-    }
-
-    private void UnitHP()
-    {
-        unitHpUI.transform.position = Camera.main.WorldToScreenPoint(transform.position + Vector3.up * 10f);
     }
 }

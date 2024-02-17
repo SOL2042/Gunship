@@ -126,20 +126,32 @@ public class WeaponController : UnitData
         {
             enemy = hit.collider.gameObject;
         }
-        
+
         if (enemy != null)
         {
-            if (enemy.activeInHierarchy == true)
+            float distanceToEnemy = Vector3.Distance(transform.position, enemy.transform.position);
+            if (distanceToEnemy > shootRange)
             {
-                enemyTransform = enemy.transform.position;
-                Vector3 screenPosition = Camera.main.WorldToScreenPoint(enemyTransform);
-                UI_Manager.instance.MissileTarget();
-                UI_Manager.instance.hellFire_MissileTargetUI.transform.position = screenPosition;
+                enemy = null;
             }
             else
             {
-                UI_Manager.instance.hellFire_MissileTargetUI.SetActive(false);
+                if (enemy.activeInHierarchy == true)
+                {
+                    enemyTransform = enemy.transform.position;
+                    Vector3 screenPosition = Camera.main.WorldToScreenPoint(enemyTransform);
+                    UI_Manager.instance.MissileTarget();
+                    UI_Manager.instance.hellFire_MissileTargetUI.transform.position = screenPosition;
+                }
+                else
+                {
+                    UI_Manager.instance.hellFire_MissileTargetUI.SetActive(false);
+                }
             }
+        }
+        else
+        {
+            UI_Manager.instance.hellFire_MissileTargetUI.SetActive(false);
         }
 
         Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * 1000.0f, Color.green);
