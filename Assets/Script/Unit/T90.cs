@@ -16,8 +16,6 @@ public class T90 : UnitData
     [SerializeField] private float shootInterval = 4f; // 사격 간격
     [SerializeField] private Transform turretTransform; // 포탑 Transform 컴포넌트
 
-    private Transform playerTransform; // 플레이어의 Transform 컴포넌트
-    private Transform USbaseTransform; // 플레이어 기지의 Transform 컴포넌트
     private Rigidbody tankRigidbody; // 탱크의 Rigidbody 컴포넌트
     private float lastShootTime; // 마지막 사격 시간
     [SerializeField] private Transform bulletPosition;
@@ -25,7 +23,7 @@ public class T90 : UnitData
     
     private int score = 100;
     private int credit = 200;
-    
+    public int killCount = 0;
     private GameObject enemy;
 
     public LayerMask enemyLayer;
@@ -50,7 +48,10 @@ public class T90 : UnitData
         {
             Credit();
         });
-
+        EventManager.instance.AddListener("addKillCount", (p) =>
+        {
+            KillCount();
+        });
         bulletPosition = transform.GetChild(16).GetChild(0).GetChild(0).transform;
         bullet = Resources.Load<GameObject>("Prefabs/T90Bullet");
         deadEffect = Resources.Load<GameObject>("Prefabs/BigExplosion");
@@ -138,6 +139,10 @@ public class T90 : UnitData
     {
         UI_Manager.instance.credit += credit;
     }
+    private void KillCount()
+    {
+        EnemyController.instance.killCount += 1;
+    }
     public override void PostHit(WeaponData data)
     {
         Debug.Log($"data : {data}");
@@ -153,6 +158,7 @@ public class T90 : UnitData
     {
         EventManager.instance.PostEvent("addTankScore", null);
         EventManager.instance.PostEvent("addTankCredit", null);
+        EventManager.instance.PostEvent("addKillCount", null);
         GameObject go = Instantiate(deadEffect, transform.position, Quaternion.identity);
         Refresh();
         Destroy(go, 3);

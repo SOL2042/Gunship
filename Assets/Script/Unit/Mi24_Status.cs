@@ -22,7 +22,4 @@ public class Mi24_Status : Unit_Status
         unitDescripts = "Enemy Helicopter";
         unitSprite = null;
     }
-    
-
-
 }

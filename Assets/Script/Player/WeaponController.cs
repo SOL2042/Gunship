@@ -43,7 +43,7 @@ public class WeaponController : UnitData
     [SerializeField]
     Transform leftRocketPosition;
 
-    GameObject enemy;
+    public GameObject enemy;
 
     public float missileCnt;
     public float missileCooldownTime;

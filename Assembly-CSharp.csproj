@@ -87,7 +87,6 @@
     <Compile Include="Assets\Script\Unit\AH64_Status.cs" />
     <Compile Include="Assets\Script\Weapon\MI24_Bullet.cs" />
     <Compile Include="Assets\Script\Module\Unit_Status_NoUnit.cs" />
-    <Compile Include="Assets\Script\Module\ObjectInfo.cs" />
     <Compile Include="Assets\Script\Unit\military_vehicle.cs" />
     <Compile Include="Assets\Script\Weapon\BulletEx.cs" />
     <Compile Include="Assets\Script\Weapon\MainGun.cs" />
@@ -99,7 +98,6 @@
     <Compile Include="Assets\Script\Unit\CH47.cs" />
     <Compile Include="Assets\Script\Unit\UnitData.cs" />
     <Compile Include="Assets\Script\Unit\USBase_Status.cs" />
-    <Compile Include="Assets\Script\Module\ScriptTableObject.cs" />
     <Compile Include="Assets\EffectExamples\Misc Effects\Scripts\SpawnEffect.cs" />
     <Compile Include="Assets\Script\Manager\UI_Manager.cs" />
     <Compile Include="Assets\Script\WeaponData.cs" />

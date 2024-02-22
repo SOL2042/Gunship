@@ -17,14 +17,12 @@ public class GameManager : MonoBehaviour
     GameObject t54;
     private List<GameObject> t54s;
 
-    private float level = 1;
     [SerializeField]
     private float randomX;
     private float maxTankCnt = 20f;
     private void FixedUpdate()
     {
         randomX = Random.Range(-20, 80);
-
     }
     void Start()
     {
@@ -72,7 +70,7 @@ public class GameManager : MonoBehaviour
                 player.GetComponent<WeaponController>().missileCnt = 8;
                 player.GetComponent<WeaponController>().rocketCnt = 38;
                 player.GetComponent<WeaponController>().bulletCnt = 150;
-
+                player.GetComponent<WeaponController>().enemy = null;
                 UI_Manager.instance.AAMissileRadarUI.SetActive(false);
                 player.throttle = 80f;
                 for (int i = 7; i < 15; i++)
@@ -123,6 +121,7 @@ public class GameManager : MonoBehaviour
             if (USBase.instance.gameObject.activeInHierarchy != true)
             {
                 Cursor.visible = true;
+                Cursor.lockState = CursorLockMode.None;
                 Time.timeScale = 0;
                 UI_Manager.instance.Defeat();
                 isDefeat = true;

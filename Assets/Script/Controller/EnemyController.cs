@@ -16,6 +16,21 @@ public class EnemyController : MonoBehaviour
     }
     #endregion
 
+    private int _killCount;
+    public int killCount
+    {
+        set
+        {
+            _killCount = value;
+            
+        }
+        get
+        {
+            return _killCount;
+        }
+    }
+
+
     private GameObject t90; 
     public List<GameObject> t90s;
     [SerializeField] Transform t90ResPosition;
@@ -34,25 +49,28 @@ public class EnemyController : MonoBehaviour
 
     float resTime = 3;
     float timer = 0;
-
     private void Awake()
     {
-        waveRound = 1;
         t90s = new List<GameObject>();
         
         t90 = Resources.Load("Prefabs/T90LP ForrestWavyCamo") as GameObject;
     }
     void Update()
     {
+        Debug.Log($"killCount : {killCount}");
+        if (killCount % 10 == 0)
+        {
+            LevelUp();
+        }
         RandomX = Random.Range(-100, 100);
         RandomZ = Random.Range(800, 900);
         timer += Time.deltaTime;
         if (timer >= resTime)
         {
             Instantiate();
+            Respwan();
             timer = 0;
         }
-        Respwan();
     }
 
     private void Respwan()
@@ -61,22 +79,14 @@ public class EnemyController : MonoBehaviour
         {
             if (t90s[i].gameObject.activeInHierarchy == false)
             {
-                lastRespwanTime += Time.deltaTime;
-                if (lastRespwanTime >= respwanInterval)
-                {
-                    t90s[i].SetActive(true);
-                }
-            }
-            else
-            {
-                lastRespwanTime = 0;
+                t90s[i].SetActive(true);
             }
         }
     }
 
     private void Instantiate()
     {
-        if (t90s.Count <= 8 + level)
+        if (t90s.Count <= 8 + level * 3)
         {
             t90s.Add(Instantiate(t90, new Vector3(RandomX, 0, RandomZ), Quaternion.Euler(0,180,0)));
         }
@@ -84,6 +94,6 @@ public class EnemyController : MonoBehaviour
 
     private void LevelUp()
     {
-
+        level++;
     }
 }
